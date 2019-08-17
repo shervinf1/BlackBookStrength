@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BlackBook Strength</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="Title">BlackBook Strength</string>
+    <string name="week1">WEEK 1</string>
+    <string name="week2">WEEK 2</string>
+    <string name="week3">WEEK 3</string>
+    <string name="week4">DELOAD</string>
+</resources>
