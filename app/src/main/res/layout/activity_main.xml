@@ -32,7 +32,10 @@
             android:id="@+id/tablayout"
             android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/colorPrimaryDark"
+            >
 
         </android.support.design.widget.TabLayout>
 
@@ -42,6 +45,7 @@
             android:id="@+id/pager">
 
         </android.support.v4.view.ViewPager>
+
 
 </LinearLayout>
     <!--<?xml version="1.0" encoding="utf-8"?>-->
