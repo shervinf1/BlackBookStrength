@@ -9,12 +9,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.shervinf.blackbookstrength.R;
 
 import java.util.ArrayList;
 
 public class Tab1 extends Fragment {
+
+
     private ArrayList<Exercise> mArrayList = new ArrayList<>();
     private RecyclerView mRecyclerView1;
     private CustomExerciseAdapter mAdapter;
@@ -30,57 +33,39 @@ public class Tab1 extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_tab1, container, false);
 
-//      mRecyclerView1 = mRecyclerView1.findViewById(R.id.recyclerView);
-        mRecyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mAdapter = new CustomExerciseAdapter(mArrayList);
+        mRecyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerView1);
+        mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
+            @Override
+            public void onExerciseViewItemClicked(int position, int id) {
+                Toast.makeText(getActivity().getBaseContext(),""+position,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.d("debugMode", "The application stopped after this");
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
 
-        prepareData();
+
+        mainLift();
 
         return view;
     }
 
 
-    private void prepareData() {
+    private void mainLift() {
 
         Exercise exerciseList = null;
 
-        exerciseList = new Exercise("Deadlift","3","5");
+        exerciseList = new Exercise("DEADLIFT");
         mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
+        exerciseList = new Exercise("BENCH");
         mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
+        exerciseList = new Exercise("SQUAT");
         mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("Deadlift","3","5");
-
+        exerciseList = new Exercise("OHP");
         mArrayList.add(exerciseList);
 
         mAdapter.notifyDataSetChanged();

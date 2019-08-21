@@ -7,4 +7,7 @@
     <string name="week2">WEEK 2</string>
     <string name="week3">WEEK 3</string>
     <string name="week4">DELOAD</string>
+    <string name="title_main">Main</string>
+    <string name="title_1rm">1RM</string>
+    <string name="title_weight_in">Weight-In</string>
 </resources>
