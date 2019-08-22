@@ -35,7 +35,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
             Log.v("ViewHolder", "in View Holder");
 //          sets = itemView.findViewById(R.id.textView);
 //          reps = itemView.findViewById(R.id.textView2);
-            name = itemView.findViewById(R.id.deadLiftTextView);
+            name = itemView.findViewById(R.id.exerciseTextView);
 
             //Calling custom onclick listener
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -59,7 +59,6 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
                 listener.onExerciseViewItemClicked(position,view.getId());
             }
         });
-
     }
 
     @Override
