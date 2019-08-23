@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAdapter.MyViewHolder> {
 
-    private ArrayList<Exercise> arrayList = new ArrayList<>();
+    private ArrayList<Exercise> arrayList;
     private OnExerciseClickListener listener;
 
 
@@ -46,6 +46,7 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
             });
         }
     }
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
         Log.v("BindViewHolder", "in onBindViewHolder");
