@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -14,12 +15,16 @@ public class DeadliftActivity extends AppCompatActivity {
 
     private ArrayList<MainLift> mArrayList = new ArrayList<>();
     private MainLiftAdapter mAdapter;
+    private Toolbar myToolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlift);
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.deadliftToolbar);
+        setSupportActionBar(myToolbar);
 
         RecyclerView mRecyclerView1;
 
