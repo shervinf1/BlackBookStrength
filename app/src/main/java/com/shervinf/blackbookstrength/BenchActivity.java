@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -19,6 +20,9 @@ public class BenchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bench);
         RecyclerView mRecyclerView1;
+
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.benchToolbar);
+        setSupportActionBar(myToolbar);
 
         mRecyclerView1 = (RecyclerView) findViewById(R.id.benchRecyclerView);
 

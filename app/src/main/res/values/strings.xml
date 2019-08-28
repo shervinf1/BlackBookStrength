@@ -10,4 +10,15 @@
     <string name="title_main">Main</string>
     <string name="title_1rm">1RM</string>
     <string name="title_weight_in">Weight-In</string>
+    <string name="exercise_placeholder">Exercise</string>
+    <string name="check_mark_placeholder">Check Mark</string>
+    <string name="weight_place_holder">300</string>
+    <string name="weight_unit_place_holder">lbs</string>
+    <string name="percentage_place_holder">65%</string>
+    <string name="reps_place_holder">X 3 REPS</string>
+    <string name="logs_tab">Logs</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

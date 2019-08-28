@@ -27,12 +27,8 @@ public class DeadliftActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         RecyclerView mRecyclerView1;
-
         mRecyclerView1 = (RecyclerView) findViewById(R.id.deadliftRecyclerView);
-
-
         mAdapter = new MainLiftAdapter(mArrayList);
-
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

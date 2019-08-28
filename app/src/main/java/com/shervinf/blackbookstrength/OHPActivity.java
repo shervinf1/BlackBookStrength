@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class OHPActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ohp);
         RecyclerView mRecyclerView1;
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.ohpToolbar);
+        setSupportActionBar(myToolbar);
         mRecyclerView1 = (RecyclerView) findViewById(R.id.ohpRecyclerView);
-
-
         mAdapter = new MainLiftAdapter(mArrayList);
 
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -3,7 +3,9 @@ package com.shervinf.blackbookstrength;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,13 @@ public class LogsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_logs,container,false);
+        View view = inflater.inflate(R.layout.fragment_logs,container,false);
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.logsPager);
+        MyLogsPagerAdapter MyLogsPagerAdapter = new MyLogsPagerAdapter(getFragmentManager());
+        viewPager.setAdapter(MyLogsPagerAdapter);
+        TabLayout tabLayout = (TabLayout) view.findViewById(R.id.logsTablayout);
+        tabLayout.setupWithViewPager(viewPager);
+
+        return view;
     }
 }

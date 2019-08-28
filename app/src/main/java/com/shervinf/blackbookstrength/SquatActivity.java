@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -21,11 +22,12 @@ public class SquatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_squat);
         RecyclerView mRecyclerView1;
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.squatToolbar);
+        setSupportActionBar(myToolbar);
+
+
         mRecyclerView1 = (RecyclerView) findViewById(R.id.squatRecyclerView);
-
-
         mAdapter = new MainLiftAdapter(mArrayList);
-
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
