@@ -10,13 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.shervinf.blackbookstrength.R;
 
 import java.util.ArrayList;
 
-public class Tab2 extends Fragment {
+public class Week2Fragment extends Fragment {
     private ArrayList<Exercise> mArrayList = new ArrayList<>();
     private RecyclerView mRecyclerView2;
     private CustomExerciseAdapter mAdapter;
@@ -30,7 +27,7 @@ public class Tab2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_tab2, container, false);
+        View view = inflater.inflate(R.layout.fragment_week2, container, false);
 
 //      mRecyclerView1 = mRecyclerView1.findViewById(R.id.recyclerView);
         mRecyclerView2 = (RecyclerView) view.findViewById(R.id.recyclerView2);

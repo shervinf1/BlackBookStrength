@@ -18,13 +18,13 @@ public class MyPageAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new Tab1();
+                return new Week1Fragment();
             case 1:
-                return new Tab2();
+                return new Week2Fragment();
             case 2:
-                return new Tab3();
+                return new Week3Fragment();
             case 3:
-                return new Tab4();
+                return new Week4Fragment();
         }
         return null;
     }

@@ -10,15 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.shervinf.blackbookstrength.R;
 
 import java.util.ArrayList;
 
-public class Tab3 extends Fragment {
+public class Week4Fragment extends Fragment {
+
+
     private ArrayList<Exercise> mArrayList = new ArrayList<>();
-    private RecyclerView mRecyclerView3;
+    private RecyclerView mRecyclerView4;
     private CustomExerciseAdapter mAdapter;
 
     @Override
@@ -30,10 +29,10 @@ public class Tab3 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_tab3, container, false);
+        View view = inflater.inflate(R.layout.fragment_week4, container, false);
 
 //      mRecyclerView1 = mRecyclerView1.findViewById(R.id.recyclerView);
-        mRecyclerView3 = (RecyclerView) view.findViewById(R.id.recyclerView3);
+        mRecyclerView4 = (RecyclerView) view.findViewById(R.id.recyclerView4);
 //        mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
 //            @Override
 //            public void onExerciseViewItemClicked(int position, int id) {
@@ -65,11 +64,11 @@ public class Tab3 extends Fragment {
                 }
             }
         });
-        mRecyclerView3.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView4.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.d("debugMode", "The application stopped after this");
-        mRecyclerView3.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView3.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
-        mRecyclerView3.setAdapter(mAdapter);
+        mRecyclerView4.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView4.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
+        mRecyclerView4.setAdapter(mAdapter);
 
         mainLift();
 

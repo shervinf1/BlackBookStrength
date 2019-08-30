@@ -10,15 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Tab4 extends Fragment {
-
-
+public class Week3Fragment extends Fragment {
     private ArrayList<Exercise> mArrayList = new ArrayList<>();
-    private RecyclerView mRecyclerView4;
+    private RecyclerView mRecyclerView3;
     private CustomExerciseAdapter mAdapter;
 
     @Override
@@ -30,10 +27,10 @@ public class Tab4 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_tab4, container, false);
+        View view = inflater.inflate(R.layout.fragment_week3, container, false);
 
 //      mRecyclerView1 = mRecyclerView1.findViewById(R.id.recyclerView);
-        mRecyclerView4 = (RecyclerView) view.findViewById(R.id.recyclerView4);
+        mRecyclerView3 = (RecyclerView) view.findViewById(R.id.recyclerView3);
 //        mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
 //            @Override
 //            public void onExerciseViewItemClicked(int position, int id) {
@@ -65,11 +62,11 @@ public class Tab4 extends Fragment {
                 }
             }
         });
-        mRecyclerView4.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView3.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.d("debugMode", "The application stopped after this");
-        mRecyclerView4.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView4.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
-        mRecyclerView4.setAdapter(mAdapter);
+        mRecyclerView3.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView3.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
+        mRecyclerView3.setAdapter(mAdapter);
 
         mainLift();
 

@@ -10,13 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.shervinf.blackbookstrength.R;
 
 import java.util.ArrayList;
 
-public class Tab1 extends Fragment {
+public class Week1Fragment extends Fragment {
 
 
     private ArrayList<Exercise> mArrayList = new ArrayList<>();
@@ -32,7 +29,7 @@ public class Tab1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_tab1, container, false);
+        View view = inflater.inflate(R.layout.fragment_week1, container, false);
 
         mRecyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerView1);
         mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
@@ -78,7 +75,6 @@ public class Tab1 extends Fragment {
     private void mainLift() {
 
         Exercise exerciseList = null;
-
         exerciseList = new Exercise("DEADLIFT");
         mArrayList.add(exerciseList);
         exerciseList = new Exercise("BENCH");
@@ -87,7 +83,6 @@ public class Tab1 extends Fragment {
         mArrayList.add(exerciseList);
         exerciseList = new Exercise("OHP");
         mArrayList.add(exerciseList);
-
         mAdapter.notifyDataSetChanged();
     }
 }
