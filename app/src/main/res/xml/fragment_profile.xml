@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <PreferenceCategory android:title="Values">
+        <EditTextPreference
+            app:key="1RM"
+            app:title="Edit One Rep Max" />
+        <EditTextPreference
+            app:key="calorieGoal"
+            app:title="CalorieGoal" />
+        <EditTextPreference
+            app:key="weightGoal"
+            app:title="weightGoal" />
+        <MultiSelectListPreference
+            android:key="assistance"
+            android:title="Assistance workouts"></
+            MultiSelectListPreference>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Extras">
+        <SwitchPreferenceCompat
+            app:key="notifications"
+            app:title="Enable message notifications" />
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features"
+            app:title="Send feedback" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,14 +1,14 @@
 package com.shervinf.blackbookstrength;
 
-public class Exercise {
+public class ExercisePOJO {
     private String mName; //Name of the exercise
 //    private String mSets; //How many sets of such exercise will be performed
 //    private String mReps; //How many reps of such exercise will be performed
 
-    public Exercise() {
+    public ExercisePOJO() {
     }
 
-    public Exercise(String mName) { //public Exercise(String mName, String mSets, String mReps)
+    public ExercisePOJO(String mName) { //public ExercisePOJO(String mName, String mSets, String mReps)
         this.mName = mName;
 //        this.mSets = mSets;
 //        this.mReps = mReps;

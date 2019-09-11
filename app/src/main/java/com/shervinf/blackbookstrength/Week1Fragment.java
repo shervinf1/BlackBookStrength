@@ -1,11 +1,11 @@
 package com.shervinf.blackbookstrength;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Week1Fragment extends Fragment {
 
 
-    private ArrayList<Exercise> mArrayList = new ArrayList<>();
+    private ArrayList<ExercisePOJO> mArrayList = new ArrayList<>();
     private RecyclerView mRecyclerView1;
     private CustomExerciseAdapter mAdapter;
 
@@ -74,15 +74,15 @@ public class Week1Fragment extends Fragment {
 
     private void mainLift() {
 
-        Exercise exerciseList = null;
-        exerciseList = new Exercise("DEADLIFT");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("BENCH");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("SQUAT");
-        mArrayList.add(exerciseList);
-        exerciseList = new Exercise("OHP");
-        mArrayList.add(exerciseList);
+        ExercisePOJO exercisePOJOList = null;
+        exercisePOJOList = new ExercisePOJO("DEADLIFT");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("BENCH");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("SQUAT");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("OHP");
+        mArrayList.add(exercisePOJOList);
         mAdapter.notifyDataSetChanged();
     }
 }

@@ -1,19 +1,19 @@
 package com.shervinf.blackbookstrength;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 
 import java.util.ArrayList;
 
 public class SquatActivity extends AppCompatActivity {
 
-    private ArrayList<MainLift> mArrayList = new ArrayList<>();
+    private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
     private MainLiftAdapter mAdapter;
 
     @Override
@@ -38,18 +38,18 @@ public class SquatActivity extends AppCompatActivity {
     }
 
     private void startingLifts() {
-        MainLift Lift = null;
-        Lift = new MainLift(200, "lbs", 40, "% x 3 REPS");
+        MainLiftPOJO Lift = null;
+        Lift = new MainLiftPOJO(200, "lbs", 40, "% x 3 REPS");
         mArrayList.add(Lift);
-        Lift = new MainLift(230, "lbs", 50, "% x 3 REPS");
+        Lift = new MainLiftPOJO(230, "lbs", 50, "% x 3 REPS");
         mArrayList.add(Lift);
-        Lift = new MainLift(260, "lbs", 60, "% x 3 REPS");
+        Lift = new MainLiftPOJO(260, "lbs", 60, "% x 3 REPS");
         mArrayList.add(Lift);
-        Lift = new MainLift(300, "lbs", 65, "% x 3 REPS");
+        Lift = new MainLiftPOJO(300, "lbs", 65, "% x 3 REPS");
         mArrayList.add(Lift);
-        Lift = new MainLift(330, "lbs", 75, "% x 3 REPS");
+        Lift = new MainLiftPOJO(330, "lbs", 75, "% x 3 REPS");
         mArrayList.add(Lift);
-        Lift = new MainLift(380, "lbs", 85, "% x 3 REPS");
+        Lift = new MainLiftPOJO(380, "lbs", 85, "% x 3 REPS");
         mArrayList.add(Lift);
 
         mAdapter.notifyDataSetChanged();

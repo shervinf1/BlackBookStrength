@@ -1,6 +1,6 @@
 package com.shervinf.blackbookstrength;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAdapter.MyViewHolder> {
 
-    private ArrayList<Exercise> arrayList;
+    private ArrayList<ExercisePOJO> arrayList;
     private OnExerciseClickListener listener;
 
 
     //custom constructor.
-    public CustomExerciseAdapter(ArrayList<Exercise> arrayList, OnExerciseClickListener listener) {
+    public CustomExerciseAdapter(ArrayList<ExercisePOJO> arrayList, OnExerciseClickListener listener) {
         this.listener = listener;
         this.arrayList = arrayList;
     }
@@ -50,9 +50,9 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
         Log.v("BindViewHolder", "in onBindViewHolder");
-        Exercise exercise = arrayList.get(position);
-        holder.name.setText(exercise.getmName());
-//        holder.sets.setText(exercise.getmSets());
+        ExercisePOJO exercisePOJO = arrayList.get(position);
+        holder.name.setText(exercisePOJO.getmName());
+//        holder.sets.setText(exercisePOJO.getmSets());
 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
