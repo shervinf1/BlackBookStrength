@@ -20,6 +20,17 @@
     <string name="date">MON DAY,YEAR</string>
     <string name="title_calorie">2000</string>
     <string name="calorie_unit_placeholder">CAL</string>
+    <string name="loginBtn">LogIn</string>
+    <string name="registerBtn">Register</string>
+    <string name="username">Username</string>
+    <string name="emailHint">Email</string>
+    <string name="passwordHint">Password</string>
+    <string name="confPasswordHint">Confirm Password</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">Password too short or does not match</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="success_register">Register success, please log in with credentials</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

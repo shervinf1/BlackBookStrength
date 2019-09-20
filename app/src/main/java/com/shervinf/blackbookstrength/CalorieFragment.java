@@ -35,28 +35,31 @@ public class CalorieFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        FloatingActionButton fab;
         //Inflating weight in fragment
         View view = inflater.inflate(R.layout.fragment_calorie, container, false);
+        fabSetup(view);
+        //This method shows the recycler view list
+        recyclerViewSetup(view);
+        return view;
+    }
+    private void fabSetup(View v){
+        FloatingActionButton fab;
         //Casting floating action button to respective ID
-        fab = (FloatingActionButton) view.findViewById(R.id.calorie_floating_action_button);
+        fab = (FloatingActionButton) v.findViewById(R.id.calorie_floating_action_button);
         //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
         if (fab != null)
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
-                    showAddItemDialog(getContext());
+                //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
+                showAddItemDialog(getContext());
                 }
             });
-        //This method shows the recycler view list
-        recyclerViewSetup(view);
-        return view;
-    }
+}
 
 
-    public void prepareCalorieData(String date, String calorie, String calorieUnit){
-        //Creating Plain Old Java Object type WeightInPOJO and adding the passed values to add to the recucler view
+    private void prepareCalorieData(String date, String calorie, String calorieUnit){
+        //Creating Plain Old Java Object type WeightInPOJO and adding the passed values to add to the recycler view
         CaloriePOJO calorieList = null;
         calorieList = new CaloriePOJO(date,calorie,calorieUnit);
         mArrayList.add(calorieList);

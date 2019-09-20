@@ -15,10 +15,6 @@
         <EditTextPreference
             app:key="weightGoal"
             app:title="weightGoal" />
-        <MultiSelectListPreference
-            android:key="assistance"
-            android:title="Assistance workouts"></
-            MultiSelectListPreference>
     </PreferenceCategory>
     <PreferenceCategory android:title="Extras">
         <SwitchPreferenceCompat

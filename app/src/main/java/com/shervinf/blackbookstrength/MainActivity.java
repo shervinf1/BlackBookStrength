@@ -1,5 +1,6 @@
 package com.shervinf.blackbookstrength;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,6 +18,7 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
+    boolean tempVAL = false;
 
 
     @Override
@@ -24,16 +26,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
-
         //Forcing screen orientation to always be in portrait
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+//        if(tempVAL == false){
+//            startActivity(new Intent(getApplicationContext(),com.shervinf.blackbookstrength.LoginActivity.class));
+//            tempVAL = true;
+//        }
+//        else{
+            //creating bottom navigation instance and setting the listener
+            BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+            bottomNav.setOnNavigationItemSelectedListener(navListener);
+            //The line below sets the Home tab to be selected when app is opened.
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+        //}
 
-        //creating bottom navigation instance and setting the listener
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-        //The line below sets the Home tab to be selected when app is opened.
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
+
+
     }
 
 
