@@ -4,9 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/colorPrimaryDark"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/registerToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:padding="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp" />
+
+
+    </androidx.appcompat.widget.Toolbar>
 
     <EditText
+        android:padding="16dp"
+        android:id="@+id/etDeadliftMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/hintDeadliftMax"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/etSquatMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorLightWhite"/>
+
+    <EditText
+        android:padding="16dp"
         android:id="@+id/etConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,40 +62,50 @@
         android:ems="10"
         android:hint="@string/confPasswordHint"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/registerBtn"
+        app:layout_constraintBottom_toTopOf="@+id/etDeadliftMax"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"/>
 
     <Button
         android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="364dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="76dp"
+        android:background="@color/colorPrimary"
         android:onClick="register"
+        android:padding="16dp"
         android:text="@string/registerBtn"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/etUsername"
+        android:id="@+id/etUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:hint="@string/username"
+        android:hint="@string/userName"
         android:inputType="textPersonName"
+        android:padding="16dp"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"
         app:layout_constraintBottom_toTopOf="@+id/actvEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        android:padding="16dp"
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,9 +118,12 @@
         app:layout_constraintBottom_toTopOf="@+id/etConfirmPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"/>
 
     <AutoCompleteTextView
+        android:padding="16dp"
         android:id="@+id/actvEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,6 +132,104 @@
         android:layout_marginBottom="8dp"
         android:hint="@string/emailHint"
         app:layout_constraintBottom_toTopOf="@+id/etPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"/>
+
+    <EditText
+        android:padding="16dp"
+        android:id="@+id/etSquatMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/hintSquatMax"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/etBenchMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"/>
+
+    <EditText
+        android:padding="16dp"
+        android:id="@+id/etBenchMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/hintBenchMax"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/etOHPMax"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"/>
+
+    <EditText
+        android:id="@+id/etOHPMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/hintOHPMax"
+        android:inputType="numberDecimal"
+        android:padding="16dp"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"
+        app:layout_constraintBottom_toTopOf="@+id/etCalorieGoal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="125dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/registerInstruction"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@+id/etUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etCalorieGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/calorieGoalHint"
+        android:inputType="number"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"
+        app:layout_constraintBottom_toTopOf="@+id/etWeightGoal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/etWeightGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:hint="@string/weightGoalHint"
+        android:inputType="number"
+        android:textColor="@color/colorLightWhite"
+        android:textColorHint="@color/colorLightWhite"
+        app:layout_constraintBottom_toTopOf="@+id/registerBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

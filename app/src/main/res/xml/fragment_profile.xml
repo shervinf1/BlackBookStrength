@@ -7,8 +7,17 @@
 
     <PreferenceCategory android:title="Values">
         <EditTextPreference
-            app:key="1RM"
-            app:title="Edit One Rep Max" />
+            app:key="deadliftMax"
+            app:title="Edit Deadlift One Rep Max" />
+        <EditTextPreference
+            app:key="squatMax"
+            app:title="Edit Squat One Rep Max" />
+        <EditTextPreference
+            app:key="benchMax"
+            app:title="Edit Bench One Rep Max" />
+        <EditTextPreference
+            app:key="ohpMax"
+            app:title="Edit OHP One Rep Max" />
         <EditTextPreference
             app:key="calorieGoal"
             app:title="CalorieGoal" />

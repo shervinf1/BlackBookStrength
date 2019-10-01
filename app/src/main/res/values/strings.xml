@@ -7,6 +7,10 @@
     <string name="week2">WEEK 2</string>
     <string name="week3">WEEK 3</string>
     <string name="week4">DELOAD</string>
+    <string name="hintDeadliftMax">Deadlift 1RM</string>
+    <string name="hintSquatMax">Squat 1RM</string>
+    <string name="hintBenchMax">Bench 1RM</string>
+    <string name="hintOHPMax">OHP 1RM</string>
     <string name="title_main">Main</string>
     <string name="title_1rm">1RM</string>
     <string name="title_weight_in">Weight-In</string>
@@ -22,7 +26,7 @@
     <string name="calorie_unit_placeholder">CAL</string>
     <string name="loginBtn">LogIn</string>
     <string name="registerBtn">Register</string>
-    <string name="username">Username</string>
+    <string name="userName">Username</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Password</string>
     <string name="confPasswordHint">Confirm Password</string>
@@ -30,8 +34,10 @@
     <string name="error_invalid_password">Password too short or does not match</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="success_register">Register success, please log in with credentials</string>
-
+    <string name="success_register">Register successful</string>
+    <string name="registerInstruction">Fill out the following fields</string>
+    <string name="calorieGoalHint">Calorie Goal</string>
+    <string name="weightGoalHint">Weight Goal</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

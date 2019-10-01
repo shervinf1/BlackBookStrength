@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -27,7 +30,13 @@ public class RegisterActivity extends AppCompatActivity {
     private AutoCompleteTextView actvEmail;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private EditText etUsername;
+    private EditText etName;
+    private EditText etDeadliftMax;
+    private EditText etSquatMax;
+    private EditText etBenchMax;
+    private EditText etOHPMax;
+    private EditText etWeightGoal;
+    private EditText etCalorieGoal;
 
     //Firebase instance variables
     private FirebaseAuth fAuth;
@@ -37,13 +46,22 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        actvEmail = (AutoCompleteTextView) findViewById(R.id.actvEmail);
-        etPassword = (EditText) findViewById(R.id.etPassword);
-        etConfirmPassword = (EditText) findViewById(R.id.etConfirmPassword);
-        etUsername  = (EditText) findViewById(R.id.etUsername);
 
-        //Keyboard Sign In ation
+        actvEmail = findViewById(R.id.actvEmail);
+        etPassword =findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        etName  = findViewById(R.id.etUserName);
+        etDeadliftMax = findViewById(R.id.etDeadliftMax);
+        etSquatMax = findViewById(R.id.etSquatMax);
+        etBenchMax = findViewById(R.id.etBenchMax);
+        etOHPMax = findViewById(R.id.etOHPMax);
+        etWeightGoal = findViewById(R.id.etWeightGoal);
+        etCalorieGoal = findViewById(R.id.etCalorieGoal);
+
+
+        //Keyboard Sign In action
         etConfirmPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -75,51 +93,44 @@ public class RegisterActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
-        if(TextUtils.isEmpty(password) || !isPasswordValid(password))
-        {
+        if(TextUtils.isEmpty(password) || !isPasswordValid(password)) {
             etPassword.setError(getString(R.string.error_invalid_password));
             focusView = etPassword;
             cancel = true;
         }
 
-        if (TextUtils.isEmpty(email))
-        {
+        if (TextUtils.isEmpty(email)) {
             actvEmail.setError(getString(R.string.error_field_required));
             focusView = actvEmail;
             cancel = true;
         }
-        else if(!isEmailValid(email))
-        {
+        else if(!isEmailValid(email)) {
             actvEmail.setError(getString(R.string.error_invalid_email));
             focusView = actvEmail;
             cancel = true;
         }
 
-        if(cancel)
-        {
+        if(cancel) {
             //There was ana error do not attempt login and focus the first form field with an error
             focusView.requestFocus();
         }
-        else
-        {
+        else {
             //Call the method that creates the firebase user
             createFirebaseUser();
         }
     }
 
 
-    private boolean isEmailValid(String email)
-    {
+    private boolean isEmailValid(String email) {
         // You can add more checking logic here.
         return email.contains("@");
     }
 
 
-    private boolean isPasswordValid(String password)
-    {
+    private boolean isPasswordValid(String password) {
         //TODO: Add own logic to check for a valid password (minimum 6 characters)
         String confirmPassword = etConfirmPassword.getText().toString();
-        return confirmPassword.equals(password) && password.length() > 4;
+        return confirmPassword.equals(password) && password.length() > 6;
     }
 
     private void createFirebaseUser()
@@ -138,8 +149,7 @@ public class RegisterActivity extends AppCompatActivity {
                     showErrorDialog("Registration attempt failed");
                 }
                 else {
-                    Log.d("BlackBookStrength","User Created");
-                    Toast.makeText(getApplicationContext(),R.string.success_register,Toast.LENGTH_SHORT).show();
+                    createdFirebaseUser();
                     finish();
                     startActivity(new Intent(getApplicationContext(), com.shervinf.blackbookstrength.MainActivity.class));
                 }
@@ -157,4 +167,38 @@ public class RegisterActivity extends AppCompatActivity {
                 .show();
     }
 
+    private void createdFirebaseUser(){
+        final Double deadliftMax = Double.parseDouble(etDeadliftMax.getText().toString());
+        final Double squatMax = Double.parseDouble(etSquatMax.getText().toString());
+        final Double benchMax = Double.parseDouble(etBenchMax.getText().toString());
+        final Double OHPMax = Double.parseDouble(etOHPMax.getText().toString());
+        final Integer weightGoal = Integer.parseInt(etWeightGoal.getText().toString());
+        final Integer calorieGoal = Integer.parseInt(etCalorieGoal.getText().toString());
+
+        Log.d("BlackBookStrength","User Created");
+        Toast.makeText(getApplicationContext(),R.string.success_register,Toast.LENGTH_SHORT).show();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference newUserRef = db.collection("users").document();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        UserPOJO newUser = new UserPOJO();
+        newUser.setDeadliftMax(deadliftMax);
+        newUser.setSquatMax(squatMax);
+        newUser.setBenchMax(benchMax);
+        newUser.setOHPMax(OHPMax);
+        newUser.setUserID(userID);
+        newUser.setWeightGoal(weightGoal);
+        newUser.setCalorieGoal(calorieGoal);
+        newUserRef.set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Log.d("BlackBookStrength","createdFirebaseUser Success");
+                }
+                else{
+                    Log.d("BlackBookStrength","createdFirebaseUser Failed");
+                }
+            }
+        });
+    }
 }

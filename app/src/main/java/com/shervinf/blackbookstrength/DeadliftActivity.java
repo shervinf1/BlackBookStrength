@@ -23,8 +23,7 @@ public class DeadliftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlift);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.deadliftToolbar);
-        setSupportActionBar(myToolbar);
+
 
         RecyclerView mRecyclerView1;
         mRecyclerView1 = (RecyclerView) findViewById(R.id.deadliftRecyclerView);
