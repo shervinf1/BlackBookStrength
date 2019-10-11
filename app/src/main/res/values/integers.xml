@@ -2,4 +2,16 @@
 <resources>
     <integer name="login">100</integer>
     <integer name="register_form_finished">200</integer>
+    <integer name="week1_set1">65</integer>
+    <integer name="week1_set2">75</integer>
+    <integer name="week1_set3">85</integer>
+    <integer name="week2_set1">70</integer>
+    <integer name="week2_set2">80</integer>
+    <integer name="week2_set3">90</integer>
+    <integer name="week3_set1">75</integer>
+    <integer name="week3_set2">85</integer>
+    <integer name="week3_set3">95</integer>
+    <integer name="week4_set1">40</integer>
+    <integer name="week4_set2">50</integer>
+    <integer name="week4_set3">60</integer>
 </resources>

@@ -19,37 +19,38 @@ public class OHPActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ohp);
-        RecyclerView mRecyclerView1;
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.ohpToolbar);
-        setSupportActionBar(myToolbar);
+        recyclerViewSetup();
+        startingLifts();
+    }
+
+
+
+    private void startingLifts() {
+        MainLiftPOJO Lift = null;
+        Lift = new MainLiftPOJO(100.00, "lbs", 40, "% x 3 REPS");
+        mArrayList.add(Lift);
+        Lift = new MainLiftPOJO(130.00, "lbs", 50, "% x 3 REPS");
+        mArrayList.add(Lift);
+        Lift = new MainLiftPOJO(160.00, "lbs", 60, "% x 3 REPS");
+        mArrayList.add(Lift);
+        Lift = new MainLiftPOJO(200.00, "lbs", 65, "% x 3 REPS");
+        mArrayList.add(Lift);
+        Lift = new MainLiftPOJO(230.00, "lbs", 75, "% x 3 REPS");
+        mArrayList.add(Lift);
+        Lift = new MainLiftPOJO(280.00, "lbs", 85, "% x 3 REPS");
+        mArrayList.add(Lift);
+
+        mAdapter.notifyDataSetChanged();
+    }
+    public void recyclerViewSetup(){
+        RecyclerView mRecyclerView1;
         mRecyclerView1 = (RecyclerView) findViewById(R.id.ohpRecyclerView);
         mAdapter = new MainLiftAdapter(mArrayList);
-
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
         Log.d("debugMode", "The application stopped after SquatActivity.java");
-        startingLifts();
-
-    }
-
-    private void startingLifts() {
-        MainLiftPOJO Lift = null;
-        Lift = new MainLiftPOJO(100, "lbs", 40, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(130, "lbs", 50, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(160, "lbs", 60, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(200, "lbs", 65, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(230, "lbs", 75, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(280, "lbs", 85, "% x 3 REPS");
-        mArrayList.add(Lift);
-
-        mAdapter.notifyDataSetChanged();
     }
 }

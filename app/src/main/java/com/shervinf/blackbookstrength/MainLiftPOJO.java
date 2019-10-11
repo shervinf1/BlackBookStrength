@@ -5,7 +5,7 @@ import android.content.Intent;
 import javax.sql.StatementEvent;
 
 public class MainLiftPOJO {
-    private Integer weight;
+    private Double weight;
     private String weightUnit;
     private Integer percentage;
     private String reps;
@@ -16,18 +16,18 @@ public class MainLiftPOJO {
     public MainLiftPOJO() { }
 
     //Argument Constructor
-    public MainLiftPOJO(Integer weight, String weightUnit, Integer percentage, String reps) {
+    public MainLiftPOJO(Double weight, String weightUnit, Integer percentage, String reps) {
         this.weight = weight;
         this.weightUnit = weightUnit;
         this.percentage = percentage;
         this.reps = reps;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

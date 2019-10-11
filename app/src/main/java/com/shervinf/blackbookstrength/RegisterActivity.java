@@ -179,8 +179,8 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),R.string.success_register,Toast.LENGTH_SHORT).show();
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference newUserRef = db.collection("users").document();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference newUserDocumentRef = db.collection("users").document(userID);
         UserPOJO newUser = new UserPOJO();
         newUser.setDeadliftMax(deadliftMax);
         newUser.setSquatMax(squatMax);
@@ -189,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity {
         newUser.setUserID(userID);
         newUser.setWeightGoal(weightGoal);
         newUser.setCalorieGoal(calorieGoal);
-        newUserRef.set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
+        newUserDocumentRef.set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){

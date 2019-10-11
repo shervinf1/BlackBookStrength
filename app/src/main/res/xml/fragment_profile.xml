@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
 
-    <PreferenceCategory android:title="Values">
+    <PreferenceCategory android:title="One Rep Maxes">
         <EditTextPreference
             app:key="deadliftMax"
             app:title="Edit Deadlift One Rep Max" />
@@ -18,21 +18,14 @@
         <EditTextPreference
             app:key="ohpMax"
             app:title="Edit OHP One Rep Max" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Goals">
         <EditTextPreference
             app:key="calorieGoal"
-            app:title="CalorieGoal" />
+            app:title="Calorie Goal" />
         <EditTextPreference
             app:key="weightGoal"
-            app:title="weightGoal" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Extras">
-        <SwitchPreferenceCompat
-            app:key="notifications"
-            app:title="Enable message notifications" />
-        <Preference
-            app:key="feedback"
-            app:summary="Report technical issues or suggest new features"
-            app:title="Send feedback" />
+            app:title="Weight Goal" />
     </PreferenceCategory>
 
 </PreferenceScreen>

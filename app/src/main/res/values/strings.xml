@@ -38,6 +38,11 @@
     <string name="registerInstruction">Fill out the following fields</string>
     <string name="calorieGoalHint">Calorie Goal</string>
     <string name="weightGoalHint">Weight Goal</string>
+    <string name="settings">Settings</string>
+    <string name="deadlift">Deadlift</string>
+    <string name="bench">Bench</string>
+    <string name="squat">Squat</string>
+    <string name="ohp">OHP</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
