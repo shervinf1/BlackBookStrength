@@ -48,17 +48,17 @@ public class DeadliftActivity extends AppCompatActivity {
 
 
                 MainLiftPOJO Lift = null;
-                Lift = new MainLiftPOJO(deadliftMax,"lbs", 40, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.40,"lbs", 40, "% x 3 REPS");
                 mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(deadliftMax,"lbs",50, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.50,"lbs",50, "% x 3 REPS");
                 mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(deadliftMax,"lbs",60, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.60,"lbs",60, "% x 3 REPS");
                 mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(400.00,"lbs",65, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.65,"lbs",65, "% x 3 REPS");
                 mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(430.00,"lbs",75, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.75,"lbs",75, "% x 3 REPS");
                 mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(480.00,"lbs",85, "% x 3 REPS");
+                Lift = new MainLiftPOJO(deadliftMax * 0.85,"lbs",85, "% x 3 REPS");
                 mArrayList.add(Lift);
 
                 mAdapter.notifyDataSetChanged();
