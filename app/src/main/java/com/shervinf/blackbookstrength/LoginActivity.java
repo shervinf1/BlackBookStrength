@@ -76,15 +76,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Log.d("FlashChat", "signInWithEmail() onComplete" + task.isSuccessful());
+                Log.d("BlackBook Strength", "signInWithEmail() onComplete" + task.isSuccessful());
 
-                if(!task.isSuccessful())
-                {
-                    Log.d("FlashChat", "Problem Logging in: " + task.getException());
+                if(!task.isSuccessful()) {
+                    Log.d("BlackBook Strength", "Problem Logging in: " + task.getException());
                     showErrorDialog("There was a problem signing in...");
                 }
-                else
-                {
+                else {
                     Intent chatIntent = new Intent(LoginActivity.this, MainActivity.class);
                     finish();
                     startActivity(chatIntent);

@@ -1,40 +1,91 @@
 package com.shervinf.blackbookstrength;
 
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class ProfileFragment extends PreferenceFragmentCompat {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+
+public class ProfileFragment extends Fragment {
+
+    private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
+    private RecyclerView mRecyclerView1;
+    private CustomSettingsAdapter mAdapter;
+    TextView tvUsername;
+
+    @Nullable
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.fragment_profile, rootKey);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_profile,container,false);
+        recyclerViewSetup(view);
+        prepareData();
+        return view;
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        Toolbar preferenceToolbar = view.findViewById(R.id.preference_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(preferenceToolbar);
+    private void prepareData() {
+        SettingsPOJO settings = null;
+        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit OHP 1RPM","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Calorie Goal","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Weight Goal","Settings Sub Label");
+        mArrayList.add(settings);
+        mAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    private void recyclerViewSetup(View v){
+        mRecyclerView1 = v.findViewById(R.id.settingsRecyclerView);
+        mAdapter = new CustomSettingsAdapter(mArrayList, new OnExerciseClickListener() {
+            @Override
+            public void onExerciseViewItemClicked(int position, int id) {
 
-
-
+                switch(position) {
+                    case 0:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 1:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 4:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                    case 5:
+                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        });
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        mRecyclerView1.setAdapter(mAdapter);
     }
+
 }

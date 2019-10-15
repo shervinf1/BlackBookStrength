@@ -43,6 +43,9 @@
     <string name="bench">Bench</string>
     <string name="squat">Squat</string>
     <string name="ohp">OHP</string>
+    <string name="profile_tab">Profile</string>
+    <string name="settings_label">Setting Label</string>
+    <string name="settings_sublabel">Settings Sublabel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
