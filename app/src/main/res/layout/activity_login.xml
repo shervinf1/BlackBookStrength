@@ -15,14 +15,14 @@
         style="?android:textAppearanceMedium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="264dp"
+        android:layout_marginBottom="352dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="registerNewUser"
         android:text="@string/registerBtn"
         android:textColor="@color/colorWhite"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="8dp" />
 
     <Button
         android:id="@+id/login_sign_in_button"

@@ -2,6 +2,7 @@ package com.shervinf.blackbookstrength;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -47,6 +48,19 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.registerToolbar);
+
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
+                finish();
+                startActivity(loginIntent);
+            }
+        });
 
 
         actvEmail = findViewById(R.id.actvEmail);

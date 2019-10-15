@@ -1,5 +1,6 @@
 package com.shervinf.blackbookstrength;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,22 +34,32 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    private void prepareData() {
-        SettingsPOJO settings = null;
-        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
-        mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
-        mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
-        mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit OHP 1RPM","Settings Sub Label");
-        mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Calorie Goal","Settings Sub Label");
-        mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Weight Goal","Settings Sub Label");
-        mArrayList.add(settings);
-        mAdapter.notifyDataSetChanged();
-    }
+//    private void prepareData() {
+//        SettingsPOJO settings = null;
+//        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
+//        mArrayList.add(settings);
+//        settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
+//        mArrayList.add(settings);
+//        settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
+//        mArrayList.add(settings);
+//        settings = new SettingsPOJO("Edit OHP 1RPM","Settings Sub Label");
+//        mArrayList.add(settings);
+//        settings = new SettingsPOJO("Edit Calorie Goal","Settings Sub Label");
+//        mArrayList.add(settings);
+//        settings = new SettingsPOJO("Edit Weight Goal","Settings Sub Label");
+//        mArrayList.add(settings);
+//        mAdapter.notifyDataSetChanged();
+//    }
+private void prepareData() {
+    SettingsPOJO settings = null;
+    settings = new SettingsPOJO("Edit Profile","Settings Sub Label");
+    mArrayList.add(settings);
+    settings = new SettingsPOJO("Edit 1RM's","Settings Sub Label");
+    mArrayList.add(settings);
+    settings = new SettingsPOJO("Edit Goals","Settings Sub Label");
+    mArrayList.add(settings);
+    mAdapter.notifyDataSetChanged();
+}
 
     private void recyclerViewSetup(View v) {
         RecyclerView mRecyclerView1;
@@ -58,22 +69,16 @@ public class ProfileFragment extends Fragment {
             public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
+                        Intent editProfileIntent = new Intent(getActivity(), EditProfileActivity.class);
+                        startActivity(editProfileIntent);
                         break;
                     case 1:
-                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
+                        Intent edit1rmIntent = new Intent(getActivity(), Edit1rmActivity.class);
+                        startActivity(edit1rmIntent);
                         break;
                     case 2:
-                        Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 4:
-                        Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
-                        break;
-                    case 5:
-                        Toast.makeText(getActivity(), "5", Toast.LENGTH_SHORT).show();
+                        Intent editGoalsIntent = new Intent(getActivity(), EditGoalsActivity.class);
+                        startActivity(editGoalsIntent);
                         break;
                 }
             }
