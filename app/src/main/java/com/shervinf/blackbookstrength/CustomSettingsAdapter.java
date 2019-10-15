@@ -14,10 +14,10 @@ import java.util.ArrayList;
 public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAdapter.MyViewHolder> {
     // declaring some fields.
     private ArrayList<SettingsPOJO> settingsList = new ArrayList<>();
-    private OnExerciseClickListener listener;
+    private OnSettingsClickListener listener;
 
 
-    public CustomSettingsAdapter(ArrayList<SettingsPOJO> settingsList, OnExerciseClickListener listener) {
+    public CustomSettingsAdapter(ArrayList<SettingsPOJO> settingsList, OnSettingsClickListener listener) {
         this.listener = listener;
         this.settingsList = settingsList;
     }
@@ -25,11 +25,18 @@ public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAd
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView settingsLabel, settingsSubLabel;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(final View itemView) {
             super(itemView);
             Log.v("BlackBook Strength", "in View Holder");
             settingsLabel = itemView.findViewById(R.id.settingsLabel);
             settingsSubLabel = itemView.findViewById(R.id.settingsSubLabel);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onSettingsViewItemClicked(getAdapterPosition(),itemView.getId());
+                }
+            });
         }
     }
 

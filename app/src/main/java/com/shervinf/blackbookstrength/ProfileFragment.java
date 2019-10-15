@@ -1,6 +1,5 @@
 package com.shervinf.blackbookstrength;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
 
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
-    private RecyclerView mRecyclerView1;
     private CustomSettingsAdapter mAdapter;
     TextView tvUsername;
 
@@ -39,8 +37,6 @@ public class ProfileFragment extends Fragment {
         SettingsPOJO settings = null;
         settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
-        mArrayList.add(settings);
         settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
         mArrayList.add(settings);
         settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
@@ -54,30 +50,30 @@ public class ProfileFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void recyclerViewSetup(View v){
+    private void recyclerViewSetup(View v) {
+        RecyclerView mRecyclerView1;
         mRecyclerView1 = v.findViewById(R.id.settingsRecyclerView);
-        mAdapter = new CustomSettingsAdapter(mArrayList, new OnExerciseClickListener() {
+        mAdapter = new CustomSettingsAdapter(mArrayList, new OnSettingsClickListener() {
             @Override
-            public void onExerciseViewItemClicked(int position, int id) {
-
+            public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "0", Toast.LENGTH_SHORT).show();
                         break;
                     case 1:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "1", Toast.LENGTH_SHORT).show();
                         break;
                     case 2:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "2", Toast.LENGTH_SHORT).show();
                         break;
                     case 3:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "3", Toast.LENGTH_SHORT).show();
                         break;
                     case 4:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "4", Toast.LENGTH_SHORT).show();
                         break;
                     case 5:
-                        Toast.makeText(getContext(), position, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "5", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
