@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,32 +27,36 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mEmailView;
     private EditText mPasswordView;
     private FirebaseAuth mAuth;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        sp = getSharedPreferences("logged",MODE_PRIVATE);
         mEmailView = findViewById(R.id.login_email);
         mPasswordView = findViewById(R.id.login_password);
-
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.integer.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
+        if(sp.getBoolean("logged",false)){
+            goToMainActivity();
+        }
+        else {
+            mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
+                    if (id == R.integer.login || id == EditorInfo.IME_NULL) {
+                        attemptLogin();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        // TODO: Grab an instance of FirebaseAuth
+        }
         mAuth = FirebaseAuth.getInstance();
     }
 
     // Executed when Sign in button pressed
     public void signInExistingUser(View v)   {
-        // TODO: Call attemptLogin() here
         attemptLogin();
 
     }
@@ -62,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         finish();
         startActivity(intent);
     }
-    // TODO: Complete the attemptLogin() method
+
+
     private void attemptLogin() {
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
@@ -72,7 +78,6 @@ public class LoginActivity extends AppCompatActivity {
         else
             Toast.makeText(this, "Login in Progress...", Toast.LENGTH_SHORT).show();
 
-        // TODO: Use FirebaseAuth to sign in with email & password
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -83,13 +88,17 @@ public class LoginActivity extends AppCompatActivity {
                     showErrorDialog("There was a problem signing in...");
                 }
                 else {
-                    Intent chatIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    finish();
-                    startActivity(chatIntent);
+                    sp.edit().putBoolean("logged",true).apply();
+                    goToMainActivity();
                 }
 
             }
         });
+    }
+    public void goToMainActivity(){
+        Intent chatIntent = new Intent(LoginActivity.this, MainActivity.class);
+        finish();
+        startActivity(chatIntent);
     }
 
     // TODO: Show error on screen with an alert dialog
