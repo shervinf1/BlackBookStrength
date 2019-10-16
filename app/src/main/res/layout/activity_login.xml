@@ -48,7 +48,6 @@
         android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/emailHint"
@@ -56,8 +55,6 @@
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorLightWhite"
         app:layout_constraintBottom_toTopOf="@+id/login_password"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         tools:layout_editor_absoluteX="16dp" />
 
     <EditText
@@ -72,5 +69,39 @@
         android:textColorHint="@color/colorLightWhite"
         app:layout_constraintBottom_toTopOf="@+id/login_sign_in_button"
         tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/app_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="@string/blackbook"
+        android:textColor="@color/colorWhite"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/app_logo2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/app_logo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="88dp"
+        android:fontFamily="@font/fredericka_the_great"
+        android:text="@string/strength"
+        android:textColor="@color/colorWhite"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@+id/login_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

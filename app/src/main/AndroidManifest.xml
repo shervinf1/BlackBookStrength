@@ -31,6 +31,10 @@
         <activity android:name=".SquatActivity" />
         <activity android:name=".DeadliftActivity" />
         <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

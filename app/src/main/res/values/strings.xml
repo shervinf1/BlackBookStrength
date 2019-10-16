@@ -49,6 +49,8 @@
     <string name="edit_1rm">Edit 1RM</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="edit_goals">Edit Goals</string>
+    <string name="blackbook">BlackBook</string>
+    <string name="strength">Strength</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
