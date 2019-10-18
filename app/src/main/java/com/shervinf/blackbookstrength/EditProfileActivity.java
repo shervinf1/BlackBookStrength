@@ -7,8 +7,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,10 +62,10 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        Toast.makeText(EditProfileActivity.this, "0", Toast.LENGTH_SHORT).show();
+                        customUsernameDialogBuilder();
                         break;
                     case 1:
-                        Toast.makeText(EditProfileActivity.this, "1", Toast.LENGTH_SHORT).show();
+                        customPasswordDialogBuilder();
                         break;
                 }
             }
@@ -71,4 +75,59 @@ public class EditProfileActivity extends AppCompatActivity {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(EditProfileActivity.this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
+    public void customUsernameDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_username_dialog, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
+    public void customPasswordDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_password_input_dialog, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
+
 }

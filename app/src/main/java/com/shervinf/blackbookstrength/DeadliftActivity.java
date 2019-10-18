@@ -24,8 +24,6 @@ public class DeadliftActivity extends AppCompatActivity {
 
     private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
     private MainLiftAdapter mAdapter;
-    private Toolbar myToolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +32,9 @@ public class DeadliftActivity extends AppCompatActivity {
 
         recyclerViewSetup();
         startingLifts();
-
     }
+
+
     private void startingLifts() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
@@ -45,7 +44,6 @@ public class DeadliftActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 UserPOJO newUser = documentSnapshot.toObject(UserPOJO.class);
                 Double deadliftMax = newUser.getDeadliftMax();
-
 
                 MainLiftPOJO Lift = null;
                 Lift = new MainLiftPOJO(deadliftMax * 0.40,"lbs", 40, "% x 3 REPS");
@@ -60,27 +58,22 @@ public class DeadliftActivity extends AppCompatActivity {
                 mArrayList.add(Lift);
                 Lift = new MainLiftPOJO(deadliftMax * 0.85,"lbs",85, "% x 3 REPS");
                 mArrayList.add(Lift);
-
                 mAdapter.notifyDataSetChanged();
             }
         });
-
-
-
     }
+
 
     private void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
-        mRecyclerView1 = (RecyclerView) findViewById(R.id.deadliftRecyclerView);
+        mRecyclerView1 = findViewById(R.id.deadliftRecyclerView);
         mAdapter = new MainLiftAdapter(mArrayList);
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
-        Log.d("debugMode", "The application stopped after DeadLiftActivity.java");
+        Log.d("BlackBook Strength", "The application stopped after DeadLiftActivity.java");
     }
-    private void retrieveInfo(){
 
 
-    }
 }

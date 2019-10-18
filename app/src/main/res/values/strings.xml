@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">BlackBook Strength</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="Title">BlackBook Strength</string>
     <string name="week1">WEEK 1</string>
     <string name="week2">WEEK 2</string>
@@ -57,4 +55,8 @@
     <string name="edit_weight_goals">Edit Weight Goals</string>
     <string name="edit_caloric_goals">Edit Caloric Goals</string>
     <string name="calories">Calories</string>
+    <string name="enter_value">Enter Value</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="edit_username">Edit Username</string>
+
 </resources>

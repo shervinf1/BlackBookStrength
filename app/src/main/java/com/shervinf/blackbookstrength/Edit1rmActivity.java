@@ -14,8 +14,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.ArrayList;
 
@@ -35,7 +44,7 @@ public class Edit1rmActivity extends AppCompatActivity {
 
 
     public void toolbarSetup(){
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.edit1rmToolbar);
+        Toolbar mToolbar =findViewById(R.id.edit1rmToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
@@ -68,16 +77,16 @@ public class Edit1rmActivity extends AppCompatActivity {
             public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        show1rmNumberPicker(position);
+                        customDeadliftDialogBuilder();
                         break;
                     case 1:
-                        show1rmNumberPicker(position);
+                        customBenchDialogBuilder();
                         break;
                     case 2:
-                        show1rmNumberPicker(position);
+                        customSquatDialogBuilder();
                         break;
                     case 3:
-                        show1rmNumberPicker(position);
+                        customOHPDialogBuilder();
                         break;
                 }
             }
@@ -87,45 +96,111 @@ public class Edit1rmActivity extends AppCompatActivity {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(Edit1rmActivity.this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
-    public void show1rmNumberPicker(int position) {
-        //I define the dialog and I load the xml layout: custom_weight_goal_dialog_goal_dialog.xml into the view
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+    public void customDeadliftDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View theView = inflater.inflate(R.layout.custom_1rm_dialog, null);
+        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
 
-        final NumberPicker integerPicker = theView.findViewById(R.id.integer_picker);
-        final NumberPicker decimalPicker = theView.findViewById(R.id.decimal_picker);
-        // I keep a reference to the 2 picker, in order to read their properties for later use
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
-        builder.setView(theView)
-                .setPositiveButton(R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("DBG","Price is: "+integerPicker.getValue() + "."+decimalPicker.getValue());
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
             }
         });
 
-        integerPicker.setMinValue(0);
-        integerPicker.setMaxValue(1000);
-        integerPicker.setValue(200);
-
-        String decimals[] = new String[20];
-        for(int i = 0;i < 100; i+=5) {
-            if( i < 10 )
-                decimals[i/5] = "0"+i;
-            else
-                decimals[i/5] = ""+i;
-        }
-        decimalPicker.setDisplayedValues(decimals);
-
-        decimalPicker.setMinValue(0);
-        decimalPicker.setMaxValue(19);
-        decimalPicker.setValue(0);
-
-        builder.show();
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
+    public void customBenchDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+    public void customOHPDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+    public void customSquatDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
+
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
+            }
+        });
+
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
 }
+

@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -65,11 +65,11 @@ public class EditGoalsActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         Log.d("BlackBook Strength", "Stopped after OnSettingsViewItemsClicked()" + position);
-                        showWeightNumberPicker();
+                        customWeightDialogBuilder();
                         break;
                     case 1:
                         Log.d("BlackBook Strength", "Stopped after OnSettingsViewItemsClicked()" + position);
-                        showCalorieNumberPicker();
+                        customCalorieDialogBuilder();
                         break;
 
                 }
@@ -81,68 +81,58 @@ public class EditGoalsActivity extends AppCompatActivity {
         mRecyclerView1.setAdapter(mAdapter);
     }
 
-
-    public void showWeightNumberPicker() {
-        //I define the dialog and I load the xml layout: custom_weight_goal_dialog_goal_dialog.xml into the view
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void customWeightDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View theView = inflater.inflate(R.layout.custom_weight_goal_dialog, null);
+        View dialogView = inflater.inflate(R.layout.custom_goals_decimal_input_dialog, null);
 
-        final NumberPicker integerPicker = theView.findViewById(R.id.integer_picker);
-        final NumberPicker decimalPicker = theView.findViewById(R.id.decimal_picker);
-        // I keep a reference to the 2 picker, in order to read their properties for later use
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
-        builder.setView(theView)
-                .setPositiveButton(R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("DBG","Price is: "+integerPicker.getValue() + "."+decimalPicker.getValue());
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
             }
         });
 
-        integerPicker.setMinValue(0);
-        integerPicker.setMaxValue(500);
-        integerPicker.setValue(200);
-
-        decimalPicker.setMinValue(0);
-        decimalPicker.setMaxValue(9);
-        decimalPicker.setValue(0);
-
-        builder.show();
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
-
-
-
-    public void showCalorieNumberPicker() {
-        //I define the dialog and I load the xml layout: custom_weight_goal_dialog_goal_dialog.xml into the view
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    public void customCalorieDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View theView = inflater.inflate(R.layout.custom_calorie_goal_dialog, null);
+        View dialogView = inflater.inflate(R.layout.custom_integer_input_dialog, null);
 
-        final NumberPicker caloriePicker = theView.findViewById(R.id.calorie_picker);
-        // I keep a reference to the 2 picker, in order to read their properties for later use
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
-        builder.setView(theView)
-                .setPositiveButton(R.string.ok,new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("DBG","Price is: "+caloriePicker.getValue());
-                    }
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // DO SOMETHINGS
+                dialogBuilder.dismiss();
             }
         });
 
-        caloriePicker.setMinValue(0);
-        caloriePicker.setMaxValue(5000);
-        caloriePicker.setValue(2000);
-        builder.show();
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 }
