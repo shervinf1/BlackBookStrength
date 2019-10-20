@@ -50,7 +50,6 @@ public class LoginActivity extends AppCompatActivity {
                     return false;
                 }
             });
-
         }
         mAuth = FirebaseAuth.getInstance();
     }

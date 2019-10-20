@@ -24,9 +24,6 @@ import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean tempVAL = false;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
