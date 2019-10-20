@@ -6,4 +6,5 @@
     <color name="colorPrimaryMiddle">#141414</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorLightWhite">#A0A0A0</color>
+    <color name="colorTransparent">#00FFFFFF</color>
 </resources>
