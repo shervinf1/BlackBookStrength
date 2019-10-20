@@ -10,36 +10,22 @@ public class UserPOJO {
     private Double deadliftMax;
     private Double squatMax;
     private Double benchMax;
-    private Double OHPMax;
+    private Double ohpMax;
     private Integer calorieGoal;
-    private Integer weightGoal;
+    private Double weightGoal;
 
-    public Integer getCalorieGoal() {
-        return calorieGoal;
-    }
 
-    public void setCalorieGoal(Integer calorieGoal) {
-        this.calorieGoal = calorieGoal;
-    }
-
-    public Integer getWeightGoal() {
-        return weightGoal;
-    }
-
-    public void setWeightGoal(Integer weightGoal) {
-        this.weightGoal = weightGoal;
-    }
 
     public UserPOJO() {
     }
 
-    public UserPOJO(String userID, Date timeStamp, Double deadliftMax, Double squatMax, Double benchMax, Double OHPMax, Integer calorieGoal, Integer weightGoal) {
+    public UserPOJO(String userID, Date timeStamp, Double deadliftMax, Double squatMax, Double benchMax, Double ohpMax, Integer calorieGoal, Double weightGoal) {
         this.userID = userID;
         this.timeStamp = timeStamp;
         this.deadliftMax = deadliftMax;
         this.squatMax = squatMax;
         this.benchMax = benchMax;
-        this.OHPMax = OHPMax;
+        this.ohpMax = ohpMax;
         this.calorieGoal = calorieGoal;
         this.weightGoal = weightGoal;
     }
@@ -84,11 +70,27 @@ public class UserPOJO {
         this.benchMax = benchMax;
     }
 
-    public Double getOHPMax() {
-        return OHPMax;
+    public Double getOhpMax() {
+        return ohpMax;
     }
 
-    public void setOHPMax(Double OHPMax) {
-        this.OHPMax = OHPMax;
+    public void setOhpMax(Double ohpMax) {
+        this.ohpMax = ohpMax;
     }
+    public Integer getCalorieGoal() {
+        return calorieGoal;
+    }
+
+    public void setCalorieGoal(Integer calorieGoal) {
+        this.calorieGoal = calorieGoal;
+    }
+
+    public Double getWeightGoal() {
+        return weightGoal;
+    }
+
+    public void setWeightGoal(Double weightGoal) {
+        this.weightGoal = weightGoal;
+    }
+
 }

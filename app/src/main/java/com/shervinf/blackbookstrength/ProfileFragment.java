@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,40 +15,31 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
+
+import static com.google.firebase.auth.FirebaseAuth.getInstance;
 
 public class ProfileFragment extends Fragment {
 
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
     private CustomSettingsAdapter mAdapter;
-    TextView tvUsername;
+    private FirebaseAuth mAuth;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_profile,container,false);
         recyclerViewSetup(view);
         prepareData();
+        mAuth = getInstance();
         return view;
     }
 
-//    private void prepareData() {
-//        SettingsPOJO settings = null;
-//        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
-//        mArrayList.add(settings);
-//        settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
-//        mArrayList.add(settings);
-//        settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
-//        mArrayList.add(settings);
-//        settings = new SettingsPOJO("Edit OHP 1RPM","Settings Sub Label");
-//        mArrayList.add(settings);
-//        settings = new SettingsPOJO("Edit Calorie Goal","Settings Sub Label");
-//        mArrayList.add(settings);
-//        settings = new SettingsPOJO("Edit Weight Goal","Settings Sub Label");
-//        mArrayList.add(settings);
-//        mAdapter.notifyDataSetChanged();
-//    }
+
 private void prepareData() {
     SettingsPOJO settings = null;
     settings = new SettingsPOJO("Edit Profile","Settings Sub Label");
@@ -57,6 +47,8 @@ private void prepareData() {
     settings = new SettingsPOJO("Edit 1RM's","Settings Sub Label");
     mArrayList.add(settings);
     settings = new SettingsPOJO("Edit Goals","Settings Sub Label");
+    mArrayList.add(settings);
+    settings = new SettingsPOJO("Sign Out","Log out of this account");
     mArrayList.add(settings);
     mAdapter.notifyDataSetChanged();
 }
@@ -80,6 +72,8 @@ private void prepareData() {
                         Intent editGoalsIntent = new Intent(getActivity(), EditGoalsActivity.class);
                         startActivity(editGoalsIntent);
                         break;
+                    case 3:
+//                        signOutExistingUser();
                 }
             }
         });
@@ -88,5 +82,10 @@ private void prepareData() {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
+    private void signOutExistingUser(){
+        FirebaseAuth.getInstance().signOut();
+        Intent loginIntent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(loginIntent);
 
+    }
 }

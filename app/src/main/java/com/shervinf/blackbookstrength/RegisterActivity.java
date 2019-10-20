@@ -32,12 +32,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPassword;
     private EditText etConfirmPassword;
     private EditText etName;
-    private EditText etDeadliftMax;
-    private EditText etSquatMax;
-    private EditText etBenchMax;
-    private EditText etOHPMax;
-    private EditText etWeightGoal;
-    private EditText etCalorieGoal;
+
+
+
 
     //Firebase instance variables
     private FirebaseAuth fAuth;
@@ -49,11 +46,10 @@ public class RegisterActivity extends AppCompatActivity {
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.registerToolbar);
+        Toolbar mToolbar = findViewById(R.id.registerToolbar);
 
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Intent loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
@@ -66,13 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
         actvEmail = findViewById(R.id.actvEmail);
         etPassword =findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
-        etName  = findViewById(R.id.etUserName);
-        etDeadliftMax = findViewById(R.id.etDeadliftMax);
-        etSquatMax = findViewById(R.id.etSquatMax);
-        etBenchMax = findViewById(R.id.etBenchMax);
-        etOHPMax = findViewById(R.id.etOHPMax);
-        etWeightGoal = findViewById(R.id.etWeightGoal);
-        etCalorieGoal = findViewById(R.id.etCalorieGoal);
 
 
         //Keyboard Sign In action
@@ -87,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
                 return false;
             }
         });
-        //get hold of an instance of FirebaseAuth
         fAuth = FirebaseAuth.getInstance();
     }
     public void register(View v)
@@ -96,8 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    private void attemptRegistration()
-    {
+    private void attemptRegistration() {
         //Reset any errors cause by the user in the form
         actvEmail.setError(null);
         etPassword.setError(null);
@@ -136,19 +123,16 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private boolean isEmailValid(String email) {
-        // You can add more checking logic here.
         return email.contains("@");
     }
 
 
     private boolean isPasswordValid(String password) {
-        //TODO: Add own logic to check for a valid password (minimum 6 characters)
         String confirmPassword = etConfirmPassword.getText().toString();
         return confirmPassword.equals(password) && password.length() > 6;
     }
 
-    private void createFirebaseUser()
-    {
+    private void createFirebaseUser() {
         String email = actvEmail.getText().toString();
         String password = etConfirmPassword.getText().toString();
 
@@ -182,12 +166,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void createdFirebaseUser(){
-        final Double deadliftMax = Double.parseDouble(etDeadliftMax.getText().toString());
-        final Double squatMax = Double.parseDouble(etSquatMax.getText().toString());
-        final Double benchMax = Double.parseDouble(etBenchMax.getText().toString());
-        final Double OHPMax = Double.parseDouble(etOHPMax.getText().toString());
-        final Integer weightGoal = Integer.parseInt(etWeightGoal.getText().toString());
-        final Integer calorieGoal = Integer.parseInt(etCalorieGoal.getText().toString());
+        final Double INIT_DEADLIFT_MAX = 000.00;
+        final Double INIT_SQUAT_MAX = 000.00;
+        final Double INIT_BENCH_MAX = 000.00;
+        final Double INIT_OHP_MAX = 000.00;
+        final Double INIT_WEIGHT_GOAL = 000.0;
+        final Integer INIT_CALORIE_GOAL= 2000;
 
         Log.d("BlackBookStrength","User Created");
         Toast.makeText(getApplicationContext(),R.string.success_register,Toast.LENGTH_SHORT).show();
@@ -196,13 +180,13 @@ public class RegisterActivity extends AppCompatActivity {
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DocumentReference newUserDocumentRef = db.collection("users").document(userID);
         UserPOJO newUser = new UserPOJO();
-        newUser.setDeadliftMax(deadliftMax);
-        newUser.setSquatMax(squatMax);
-        newUser.setBenchMax(benchMax);
-        newUser.setOHPMax(OHPMax);
+        newUser.setDeadliftMax(INIT_DEADLIFT_MAX);
+        newUser.setSquatMax(INIT_SQUAT_MAX);
+        newUser.setBenchMax(INIT_BENCH_MAX);
+        newUser.setOhpMax(INIT_OHP_MAX);
         newUser.setUserID(userID);
-        newUser.setWeightGoal(weightGoal);
-        newUser.setCalorieGoal(calorieGoal);
+        newUser.setWeightGoal(INIT_WEIGHT_GOAL);
+        newUser.setCalorieGoal(INIT_CALORIE_GOAL);
         newUserDocumentRef.set(newUser).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

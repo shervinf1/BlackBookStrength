@@ -44,9 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
     private void prepareData() {
-        SettingsPOJO settings = null;
-        settings = new SettingsPOJO("Edit Username","Settings Sub Label");
-        mArrayList.add(settings);
+        SettingsPOJO settings;
         settings = new SettingsPOJO("Change Password","Settings Sub Label");
         mArrayList.add(settings);
 
@@ -107,9 +105,9 @@ public class EditProfileActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_password_input_dialog, null);
 
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+        final EditText editText = dialogView.findViewById(R.id.edt_comment);
+        Button button1 = dialogView.findViewById(R.id.buttonSubmit);
+        Button button2 = dialogView.findViewById(R.id.buttonCancel);
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -23,7 +23,7 @@
     <string name="title_calorie">2000</string>
     <string name="calorie_unit_placeholder">CAL</string>
     <string name="loginBtn">LogIn</string>
-    <string name="registerBtn">Register</string>
+    <string name="registerBtn">Don\'t have an account? Sign up</string>
     <string name="userName">Username</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Password</string>
@@ -58,5 +58,6 @@
     <string name="enter_value">Enter Value</string>
     <string name="edit_password">Edit Password</string>
     <string name="edit_username">Edit Username</string>
+    <string name="register">Register</string>
 
 </resources>

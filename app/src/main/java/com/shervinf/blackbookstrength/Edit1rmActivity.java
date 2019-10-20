@@ -1,5 +1,6 @@
 package com.shervinf.blackbookstrength;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -32,6 +34,7 @@ public class Edit1rmActivity extends AppCompatActivity {
 
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
     private CustomSettingsAdapter mAdapter;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class Edit1rmActivity extends AppCompatActivity {
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
+        db = FirebaseFirestore.getInstance();
     }
 
 
@@ -56,14 +60,14 @@ public class Edit1rmActivity extends AppCompatActivity {
         });
     }
         private void prepareData() {
-        SettingsPOJO settings = null;
-        settings = new SettingsPOJO("Edit Deadlift 1RPM","Settings Sub Label");
+        SettingsPOJO settings;
+        settings = new SettingsPOJO("Edit Deadlift 1RPM","Change one rep max for Deadlift");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Squat 1RPM","Settings Sub Label");
+        settings = new SettingsPOJO("Edit Squat 1RPM","Change one rep max for Squat");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Bench 1RPM","Settings Sub Label");
+        settings = new SettingsPOJO("Edit Bench 1RPM","Change one rep max for Bench");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit OHP 1RPM","Settings Sub Label");
+        settings = new SettingsPOJO("Edit OHP 1RPM","Change one rep max for OHP");
         mArrayList.add(settings);
         mAdapter.notifyDataSetChanged();
     }
@@ -77,16 +81,16 @@ public class Edit1rmActivity extends AppCompatActivity {
             public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        customDeadliftDialogBuilder();
+                        customDialogBuilder(position);
                         break;
                     case 1:
-                        customBenchDialogBuilder();
+                        customDialogBuilder(position);
                         break;
                     case 2:
-                        customSquatDialogBuilder();
+                        customDialogBuilder(position);
                         break;
                     case 3:
-                        customOHPDialogBuilder();
+                        customDialogBuilder(position);
                         break;
                 }
             }
@@ -97,110 +101,56 @@ public class Edit1rmActivity extends AppCompatActivity {
         mRecyclerView1.setAdapter(mAdapter);
     }
 
-    public void customDeadliftDialogBuilder(){
+    public void customDialogBuilder(final int position){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
 
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+        final EditText editText = dialogView.findViewById(R.id.edt_comment);
+        Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
+        Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dialogBuilder.dismiss();
             }
         });
-        button1.setOnClickListener(new View.OnClickListener() {
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // DO SOMETHINGS
+                String attrbuteUpdate =null;
+                switch (position){
+                    case 0: attrbuteUpdate = "deadliftMax";break;
+                    case 1: attrbuteUpdate = "squatMax";break;
+                    case 2: attrbuteUpdate = "benchMax";break;
+                    case 3: attrbuteUpdate = "ohpMax";break;
+                }
+                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                DocumentReference newUserDocumentRef = db.collection("users").document(userID);
+                newUserDocumentRef
+                        .update(attrbuteUpdate,Double.parseDouble(editText.getText().toString()))
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d("BlackBookStrength","successfully updated maximum attribute");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("BlackBookStrength","Failed to update maximum attribute");
+                                e.printStackTrace();
+                            }
+                        });
                 dialogBuilder.dismiss();
             }
         });
-
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
-    public void customBenchDialogBuilder(){
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
 
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // DO SOMETHINGS
-                dialogBuilder.dismiss();
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-    }
-    public void customOHPDialogBuilder(){
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
-
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // DO SOMETHINGS
-                dialogBuilder.dismiss();
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-    }
-    public void customSquatDialogBuilder(){
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
-
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // DO SOMETHINGS
-                dialogBuilder.dismiss();
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
-    }
 
 }
 
