@@ -42,10 +42,14 @@ public class CalorieFragment extends Fragment {
         recyclerViewSetup(view);
         return view;
     }
+
+
+
+
     private void fabSetup(View v){
         FloatingActionButton fab;
         //Casting floating action button to respective ID
-        fab = (FloatingActionButton) v.findViewById(R.id.calorie_floating_action_button);
+        fab = v.findViewById(R.id.calorie_floating_action_button);
         //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
         if (fab != null)
             fab.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +62,8 @@ public class CalorieFragment extends Fragment {
 }
 
 
+
+
     private void prepareCalorieData(String date, String calorie, String calorieUnit){
         //Creating Plain Old Java Object type WeightInPOJO and adding the passed values to add to the recycler view
         CaloriePOJO calorieList = null;
@@ -65,6 +71,8 @@ public class CalorieFragment extends Fragment {
         mArrayList.add(calorieList);
         mAdapter.notifyDataSetChanged();
     }
+
+
 
     private void showAddItemDialog(Context c) {
         //Displaying Alert Dialog Box
@@ -86,6 +94,9 @@ public class CalorieFragment extends Fragment {
         dialog.show();
     }
 
+
+
+
     private void recyclerViewSetup(View v){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = v.findViewById(R.id.calorieRecyclerView);
@@ -96,6 +107,9 @@ public class CalorieFragment extends Fragment {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
+
+
+
 
     public static String currentDate() {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");

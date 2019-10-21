@@ -8,6 +8,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -20,29 +27,60 @@ public class OHPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ohp);
 
+        toolbarSetup();
         recyclerViewSetup();
-        startingLifts();
+        prepareData();
+    }
+
+
+    public void toolbarSetup() {
+        Toolbar mToolbar = findViewById(R.id.ohpToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Your code
+                finish();
+            }
+        });
     }
 
 
 
-    private void startingLifts() {
-        MainLiftPOJO Lift = null;
-        Lift = new MainLiftPOJO(100.00, "lbs", 40, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(130.00, "lbs", 50, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(160.00, "lbs", 60, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(200.00, "lbs", 65, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(230.00, "lbs", 75, "% x 3 REPS");
-        mArrayList.add(Lift);
-        Lift = new MainLiftPOJO(280.00, "lbs", 85, "% x 3 REPS");
-        mArrayList.add(Lift);
 
-        mAdapter.notifyDataSetChanged();
+    //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
+    private void prepareData() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        DocumentReference docRef = db.collection("users").document(userID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                UserPOJO newUser = documentSnapshot.toObject(UserPOJO.class);
+                Double ohpMax = newUser.getOhpMax();
+                MainLiftPOJO Lift;
+                Lift = new MainLiftPOJO(ohpMax * 0.40, "lbs", 40, "% x 3 REPS");
+                mArrayList.add(Lift);
+                Lift = new MainLiftPOJO(ohpMax * 0.50, "lbs", 50, "% x 3 REPS");
+                mArrayList.add(Lift);
+                Lift = new MainLiftPOJO(ohpMax * 0.60, "lbs", 60, "% x 3 REPS");
+                mArrayList.add(Lift);
+                Lift = new MainLiftPOJO(ohpMax * 0.65, "lbs", 65, "% x 3 REPS");
+                mArrayList.add(Lift);
+                Lift = new MainLiftPOJO(ohpMax * 0.75, "lbs", 75, "% x 3 REPS");
+                mArrayList.add(Lift);
+                Lift = new MainLiftPOJO(ohpMax * 0.85, "lbs", 85, "% x 3 REPS");
+                mArrayList.add(Lift);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
     }
+
+
+
+
+    //Method that find recycler view by the id and displays it.
     public void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = (RecyclerView) findViewById(R.id.ohpRecyclerView);

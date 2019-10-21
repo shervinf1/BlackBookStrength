@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.auth.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import static com.shervinf.blackbookstrength.R.integer.week4_set1;
@@ -30,12 +32,30 @@ public class DeadliftActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlift);
 
+        toolbarSetup();
         recyclerViewSetup();
-        startingLifts();
+        prepareData();
     }
 
 
-    private void startingLifts() {
+    public void toolbarSetup() {
+        Toolbar mToolbar = findViewById(R.id.deadliftToolbar);
+        mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Your code
+                finish();
+            }
+        });
+    }
+
+
+
+
+    //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
+    private void prepareData() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         DocumentReference docRef = db.collection("users").document(userID);
@@ -44,8 +64,7 @@ public class DeadliftActivity extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 UserPOJO newUser = documentSnapshot.toObject(UserPOJO.class);
                 Double deadliftMax = newUser.getDeadliftMax();
-
-                MainLiftPOJO Lift = null;
+                MainLiftPOJO Lift;
                 Lift = new MainLiftPOJO(deadliftMax * 0.40,"lbs", 40, "% x 3 REPS");
                 mArrayList.add(Lift);
                 Lift = new MainLiftPOJO(deadliftMax * 0.50,"lbs",50, "% x 3 REPS");
@@ -64,6 +83,9 @@ public class DeadliftActivity extends AppCompatActivity {
     }
 
 
+
+
+    //Method that find recycler view by the id and displays it.
     private void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = findViewById(R.id.deadliftRecyclerView);

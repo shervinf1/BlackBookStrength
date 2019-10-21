@@ -33,6 +33,14 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+       ifUserLoggedIn();
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+
+
+    private void ifUserLoggedIn(){
         sp = getSharedPreferences("logged",MODE_PRIVATE);
         mEmailView = findViewById(R.id.login_email);
         mPasswordView = findViewById(R.id.login_password);
@@ -51,8 +59,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
-        mAuth = FirebaseAuth.getInstance();
     }
+
+
 
     // Executed when Sign in button pressed
     public void signInExistingUser(View v)   {
@@ -60,12 +69,18 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+
+
     // Executed when Register button pressed
     public void registerNewUser(View v) {
         Intent intent = new Intent(this, com.shervinf.blackbookstrength.RegisterActivity.class);
         finish();
         startActivity(intent);
     }
+
+
+
 
 
     private void attemptLogin() {
@@ -94,13 +109,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
     public void goToMainActivity(){
         Intent chatIntent = new Intent(LoginActivity.this, MainActivity.class);
         finish();
         startActivity(chatIntent);
     }
 
-    // TODO: Show error on screen with an alert dialog
+
+
+
     private void showErrorDialog(String message) {
         new AlertDialog.Builder(this)
                 .setTitle("Oops")

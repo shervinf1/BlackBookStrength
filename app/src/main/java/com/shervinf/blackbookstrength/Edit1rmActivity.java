@@ -46,7 +46,7 @@ public class Edit1rmActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
     }
 
-
+    //Method that displays back button in toolbar and ends this activity when button is clicked.
     public void toolbarSetup(){
         Toolbar mToolbar =findViewById(R.id.edit1rmToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -59,7 +59,11 @@ public class Edit1rmActivity extends AppCompatActivity {
             }
         });
     }
-        private void prepareData() {
+
+
+
+    //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
+    private void prepareData() {
         SettingsPOJO settings;
         settings = new SettingsPOJO("Edit Deadlift 1RPM","Change one rep max for Deadlift");
         mArrayList.add(settings);
@@ -73,6 +77,8 @@ public class Edit1rmActivity extends AppCompatActivity {
     }
 
 
+
+    //Method that find recycler view by the id and displays it.
     private void recyclerViewSetup() {
         RecyclerView mRecyclerView1;
         mRecyclerView1 = findViewById(R.id.edit1rmRecyclerView);
@@ -101,15 +107,18 @@ public class Edit1rmActivity extends AppCompatActivity {
         mRecyclerView1.setAdapter(mAdapter);
     }
 
+
+
+
+    //Method to create Alert Dialog for changing weightGoal attribute
+    //In Firebase cloud firestore database
     public void customDialogBuilder(final int position){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
-
         final EditText editText = dialogView.findViewById(R.id.edt_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

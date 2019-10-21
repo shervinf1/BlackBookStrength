@@ -27,11 +27,9 @@ import com.google.firestore.v1.FirestoreGrpc;
 import java.util.ArrayList;
 
 public class EditGoalsActivity extends AppCompatActivity {
-
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
     private CustomSettingsAdapter mAdapter;
     private FirebaseFirestore db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +38,14 @@ public class EditGoalsActivity extends AppCompatActivity {
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
+        //Get instance of Firebase Instance for future reference
         db = FirebaseFirestore.getInstance();
     }
 
 
 
 
-
+    //Method that displays back button in toolbar and ends this activity when button is clicked.
     public void toolbarSetup() {
         Toolbar mToolbar = findViewById(R.id.editGoalsToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -61,20 +60,19 @@ public class EditGoalsActivity extends AppCompatActivity {
     }
 
 
-
+    //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
     private void prepareData() {
         SettingsPOJO settings = null;
         settings = new SettingsPOJO("Edit Weight Goal", "Change your weight goal");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Calorie Goal", "Change your caloric intake goal");
+        settings = new SettingsPOJO("Edit Calorie Goal", "Change your caloric intake goal       ");
         mArrayList.add(settings);
-
         mAdapter.notifyDataSetChanged();
     }
 
 
 
-
+    //Method that find recycler view by the id and displays it.
     private void recyclerViewSetup() {
         RecyclerView mRecyclerView1;
         mRecyclerView1 = findViewById(R.id.editGoalsRecyclerView);
@@ -90,7 +88,6 @@ public class EditGoalsActivity extends AppCompatActivity {
                         Log.d("BlackBookStrength", "Stopped after OnSettingsViewItemsClicked()" + position);
                         customCalorieDialogBuilder();
                         break;
-
                 }
             }
         });
@@ -102,16 +99,15 @@ public class EditGoalsActivity extends AppCompatActivity {
 
 
 
-
+    //Method to create Alert Dialog for changing weightGoal attribute
+    //In Firebase cloud firestore database
     public void customWeightDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_goals_decimal_input_dialog, null);
-
         final EditText editText = dialogView.findViewById(R.id.edt_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -140,7 +136,6 @@ public class EditGoalsActivity extends AppCompatActivity {
                 dialogBuilder.dismiss();
             }
         });
-
         dialogBuilder.setView(dialogView);
         dialogBuilder.show();
     }
@@ -148,16 +143,15 @@ public class EditGoalsActivity extends AppCompatActivity {
 
 
 
-
+    //Method to create Alert Dialog for changing calorieGoal attribute
+    //In Firebase cloud firestore database
     public void customCalorieDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_integer_input_dialog, null);
-
         final EditText editText = dialogView.findViewById(R.id.edt_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
-
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

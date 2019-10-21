@@ -35,6 +35,9 @@ public class ProfileFragment extends Fragment {
         sp = this.getActivity().getSharedPreferences("logged", Context.MODE_PRIVATE);
     }
 
+
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,18 +48,24 @@ public class ProfileFragment extends Fragment {
     }
 
 
-private void prepareData() {
-    SettingsPOJO settings = null;
-    settings = new SettingsPOJO("Edit Profile","Settings Sub Label");
-    mArrayList.add(settings);
-    settings = new SettingsPOJO("Edit 1RM's","Settings Sub Label");
-    mArrayList.add(settings);
-    settings = new SettingsPOJO("Edit Goals","Settings Sub Label");
-    mArrayList.add(settings);
-    settings = new SettingsPOJO("Sign Out","Log out of this account");
-    mArrayList.add(settings);
-    mAdapter.notifyDataSetChanged();
-}
+
+
+
+    private void prepareData() {
+        SettingsPOJO settings = null;
+        settings = new SettingsPOJO("Edit Profile","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit 1RM's","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Goals","Settings Sub Label");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Sign Out","Log out of this account");
+        mArrayList.add(settings);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+
 
     private void recyclerViewSetup(View v) {
         RecyclerView mRecyclerView1;
@@ -87,25 +96,18 @@ private void prepareData() {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
-//    private void signOutExistingUser() {
-//        mAuth.getInstance().signOut();
-//        Intent loginIntent = new Intent(getContext(), LoginActivity.class);
-//        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(loginIntent);
-//
-//    }
+
+
+
 
     private void alertSignout() {
         AlertDialog.Builder alertDialog2 = new
                 AlertDialog.Builder(
                 getActivity());
-
         // Setting Dialog Title
-        alertDialog2.setTitle("Confirm SignOut");
-
+        alertDialog2.setTitle("Confirm Sign Out");
         // Setting Dialog Message
-        alertDialog2.setMessage("Are you sure you want to Signout?");
-
+        alertDialog2.setMessage("Are you sure you want to Sign out?");
         // Setting Positive "Yes" Btn
         alertDialog2.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
@@ -118,7 +120,6 @@ private void prepareData() {
                         startActivity(i);
                     }
                 });
-
         // Setting Negative "NO" Btn
         alertDialog2.setNegativeButton("NO",
                 new DialogInterface.OnClickListener() {
@@ -130,10 +131,7 @@ private void prepareData() {
                         dialog.cancel();
                     }
                 });
-
         // Showing Alert Dialog
         alertDialog2.show();
-
-
     }
 }

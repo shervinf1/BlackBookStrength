@@ -31,12 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
     private AutoCompleteTextView actvEmail;
     private EditText etPassword;
     private EditText etConfirmPassword;
-    private EditText etName;
-
-
-
-
-    //Firebase instance variables
     private FirebaseAuth fAuth;
 
     @Override
@@ -46,8 +40,31 @@ public class RegisterActivity extends AppCompatActivity {
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Toolbar mToolbar = findViewById(R.id.registerToolbar);
+        actvEmail = findViewById(R.id.actvEmail);
+        etPassword =findViewById(R.id.etPassword);
+        etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        passwordEditorListener();
+        toolbarSetup();
+        fAuth = FirebaseAuth.getInstance();
+    }
 
+    private void passwordEditorListener(){
+        //Keyboard Sign In action
+        etConfirmPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == R.integer.register_form_finished || actionId == EditorInfo.IME_NULL) {
+                    attemptRegistration();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+
+    private void toolbarSetup(){
+        Toolbar mToolbar = findViewById(R.id.registerToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,31 +74,18 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(loginIntent);
             }
         });
-
-
-        actvEmail = findViewById(R.id.actvEmail);
-        etPassword =findViewById(R.id.etPassword);
-        etConfirmPassword = findViewById(R.id.etConfirmPassword);
-
-
-        //Keyboard Sign In action
-        etConfirmPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == R.integer.register_form_finished || actionId == EditorInfo.IME_NULL) {
-                    attemptRegistration();
-                    return true;
-                }
-
-                return false;
-            }
-        });
-        fAuth = FirebaseAuth.getInstance();
     }
+
+
+
+
     public void register(View v)
     {
         attemptRegistration();
     }
+
+
+
 
 
     private void attemptRegistration() {
@@ -122,15 +126,22 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+
+
     private boolean isEmailValid(String email) {
         return email.contains("@");
     }
+
+
 
 
     private boolean isPasswordValid(String password) {
         String confirmPassword = etConfirmPassword.getText().toString();
         return confirmPassword.equals(password) && password.length() > 6;
     }
+
+
+
 
     private void createFirebaseUser() {
         String email = actvEmail.getText().toString();
@@ -155,6 +166,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+
+
+
     //Create an alert dialog to show in case registration failed
     private void showErrorDialog(String message) {
         new AlertDialog.Builder(this)
@@ -164,6 +178,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+
+
 
     private void createdFirebaseUser(){
         final Double INIT_DEADLIFT_MAX = 000.00;

@@ -31,6 +31,8 @@ public class EditProfileActivity extends AppCompatActivity {
         prepareData();
     }
 
+
+    //Method that displays back button in toolbar and ends this activity when button is clicked.
     public void toolbarSetup(){
         Toolbar mToolbar = findViewById(R.id.editProfileToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -43,6 +45,10 @@ public class EditProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
     private void prepareData() {
         SettingsPOJO settings;
         settings = new SettingsPOJO("Change Password","Settings Sub Label");
@@ -52,6 +58,8 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
 
+
+    //Method that find recycler view by the id and displays it.
     private void recyclerViewSetup() {
         RecyclerView mRecyclerView1;
         mRecyclerView1 = findViewById(R.id.editProfileRecyclerView);
@@ -73,6 +81,14 @@ public class EditProfileActivity extends AppCompatActivity {
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(EditProfileActivity.this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
+
+
+
+
+
+
+    //Method to create Alert Dialog for changing username attribute
+    //In Firebase cloud firestore database
     public void customUsernameDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
@@ -100,6 +116,12 @@ public class EditProfileActivity extends AppCompatActivity {
         dialogBuilder.show();
     }
 
+
+
+
+
+    //Method to create Alert Dialog for changing password attribute
+    //In Firebase cloud firestore database
     public void customPasswordDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
