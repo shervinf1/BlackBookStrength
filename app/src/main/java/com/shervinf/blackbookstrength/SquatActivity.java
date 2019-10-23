@@ -28,12 +28,13 @@ public class SquatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_squat);
 
+        //Calling methods
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
     }
 
-
+    //Method that creates back navigation button and finishes this activity when pressed.
     public void toolbarSetup() {
         Toolbar mToolbar = findViewById(R.id.squatToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -84,7 +85,11 @@ public class SquatActivity extends AppCompatActivity {
     public void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = (RecyclerView) findViewById(R.id.squatRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList);
+        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
+            @Override
+            public void onMainLiftViewItemClicked(int position, int id) {
+            }
+        });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

@@ -4,15 +4,20 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class MyPageAdapter extends FragmentStatePagerAdapter {
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
+public class HomePagerAdapter extends FragmentStatePagerAdapter {
+//    private final List<Fragment> mFragmentList = new ArrayList<>(Arrays.asList(new Week1Fragment(),new Week2Fragment(),new Week3Fragment(),new Week4Fragment()));
+//    private final List<String> mFragmentTitleList = new ArrayList<>(Arrays.asList("WEEK 1","WEEK 2","WEEK 3","DELOAD"));
 
-    MyPageAdapter(FragmentManager fm) {
+    HomePagerAdapter(FragmentManager fm) {
         super(fm);
     }
+
+
+
+
 
     @Override
     public Fragment getItem(int position) {
@@ -29,10 +34,8 @@ public class MyPageAdapter extends FragmentStatePagerAdapter {
         return null;
     }
 
-    @Override
-    public int getCount() {
-        return 4;
-    }
+
+
 
     @Override
     public CharSequence getPageTitle(int position) {
@@ -48,5 +51,13 @@ public class MyPageAdapter extends FragmentStatePagerAdapter {
             default:
                 return null;
         }
+    }
+
+
+
+
+    @Override
+    public int getCount() {
+        return 4;
     }
 }

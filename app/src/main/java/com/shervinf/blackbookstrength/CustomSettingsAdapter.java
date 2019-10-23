@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAdapter.MyViewHolder> {
     // declaring some fields.
-    private ArrayList<SettingsPOJO> settingsList = new ArrayList<>();
+    private ArrayList<SettingsPOJO> settingsList;
     private OnSettingsClickListener listener;
 
 

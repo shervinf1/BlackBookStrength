@@ -26,7 +26,7 @@ public class ProfileFragment extends Fragment {
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
     private CustomSettingsAdapter mAdapter;
     private FirebaseAuth mAuth;
-    SharedPreferences sp;
+    private SharedPreferences sp;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.shervinf.blackbookstrength;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -9,28 +10,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.auth.User;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import static com.shervinf.blackbookstrength.R.integer.week4_set1;
 
 public class DeadliftActivity extends AppCompatActivity {
 
     private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
     private MainLiftAdapter mAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deadlift);
+
+
 
         toolbarSetup();
         recyclerViewSetup();
@@ -89,7 +90,11 @@ public class DeadliftActivity extends AppCompatActivity {
     private void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = findViewById(R.id.deadliftRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList);
+        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
+            @Override
+            public void onMainLiftViewItemClicked(int position, int id) {
+            }
+        });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

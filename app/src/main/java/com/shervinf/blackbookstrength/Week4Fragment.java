@@ -18,7 +18,7 @@ public class Week4Fragment extends Fragment {
 
     private ArrayList<ExercisePOJO> mArrayList = new ArrayList<>();
     private RecyclerView mRecyclerView4;
-    private CustomExerciseAdapter mAdapter;
+    private ExerciseAdapter mAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,13 +33,13 @@ public class Week4Fragment extends Fragment {
 
 //      mRecyclerView1 = mRecyclerView1.findViewById(R.id.recyclerView);
         mRecyclerView4 = (RecyclerView) view.findViewById(R.id.recyclerView4);
-//        mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
+//        mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
 //            @Override
 //            public void onExerciseViewItemClicked(int position, int id) {
 //                Toast.makeText(getActivity().getBaseContext(),""+position,Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        mAdapter = new CustomExerciseAdapter(mArrayList, new OnExerciseClickListener() {
+        mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {
 

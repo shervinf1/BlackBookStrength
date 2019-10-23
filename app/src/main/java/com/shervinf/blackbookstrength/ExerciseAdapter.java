@@ -9,17 +9,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAdapter.MyViewHolder> {
-
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyViewHolder> {
     private ArrayList<ExercisePOJO> arrayList;
     private OnExerciseClickListener listener;
 
 
+
+
     //custom constructor.
-    public CustomExerciseAdapter(ArrayList<ExercisePOJO> arrayList, OnExerciseClickListener listener) {
+    public ExerciseAdapter(ArrayList<ExercisePOJO> arrayList, OnExerciseClickListener listener) {
         this.listener = listener;
         this.arrayList = arrayList;
     }
+
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int   viewType) {
@@ -28,13 +32,15 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         return new MyViewHolder(itemView);
     }
 
+
+
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, sets, reps;
         public MyViewHolder(View itemView) {
             super(itemView);
             Log.v("ViewHolder", "in View Holder");
-//          sets = itemView.findViewById(R.id.textView);
-//          reps = itemView.findViewById(R.id.textView2);
+
             name = itemView.findViewById(R.id.exerciseTextView);
 
             //Calling custom onclick listener
@@ -47,13 +53,14 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
         }
     }
 
+
+
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
         Log.v("BindViewHolder", "in onBindViewHolder");
         ExercisePOJO exercisePOJO = arrayList.get(position);
         holder.name.setText(exercisePOJO.getmName());
-//        holder.sets.setText(exercisePOJO.getmSets());
-
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,6 +68,9 @@ public class CustomExerciseAdapter extends RecyclerView.Adapter<CustomExerciseAd
             }
         });
     }
+
+
+
 
     @Override
     public int getItemCount() {

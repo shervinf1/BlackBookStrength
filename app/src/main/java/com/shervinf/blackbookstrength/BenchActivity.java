@@ -34,7 +34,7 @@ public class BenchActivity extends AppCompatActivity {
     }
 
 
-
+    //Method that creates back navigation button and finishes this activity when pressed.
     public void toolbarSetup() {
         Toolbar mToolbar = findViewById(R.id.benchToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -85,7 +85,12 @@ public class BenchActivity extends AppCompatActivity {
     public void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
         mRecyclerView1 = (RecyclerView) findViewById(R.id.benchRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList);
+        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
+            @Override
+            public void onMainLiftViewItemClicked(int position, int id) {
+
+            }
+        });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

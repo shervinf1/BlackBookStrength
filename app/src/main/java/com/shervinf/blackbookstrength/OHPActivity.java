@@ -27,12 +27,14 @@ public class OHPActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ohp);
 
+        //Calling methods
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
     }
 
 
+    //Method that creates back navigation button and finishes this activity when pressed.
     public void toolbarSetup() {
         Toolbar mToolbar = findViewById(R.id.ohpToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
@@ -83,8 +85,12 @@ public class OHPActivity extends AppCompatActivity {
     //Method that find recycler view by the id and displays it.
     public void recyclerViewSetup(){
         RecyclerView mRecyclerView1;
-        mRecyclerView1 = (RecyclerView) findViewById(R.id.ohpRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList);
+        mRecyclerView1 = findViewById(R.id.ohpRecyclerView);
+        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
+            @Override
+            public void onMainLiftViewItemClicked(int position, int id) {
+            }
+        });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

@@ -12,6 +12,7 @@ public class MainLiftPOJO {
 
 
 
+
     //Default constructor
     public MainLiftPOJO() { }
 
@@ -22,6 +23,7 @@ public class MainLiftPOJO {
         this.percentage = percentage;
         this.reps = reps;
     }
+
 
     public Double getWeight() {
         return weight;
@@ -50,6 +52,7 @@ public class MainLiftPOJO {
     public String getReps() {
         return reps;
     }
+
     public void setReps(String reps) {
         this.reps = reps;
     }

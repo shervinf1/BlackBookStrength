@@ -17,8 +17,8 @@ public class LogsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_logs,container,false);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.logsPager);
-        MyLogsPagerAdapter MyLogsPagerAdapter = new MyLogsPagerAdapter(getFragmentManager());
-        viewPager.setAdapter(MyLogsPagerAdapter);
+        LogsPagerAdapter LogsPagerAdapter = new LogsPagerAdapter(getFragmentManager());
+        viewPager.setAdapter(LogsPagerAdapter);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.logsTablayout);
         tabLayout.setupWithViewPager(viewPager);
 
