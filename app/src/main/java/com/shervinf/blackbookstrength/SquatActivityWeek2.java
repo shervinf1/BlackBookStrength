@@ -1,24 +1,27 @@
 package com.shervinf.blackbookstrength;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
-public class SquatActivity extends AppCompatActivity {
+public class SquatActivityWeek2 extends AppCompatActivity {
 
     private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
     private MainLiftAdapter mAdapter;
@@ -51,29 +54,37 @@ public class SquatActivity extends AppCompatActivity {
 
 
     //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
-    private void prepareData() {
+    private void prepareData(){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        DocumentReference docRef = db.collection("users").document(userID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        final DocumentReference docRef = db.collection("users").document(userID);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                UserPOJO newUser = documentSnapshot.toObject(UserPOJO.class);
-                Double squatMax = newUser.getSquatMax();
-                MainLiftPOJO Lift;
-                Lift = new MainLiftPOJO(squatMax * 0.40, "lbs", 40, "% x 3 REPS");
-                mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(squatMax * 0.50, "lbs", 50, "% x 3 REPS");
-                mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(squatMax * 0.60, "lbs", 60, "% x 3 REPS");
-                mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(squatMax * 0.65, "lbs", 65, "% x 3 REPS");
-                mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(squatMax * 0.75, "lbs", 75, "% x 3 REPS");
-                mArrayList.add(Lift);
-                Lift = new MainLiftPOJO(squatMax * 0.85, "lbs", 85, "% x 3 REPS");
-                mArrayList.add(Lift);
-                mAdapter.notifyDataSetChanged();
+            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("BlackBookStrength", "Listen failed.", e);
+                    return;
+                }
+                if (snapshot != null && snapshot.exists()) {
+                    UserPOJO newUser = snapshot.toObject(UserPOJO.class);
+                    Double squatMax = newUser.getSquatMax();
+                    MainLiftPOJO Lift;
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_40,"lbs", 40, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_50,"lbs",50, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_60,"lbs",60, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_70,"lbs",70, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_80,"lbs",80, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_90,"lbs",90, "% x 3 REPS");
+                    mArrayList.add(Lift);
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    Log.d("BlackBookStrength", "Current data: null");
+                }
             }
         });
     }
@@ -94,6 +105,6 @@ public class SquatActivity extends AppCompatActivity {
         mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
-        Log.d("debugMode", "The application stopped after SquatActivity.java");
+        Log.d("debugMode", "The application stopped after SquatActivityWeek1.java");
     }
 }

@@ -20,60 +20,31 @@ public class Week1Fragment extends Fragment {
     private RecyclerView mRecyclerView1;
     private ExerciseAdapter mAdapter;
 
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_week1, container, false);
-
-        mRecyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerView1);
-        mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
-            @Override
-            public void onExerciseViewItemClicked(int position, int id) {
-
-//                Toast.makeText(getActivity().getBaseContext(),""+position,Toast.LENGTH_SHORT).show();
-                switch(position) {
-                    case 0:
-                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivity.class);
-                        startActivity(deadliftIntent);
-                        break;
-                    case 1:
-                        Intent BenchIntent = new Intent(getActivity(), BenchActivity.class);
-                        startActivity(BenchIntent);
-                        break;
-                    case 2:
-                        Intent SquatIntent = new Intent(getActivity(), SquatActivity.class);
-                        startActivity(SquatIntent);
-                        break;
-                    case 3:
-                        Intent OHPIntent = new Intent(getActivity(), OHPActivity.class);
-                        startActivity(OHPIntent);
-                        break;
-                }
-            }
-        });
-
-
-        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("debugMode", "The application stopped after this");
-        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        mRecyclerView1.setAdapter(mAdapter);
-
-
-        mainLift();
-
+        View view = inflater.inflate(R.layout.fragment_week, container, false);
+        recyclerViewSetup(view);
+        prepareData();
         return view;
     }
 
 
-    private void mainLift() {
 
+
+
+    private void prepareData() {
         ExercisePOJO exercisePOJOList = null;
         exercisePOJOList = new ExercisePOJO("DEADLIFT");
         mArrayList.add(exercisePOJOList);
@@ -84,5 +55,41 @@ public class Week1Fragment extends Fragment {
         exercisePOJOList = new ExercisePOJO("OHP");
         mArrayList.add(exercisePOJOList);
         mAdapter.notifyDataSetChanged();
+    }
+
+
+
+
+
+    private void recyclerViewSetup(View v){
+        mRecyclerView1 = v.findViewById(R.id.recyclerViewWeek);
+        mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
+            @Override
+            public void onExerciseViewItemClicked(int position, int id) {
+                switch(position) {
+                    case 0:
+                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivityWeek1.class);
+                        startActivity(deadliftIntent);
+                        break;
+                    case 1:
+                        Intent BenchIntent = new Intent(getActivity(), BenchActivityWeek1.class);
+                        startActivity(BenchIntent);
+                        break;
+                    case 2:
+                        Intent SquatIntent = new Intent(getActivity(), SquatActivityWeek1.class);
+                        startActivity(SquatIntent);
+                        break;
+                    case 3:
+                        Intent OHPIntent = new Intent(getActivity(), OHPActivityWeek1.class);
+                        startActivity(OHPIntent);
+                        break;
+                }
+            }
+        });
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        Log.d("debugMode", "The application stopped after this");
+        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        mRecyclerView1.setAdapter(mAdapter);
     }
 }

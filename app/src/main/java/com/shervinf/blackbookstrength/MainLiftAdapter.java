@@ -62,7 +62,6 @@ public class MainLiftAdapter extends RecyclerView.Adapter<MainLiftAdapter.MyView
                         checkedImageView.setImageResource(R.drawable.ic_done_white_24dp);
                         itemStateArray.put(adapterPosition, false);
                     }
-//                    listener.onMainLiftViewItemClicked(getAdapterPosition(), itemView.getId());
                 }
             });
         }

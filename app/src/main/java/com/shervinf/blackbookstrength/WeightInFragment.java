@@ -1,26 +1,23 @@
 package com.shervinf.blackbookstrength;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,25 +29,28 @@ public class WeightInFragment extends Fragment {
 
     private ArrayList<WeightInPOJO> mArrayList = new ArrayList<>();
     private WeightInAdapter mAdapter;
-
+    private FirebaseFirestore db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         FloatingActionButton fab;
+
+
         //Inflating weight in fragment
         View view = inflater.inflate(R.layout.fragment_weight_in, container, false);
         //Casting floating action button to respective ID
-        fab = (FloatingActionButton) view.findViewById(R.id.weightIn_floating_action_button);
+        fab = view.findViewById(R.id.weightIn_floating_action_button);
         //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
         if (fab != null)
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
-                    showAddItemDialog(getContext());
+                    customWeightinDialogBuilder();
                 }
             });
         //This method shows the recycler view list
         recyclerViewSetup(view);
+        db = FirebaseFirestore.getInstance();
         return view;
     }
 
@@ -63,24 +63,29 @@ public class WeightInFragment extends Fragment {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void showAddItemDialog(Context c) {
-        //Displatign Alert Dialog Box
-        final EditText taskEditText = new EditText(c);
-        //Settings soft keyboard to a numberic keyboard when alert dialog box is opened
-        taskEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        AlertDialog dialog = new AlertDialog.Builder(c, R.style.Theme_AppCompat_Dialog_Alert)
-                .setTitle("Add weight")
-                .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    String task = String.valueOf(taskEditText.getText());
-                    prepareWeightInData(currentDate(), task,"lbs");
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
-        dialog.show();
+    public void customWeightinDialogBuilder(){
+        final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_weightin_dialog, null);
+        final EditText taskEditText = dialogView.findViewById(R.id.edit_weightin_comment);
+        Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
+        Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String task = String.valueOf(taskEditText.getText());
+                prepareWeightInData(currentDate(), task,"lbs");
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
     private void recyclerViewSetup(View v){

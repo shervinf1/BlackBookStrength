@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edt_comment"
+        android:id="@+id/edit_goals_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -42,7 +42,7 @@
         android:layout_marginEnd="24dp"
         android:text="@string/ok"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_goals_comment" />
 
     <Button
         android:id="@+id/buttonCancel"
@@ -52,6 +52,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/cancel"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_goals_comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -94,7 +93,7 @@ public class EditProfileActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_username_dialog, null);
 
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
+        final EditText editText = (EditText) dialogView.findViewById(R.id.edit_username_comment);
         Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
         Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
@@ -127,7 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_password_input_dialog, null);
 
-        final EditText editText = dialogView.findViewById(R.id.edt_comment);
+        final EditText editText = dialogView.findViewById(R.id.edit_password_comment);
         Button button1 = dialogView.findViewById(R.id.buttonSubmit);
         Button button2 = dialogView.findViewById(R.id.buttonCancel);
 

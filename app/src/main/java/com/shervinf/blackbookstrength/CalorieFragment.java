@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,7 +57,7 @@ public class CalorieFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                 //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
-                showAddItemDialog(getContext());
+                customCalorieDialogBuilder();
                 }
             });
 }
@@ -66,7 +67,7 @@ public class CalorieFragment extends Fragment {
 
     private void prepareCalorieData(String date, String calorie, String calorieUnit){
         //Creating Plain Old Java Object type WeightInPOJO and adding the passed values to add to the recycler view
-        CaloriePOJO calorieList = null;
+        CaloriePOJO calorieList;
         calorieList = new CaloriePOJO(date,calorie,calorieUnit);
         mArrayList.add(calorieList);
         mAdapter.notifyDataSetChanged();
@@ -74,24 +75,30 @@ public class CalorieFragment extends Fragment {
 
 
 
-    private void showAddItemDialog(Context c) {
-        //Displaying Alert Dialog Box
-        final EditText taskEditText = new EditText(c);
-        //Settings soft keyboard to a numberic keyboard when alert dialog box is opened
-        taskEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        AlertDialog dialog = new AlertDialog.Builder(c, R.style.Theme_AppCompat_Dialog_Alert)
-                .setTitle("Add weight")
-                .setView(taskEditText)
-                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String task = String.valueOf(taskEditText.getText());
-                        prepareCalorieData(currentDate(), task,"Cal");
-                    }
-                })
-                .setNegativeButton("Cancel", null)
-                .create();
-        dialog.show();
+
+    public void customCalorieDialogBuilder(){
+        final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_calorie_dialog, null);
+        final EditText taskEditText = dialogView.findViewById(R.id.edit_calorie_comment);
+        Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
+        Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String task = String.valueOf(taskEditText.getText());
+                prepareCalorieData(currentDate(), task,"Cal");
+                dialogBuilder.dismiss();
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
 
 
@@ -102,7 +109,6 @@ public class CalorieFragment extends Fragment {
         mRecyclerView1 = v.findViewById(R.id.calorieRecyclerView);
         mAdapter = new CalorieAdapter(mArrayList);
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("debugMode", "The application stopped after this");
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);

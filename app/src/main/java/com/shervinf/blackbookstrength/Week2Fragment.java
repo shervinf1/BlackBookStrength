@@ -18,38 +18,66 @@ public class Week2Fragment extends Fragment {
     private RecyclerView mRecyclerView2;
     private ExerciseAdapter mAdapter;
 
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_week, container, false);
+        reyclerViewSetup(view);
+        prepareData();
+        return view;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_week2, container, false);
 
-        mRecyclerView2 = (RecyclerView) view.findViewById(R.id.recyclerView2);
+
+
+
+    private void prepareData() {
+        ExercisePOJO exercisePOJOList = null;
+        exercisePOJOList = new ExercisePOJO("DEADLIFT");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("BENCH");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("SQUAT");
+        mArrayList.add(exercisePOJOList);
+        exercisePOJOList = new ExercisePOJO("OHP");
+        mArrayList.add(exercisePOJOList);
+        mAdapter.notifyDataSetChanged();
+    }
+
+
+
+    private void reyclerViewSetup(View v){
+        mRecyclerView2 = v.findViewById(R.id.recyclerViewWeek);
         mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {
-
-//                Toast.makeText(getActivity().getBaseContext(),""+position,Toast.LENGTH_SHORT).show();
                 switch(position) {
                     case 0:
-                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivity.class);
+                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivityWeek2.class);
                         startActivity(deadliftIntent);
                         break;
                     case 1:
-                        Intent BenchIntent = new Intent(getActivity(), BenchActivity.class);
+                        Intent BenchIntent = new Intent(getActivity(), BenchActivityWeek2.class);
                         startActivity(BenchIntent);
                         break;
                     case 2:
-                        Intent SquatIntent = new Intent(getActivity(), SquatActivity.class);
+                        Intent SquatIntent = new Intent(getActivity(), SquatActivityWeek2.class);
                         startActivity(SquatIntent);
                         break;
                     case 3:
-                        Intent OHPIntent = new Intent(getActivity(), OHPActivity.class);
+                        Intent OHPIntent = new Intent(getActivity(), OHPActivityWeek2.class);
                         startActivity(OHPIntent);
                         break;
                 }
@@ -60,27 +88,5 @@ public class Week2Fragment extends Fragment {
         mRecyclerView2.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView2.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView2.setAdapter(mAdapter);
-
-        mainLift();
-
-
-        return view;
-    }
-
-
-    private void mainLift() {
-
-        ExercisePOJO exercisePOJOList = null;
-
-        exercisePOJOList = new ExercisePOJO("DEADLIFT");
-        mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("BENCH");
-        mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("SQUAT");
-        mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("OHP");
-        mArrayList.add(exercisePOJOList);
-
-        mAdapter.notifyDataSetChanged();
     }
 }

@@ -9,6 +9,17 @@ public class MainLiftPOJO {
     private String weightUnit;
     private Integer percentage;
     private String reps;
+    public static final double PERCENT_40 = .40;
+    public static final double PERCENT_50 = .50;
+    public static final double PERCENT_60 = .60;
+    public static final double PERCENT_65 = .65;
+    public static final double PERCENT_70 = .70;
+    public static final double PERCENT_75 = .75;
+    public static final double PERCENT_80 = .80;
+    public static final double PERCENT_85 = .85;
+    public static final double PERCENT_90 = .90;
+    public static final double PERCENT_95 = .95;
+
 
 
 

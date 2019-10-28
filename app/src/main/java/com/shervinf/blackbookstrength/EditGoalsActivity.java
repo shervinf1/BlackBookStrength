@@ -20,9 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.FirestoreGrpc;
 
 import java.util.ArrayList;
 
@@ -105,7 +103,7 @@ public class EditGoalsActivity extends AppCompatActivity {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_goals_decimal_input_dialog, null);
-        final EditText editText = dialogView.findViewById(R.id.edt_comment);
+        final EditText editText = dialogView.findViewById(R.id.edit_goals_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +147,7 @@ public class EditGoalsActivity extends AppCompatActivity {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_integer_input_dialog, null);
-        final EditText editText = dialogView.findViewById(R.id.edt_comment);
+        final EditText editText = dialogView.findViewById(R.id.edir_calorie_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener() {

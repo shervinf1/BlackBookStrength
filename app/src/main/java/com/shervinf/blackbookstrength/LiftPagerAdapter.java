@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HomePagerAdapter extends FragmentStatePagerAdapter {
-//    private final List<Fragment> mFragmentList = new ArrayList<>(Arrays.asList(new Week1Fragment(),new Week2Fragment(),new Week3Fragment(),new Week4Fragment()));
-//    private final List<String> mFragmentTitleList = new ArrayList<>(Arrays.asList("WEEK 1","WEEK 2","WEEK 3","DELOAD"));
+public class LiftPagerAdapter extends FragmentStatePagerAdapter {
 
-    HomePagerAdapter(FragmentManager fm) {
+    LiftPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

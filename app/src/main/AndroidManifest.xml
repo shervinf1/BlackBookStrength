@@ -26,10 +26,23 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".OHPActivity" />
-        <activity android:name=".BenchActivity" />
-        <activity android:name=".SquatActivity" />
-        <activity android:name=".DeadliftActivity" />
+        <activity android:name=".OHPActivityWeek1" />
+        <activity android:name=".OHPActivityWeek2" />
+        <activity android:name=".OHPActivityWeek3" />
+        <activity android:name=".OHPActivityWeekDeload" />
+        <activity android:name=".BenchActivityWeek1" />
+        <activity android:name=".BenchActivityWeek2" />
+        <activity android:name=".BenchActivityWeek3" />
+        <activity android:name=".BenchActivityWeekDeload" />
+        <activity android:name=".SquatActivityWeek1" />
+        <activity android:name=".SquatActivityWeek2" />
+        <activity android:name=".SquatActivityWeek3" />
+        <activity android:name=".SquatActivityWeekDeload" />
+        <activity android:name=".DeadliftActivityWeek1" />
+        <activity android:name=".DeadliftActivityWeek2" />
+        <activity android:name=".DeadliftActivityWeek3" />
+        <activity android:name=".DeadliftActivityWeekDeload" />
+
         <activity android:name=".MainActivity" />
 
         <meta-data
