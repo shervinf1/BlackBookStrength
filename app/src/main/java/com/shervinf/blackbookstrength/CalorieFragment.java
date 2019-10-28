@@ -106,9 +106,12 @@ public class CalorieFragment extends Fragment {
 
     private void recyclerViewSetup(View v){
         RecyclerView mRecyclerView1;
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
         mRecyclerView1 = v.findViewById(R.id.calorieRecyclerView);
         mAdapter = new CalorieAdapter(mArrayList);
-        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView1.setLayoutManager(mLayoutManager);
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);

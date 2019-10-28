@@ -90,9 +90,12 @@ public class WeightInFragment extends Fragment {
 
     private void recyclerViewSetup(View v){
         RecyclerView mRecyclerView1;
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
         mRecyclerView1 = v.findViewById(R.id.weightInRecyclerView);
         mAdapter = new WeightInAdapter(mArrayList);
-        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView1.setLayoutManager(mLayoutManager);
         Log.d("debugMode", "The application stopped after this");
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
