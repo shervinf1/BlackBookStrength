@@ -27,6 +27,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 
 public class CalorieFragment extends Fragment {
@@ -121,7 +122,7 @@ public class CalorieFragment extends Fragment {
 
 
     public static String currentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormat dateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
         // get current date time with Date()
         Date date = new Date();
         // System.out.println(dateFormat.format(date));

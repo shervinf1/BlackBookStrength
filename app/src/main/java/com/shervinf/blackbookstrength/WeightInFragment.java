@@ -3,6 +3,7 @@ package com.shervinf.blackbookstrength;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,6 +24,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 
 public class WeightInFragment extends Fragment {
@@ -98,12 +101,12 @@ public class WeightInFragment extends Fragment {
         mRecyclerView1.setLayoutManager(mLayoutManager);
         Log.d("debugMode", "The application stopped after this");
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        mRecyclerView1.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
 
-    public static String currentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private static String currentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
         // get current date time with Date()
         Date date = new Date();
         // System.out.println(dateFormat.format(date));
