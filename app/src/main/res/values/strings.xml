@@ -19,7 +19,7 @@
     <string name="percentage_place_holder">65%</string>
     <string name="reps_place_holder">X 3 REPS</string>
     <string name="logs_tab">Logs</string>
-    <string name="date">MON DAY,YEAR</string>
+    <string name="date">Mth-00-0000</string>
     <string name="title_calorie">2000</string>
     <string name="calorie_unit_placeholder">CAL</string>
     <string name="loginBtn">LogIn</string>

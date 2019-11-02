@@ -93,7 +93,7 @@ public class ProfileFragment extends Fragment {
         });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+//        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
 

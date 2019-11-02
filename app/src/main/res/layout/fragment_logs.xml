@@ -13,10 +13,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryMiddle"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
         android:elevation="6dp">
@@ -36,9 +35,8 @@
         android:id="@+id/logsTablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorPrimaryMiddle"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:tabSelectedTextColor="@color/colorAccent"
         app:tabTextColor="@android:color/white"
