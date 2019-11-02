@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -32,7 +33,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        sp = this.getActivity().getSharedPreferences("logged", Context.MODE_PRIVATE);
+        sp = Objects.requireNonNull(this.getActivity()).getSharedPreferences("logged", Context.MODE_PRIVATE);
     }
 
 
@@ -112,7 +113,6 @@ public class ProfileFragment extends Fragment {
         alertDialog2.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog
                         mAuth.getInstance().signOut();
                         sp.edit().putBoolean("logged",false).apply();
                         Intent i = new Intent(getActivity(), LoginActivity.class);
@@ -124,10 +124,6 @@ public class ProfileFragment extends Fragment {
         alertDialog2.setNegativeButton("NO",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Write your code here to execute after dialog
-                        Toast.makeText(getContext(),
-                                "You clicked on NO", Toast.LENGTH_SHORT)
-                                .show();
                         dialog.cancel();
                     }
                 });
