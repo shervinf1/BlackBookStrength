@@ -1,5 +1,9 @@
 package com.shervinf.blackbookstrength;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class WeightInPOJO {
     private String date;
     private String weight;
@@ -8,7 +12,7 @@ public class WeightInPOJO {
     public WeightInPOJO() {
     }
 
-    public WeightInPOJO(String date, String weight, String weightUnit) {
+    public WeightInPOJO(String weight, String weightUnit,String date) {
         this.date = date;
         this.weight = weight;
         this.weightUnit = weightUnit;

@@ -1,55 +1,46 @@
 package com.shervinf.blackbookstrength;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
-public class WeightInAdapter extends RecyclerView.Adapter<WeightInAdapter.MyViewHolder> {
+public class WeightInAdapter extends FirestoreRecyclerAdapter<WeightInPOJO, WeightInAdapter.WeightInHolder> {
 
-    private ArrayList<WeightInPOJO> arrayList;
-
-    //Default Constructor
-    public WeightInAdapter(ArrayList<WeightInPOJO> arrayList) {
-        this.arrayList = arrayList;
+    public WeightInAdapter(@NonNull FirestoreRecyclerOptions<WeightInPOJO> options) {
+        super(options);
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("CreateViewHolder", "in onCreateViewHolder");
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.weightin_list_layout, parent, false);
-
-        return new MyViewHolder(itemView);
+    protected void onBindViewHolder(@NonNull WeightInHolder weightInHolder, int i, @NonNull WeightInPOJO weightInPOJO) {
+        weightInHolder.weightInTextView.setText(weightInPOJO.getWeight());
+        weightInHolder.weightInUnitTextView.setText(weightInPOJO.getWeightUnit());
+        weightInHolder.dateTextView.setText(weightInPOJO.getDate());
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView date, weight, weightUnit;
+    @NonNull
+    @Override
+    public WeightInHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.weightin_list_layout,parent,false);
+        return new WeightInHolder(v);
+    }
 
-        public MyViewHolder(View itemView) {
+    class WeightInHolder extends RecyclerView.ViewHolder{
+        TextView dateTextView;
+        TextView weightInTextView;
+        TextView weightInUnitTextView;
+
+        public WeightInHolder(@NonNull View itemView) {
             super(itemView);
-            Log.v("ViewHolder", "in View Holder");
-            date = itemView.findViewById(R.id.dateTextView);
-            weight = itemView.findViewById(R.id.weightInTextView);
-            weightUnit = itemView.findViewById(R.id.weightInUnitTextView);
+            dateTextView = itemView.findViewById(R.id.dateTextView);
+            weightInTextView = itemView.findViewById(R.id.weightInTextView);
+            weightInUnitTextView = itemView.findViewById(R.id.weightInUnitTextView);
         }
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
-        Log.v("BindViewHolder", "in onBindViewHolder");
-        WeightInPOJO weightIn = arrayList.get(position);
-        holder.weight.setText(weightIn.getWeight().toString());
-        holder.weightUnit.setText(weightIn.getWeightUnit());
-        holder.date.setText(weightIn.getDate());
-    }
-
-    @Override
-    public int getItemCount() {
-        return arrayList.size();
     }
 }

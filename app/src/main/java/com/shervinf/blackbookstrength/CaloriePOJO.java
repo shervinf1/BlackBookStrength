@@ -1,5 +1,9 @@
 package com.shervinf.blackbookstrength;
 
+import com.google.firebase.firestore.ServerTimestamp;
+
+import java.util.Date;
+
 public class CaloriePOJO {
     private String calorie;
     private String calorieUnit;
@@ -8,11 +12,12 @@ public class CaloriePOJO {
     public CaloriePOJO() {
     }
 
-    public CaloriePOJO(String date, String calorie, String calorieUnit) {
+    public CaloriePOJO(String calorie, String calorieUnit, String date) {
         this.calorie = calorie;
         this.calorieUnit = calorieUnit;
         this.date = date;
     }
+
 
     public String getCalorie() {
         return calorie;

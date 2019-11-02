@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -20,20 +21,43 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 
 public class CalorieFragment extends Fragment {
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private CollectionReference calorieReference = db.collection("users").document(userID).collection("calorieLog");
+    private CalorieAdapter calorieAdapter;
 
-    private ArrayList<CaloriePOJO> mArrayList = new ArrayList<>();
-    private CalorieAdapter mAdapter;
+
+
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -44,6 +68,8 @@ public class CalorieFragment extends Fragment {
         recyclerViewSetup(view);
         return view;
     }
+
+
 
 
 
@@ -66,24 +92,15 @@ public class CalorieFragment extends Fragment {
 
 
 
-    private void prepareCalorieData(String date, String calorie, String calorieUnit){
-        //Creating Plain Old Java Object type WeightInPOJO and adding the passed values to add to the recycler view
-        CaloriePOJO calorieList;
-        calorieList = new CaloriePOJO(date,calorie,calorieUnit);
-        mArrayList.add(calorieList);
-        mAdapter.notifyDataSetChanged();
-    }
 
-
-
-
-    public void customCalorieDialogBuilder(){
+    private void customCalorieDialogBuilder(){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_calorie_dialog, null);
         final EditText taskEditText = dialogView.findViewById(R.id.edit_calorie_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,8 +111,15 @@ public class CalorieFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String task = String.valueOf(taskEditText.getText());
-                prepareCalorieData(currentDate(), task,"Cal");
-                dialogBuilder.dismiss();
+                if (task.trim().isEmpty()){
+                    Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    calorieReference.add(new CaloriePOJO(task,"Cal",currentDate()));
+                    Toast.makeText(getContext(), "Calories added", Toast.LENGTH_SHORT).show();
+                    dialogBuilder.dismiss();
+                }
+
             }
         });
         dialogBuilder.setView(dialogView);
@@ -105,17 +129,22 @@ public class CalorieFragment extends Fragment {
 
 
 
+
+
     private void recyclerViewSetup(View v){
-        RecyclerView mRecyclerView1;
+        Query query = calorieReference.orderBy("date", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<CaloriePOJO> options = new FirestoreRecyclerOptions.Builder<CaloriePOJO>()
+                .setQuery(query, CaloriePOJO.class)
+                .build();
+        calorieAdapter = new CalorieAdapter(options);
+        RecyclerView mRecyclerView = v.findViewById(R.id.calorieRecyclerView);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-        mRecyclerView1 = v.findViewById(R.id.calorieRecyclerView);
-        mAdapter = new CalorieAdapter(mArrayList);
-        mRecyclerView1.setLayoutManager(mLayoutManager);
-        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
-        mRecyclerView1.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(calorieAdapter);
     }
 
 
@@ -129,4 +158,21 @@ public class CalorieFragment extends Fragment {
         // don't print it, but save it!
         return dateFormat.format(date);
     }
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        calorieAdapter.startListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        calorieAdapter.stopListening();
+    }
+
+
 }
