@@ -31,6 +31,10 @@ public class WeightInAdapter extends FirestoreRecyclerAdapter<WeightInPOJO, Weig
         return new WeightInHolder(v);
     }
 
+    public void deleteItem(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
     class WeightInHolder extends RecyclerView.ViewHolder{
         TextView dateTextView;
         TextView weightInTextView;

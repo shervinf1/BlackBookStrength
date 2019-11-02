@@ -31,6 +31,10 @@ public class CalorieAdapter extends FirestoreRecyclerAdapter<CaloriePOJO, Calori
         return new CalorieHolder(v);
     }
 
+    public void deleteItem(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
     class CalorieHolder extends RecyclerView.ViewHolder{
         TextView dateTextView;
         TextView calorieTextView;

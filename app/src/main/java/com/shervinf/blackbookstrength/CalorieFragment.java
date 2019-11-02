@@ -1,24 +1,19 @@
 package com.shervinf.blackbookstrength;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -26,28 +21,21 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 
 public class CalorieFragment extends Fragment {
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private CollectionReference calorieReference = db.collection("users").document(userID).collection("calorieLog");
+    private CollectionReference calorieLogCollectionReference = db.collection("users").document(userID).collection("calorieLog");
     private CalorieAdapter calorieAdapter;
 
 
@@ -115,7 +103,7 @@ public class CalorieFragment extends Fragment {
                     Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    calorieReference.add(new CaloriePOJO(task,"Cal",currentDate()));
+                    calorieLogCollectionReference.add(new CaloriePOJO(task,"Cal",currentDate()));
                     Toast.makeText(getContext(), "Calories added", Toast.LENGTH_SHORT).show();
                     dialogBuilder.dismiss();
                 }
@@ -132,7 +120,7 @@ public class CalorieFragment extends Fragment {
 
 
     private void recyclerViewSetup(View v){
-        Query query = calorieReference.orderBy("date", Query.Direction.DESCENDING);
+        Query query = calorieLogCollectionReference.orderBy("date", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<CaloriePOJO> options = new FirestoreRecyclerOptions.Builder<CaloriePOJO>()
                 .setQuery(query, CaloriePOJO.class)
                 .build();
@@ -145,6 +133,18 @@ public class CalorieFragment extends Fragment {
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(calorieAdapter);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                calorieAdapter.deleteItem(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(mRecyclerView);
     }
 
 

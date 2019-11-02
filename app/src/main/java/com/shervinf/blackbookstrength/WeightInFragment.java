@@ -1,16 +1,15 @@
 package com.shervinf.blackbookstrength;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import com.google.firebase.firestore.Query;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -36,7 +34,7 @@ import java.util.Objects;
 public class WeightInFragment extends Fragment {
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private CollectionReference weightInReference = db.collection("users").document(userID).collection("weightInLog");
+    private CollectionReference weightInLogReference = db.collection("users").document(userID).collection("weightInLog");
     private WeightInAdapter weightInAdapter;
 
 
@@ -96,7 +94,7 @@ public class WeightInFragment extends Fragment {
                     Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    weightInReference.add(new WeightInPOJO(task,"lbs",currentDate()));
+                    weightInLogReference.add(new WeightInPOJO(task,"lbs",currentDate()));
                     Toast.makeText(getContext(), "WeightIn added", Toast.LENGTH_SHORT).show();
                     dialogBuilder.dismiss();
                 }
@@ -113,7 +111,7 @@ public class WeightInFragment extends Fragment {
 
 
     private void recyclerViewSetup(View v){
-        Query query = weightInReference.orderBy("date", Query.Direction.DESCENDING);
+        Query query = weightInLogReference.orderBy("date", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<WeightInPOJO> options = new FirestoreRecyclerOptions.Builder<WeightInPOJO>()
                 .setQuery(query, WeightInPOJO.class)
                 .build();
@@ -126,6 +124,18 @@ public class WeightInFragment extends Fragment {
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(weightInAdapter);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                weightInAdapter.deleteItem(viewHolder.getAdapterPosition());
+            }
+        }).attachToRecyclerView(mRecyclerView);
     }
 
 
