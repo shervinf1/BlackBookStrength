@@ -19,13 +19,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:elevation="6dp"
             android:text="@string/profile_tab"
+            android:gravity="center_vertical|center"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_gravity="start"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+/>
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|center"
+                android:text="@string/userName"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:layout_gravity="start"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -40,3 +67,11 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--<TextView-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:elevation="6dp"-->
+<!--android:text="@string/profile_tab"-->
+<!--android:textColor="@color/colorWhite"-->
+<!--android:textSize="20sp" />-->

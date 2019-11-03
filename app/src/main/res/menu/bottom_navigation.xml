@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/nav_lift"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/lift" />
+    <item
         android:id="@+id/nav_logs"
         android:icon="@drawable/ic_bookmark_black_24dp"
-        android:title="Logs" />
-    <item
-        android:id="@+id/nav_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
+        android:title="@string/logs" />
+
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="Profile" />
+        android:title="@string/profile" />
 
 </menu>

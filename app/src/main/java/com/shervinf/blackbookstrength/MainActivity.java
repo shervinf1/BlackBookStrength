@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         //creating bottom navigation instance and setting the listener
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        //The line below sets the Home tab to be selected when app is opened.
+        //The line below sets the Lift tab to be selected when app is opened.
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new LiftFragment()).commit();
 
 
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     Fragment selectedFragment = null;
                     switch (menuItem.getItemId()) {
-                        case R.id.nav_home:
+                        case R.id.nav_lift:
                             selectedFragment = new LiftFragment();
                             break;
                         case R.id.nav_logs:

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -28,6 +33,7 @@ public class ProfileFragment extends Fragment {
     private CustomSettingsAdapter mAdapter;
     private FirebaseAuth mAuth;
     private SharedPreferences sp;
+    private TextView TextViewEmail;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile,container,false);
+        getUserEmail(view);
         recyclerViewSetup(view);
         prepareData();
         return view;
@@ -50,6 +57,16 @@ public class ProfileFragment extends Fragment {
 
 
 
+
+    private void getUserEmail(View view){
+        TextViewEmail = view.findViewById(R.id.usernameTextView);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String email = user.getEmail();
+        int index = email.indexOf('@');
+        email = email.substring(0,index);
+        email = "Welcome " + email;
+        TextViewEmail.setText(email);
+    }
 
 
     private void prepareData() {

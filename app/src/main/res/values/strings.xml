@@ -59,5 +59,8 @@
     <string name="edit_password">Edit Password</string>
     <string name="edit_username">Edit Username</string>
     <string name="register">Register</string>
+    <string name="lift">Lift</string>
+    <string name="logs">Logs</string>
+    <string name="profile">Profile</string>
 
 </resources>
