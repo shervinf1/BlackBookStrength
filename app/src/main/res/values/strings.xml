@@ -22,8 +22,8 @@
     <string name="date">Mth-00-0000</string>
     <string name="title_calorie">2000</string>
     <string name="calorie_unit_placeholder">CAL</string>
-    <string name="loginBtn">LogIn</string>
-    <string name="registerBtn">Don\'t have an account? Sign up</string>
+    <string name="loginBtn">Login</string>
+    <string name="registerBtn">Don\'t have an account?</string>
     <string name="userName">Username</string>
     <string name="emailHint">Email</string>
     <string name="passwordHint">Password</string>
