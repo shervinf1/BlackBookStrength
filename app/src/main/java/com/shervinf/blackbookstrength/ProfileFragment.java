@@ -64,7 +64,7 @@ public class ProfileFragment extends Fragment {
         String email = user.getEmail();
         int index = email.indexOf('@');
         email = email.substring(0,index);
-        email = "Welcome " + email;
+        email = "Welcome " + email+"!";
         TextViewEmail.setText(email);
     }
 

@@ -1,5 +1,6 @@
 package com.shervinf.blackbookstrength;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -17,6 +18,11 @@ public class MainLiftAdapter extends RecyclerView.Adapter<MainLiftAdapter.MyView
     private OnMainLiftClickListener listener;
     private SparseBooleanArray itemStateArray= new SparseBooleanArray();
 
+
+
+
+
+
     //Default Constructor
     public MainLiftAdapter(ArrayList<MainLiftPOJO> arrayList,OnMainLiftClickListener listener) {
         this.arrayList = arrayList;
@@ -28,10 +34,9 @@ public class MainLiftAdapter extends RecyclerView.Adapter<MainLiftAdapter.MyView
 
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.v("CreateViewHolder", "in onCreateViewHolder");
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_lift_list_layout, parent, false);
-
         return new MyViewHolder(itemView);
     }
 
@@ -71,7 +76,7 @@ public class MainLiftAdapter extends RecyclerView.Adapter<MainLiftAdapter.MyView
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         Log.v("BindViewHolder", "in onBindViewHolder");
         MainLiftPOJO mainLiftPOJO = arrayList.get(position);
         holder.weight.setText(mainLiftPOJO.getWeight().toString());
