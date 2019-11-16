@@ -38,8 +38,16 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
 
         toolbarSetup();
         recyclerViewSetup();
-        prepareData();
+        MainLiftAdapter.prepareData(mainLiftCollectionReference,mainLiftAdapter,
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_70), "lbs", 65, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax()* MainLiftPOJO.PERCENT_80), "lbs", 75, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_90), "lbs", 85, "% x 5 REPS"));
     }
+
+
 
 
 
@@ -59,40 +67,11 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
 
 
 
-    private void prepareData(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final DocumentReference docRef = db.collection("users").document(userID);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("BlackBookStrength", "Listen failed.", e);
-                    return;
-                }
-                if (snapshot != null && snapshot.exists()) {
-                    UserPOJO newUser = snapshot.toObject(UserPOJO.class);
-                    Double deadliftMax = newUser.getDeadliftMax();
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_40,"lbs", 40, "% x 3 REPS"));
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_50,"lbs",50, "% x 3 REPS"));
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_60,"lbs",60, "% x 3 REPS"));
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_70,"lbs",70, "% x 3 REPS"));
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_80,"lbs",80, "% x 3 REPS"));
-                    mainLiftCollectionReference.add(new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_90,"lbs",90, "% x 3 REPS"));
-                    mainLiftAdapter.notifyDataSetChanged();
-                } else {
-                    Log.d("BlackBookStrength", "Current data: null");
-                }
-            }
-        });
-    }
 
 
-
-
-    //Method that find recycler view by the id and displays it.
-    private void recyclerViewSetup(){
-        Query query = mainLiftCollectionReference.orderBy("percentage",Query.Direction.ASCENDING);
+//    Method that find recycler view by the id and displays it.
+    public void recyclerViewSetup(){
+        Query query = mainLiftCollectionReference.orderBy("percentage",Query.Direction.ASCENDING).limit(6);
         FirestoreRecyclerOptions<MainLiftPOJO> options = new FirestoreRecyclerOptions.Builder<MainLiftPOJO>()
                 .setQuery(query, MainLiftPOJO.class)
                 .build();
@@ -102,8 +81,37 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mainLiftAdapter);
+        mainLiftAdapter.setOnItemClickListener(new MainLiftAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                MainLiftPOJO mainLift = documentSnapshot.toObject(MainLiftPOJO.class);
+                boolean isChecked = mainLift.getChecked();
+                if (!isChecked){
+                    documentSnapshot.getReference().update("checked",true);
+                }
+                else{
+                    documentSnapshot.getReference().update("checked",false);
+                }
+            }
+        });
         Log.d("BlackBookStrength", "The application stopped after DeadLiftActivity.java");
     }
 
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainLiftAdapter.startListening();;
+    }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mainLiftAdapter.stopListening();
+    }
 
 }

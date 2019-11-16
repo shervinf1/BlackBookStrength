@@ -52,9 +52,16 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
         setContentView(R.layout.activity_deadlift);
 
         toolbarSetup();
-        prepareData();
         recyclerViewSetup();
+        MainLiftAdapter.prepareData(mainLiftCollectionReference,mainLiftAdapter,
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_65), "lbs", 65, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax()* MainLiftPOJO.PERCENT_75), "lbs", 75, "% x 5 REPS"),
+                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_85), "lbs", 85, "% x 5 REPS"));
     }
+
 
 
 
@@ -69,46 +76,6 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
             public void onClick(View view) {
                 // Your code
                 finish();
-            }
-        });
-    }
-
-
-
-
-
-    //Method to
-    private void prepareData(){
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final DocumentReference docRef = db.collection("users").document(userID);
-        mainLiftCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                UserPOJO newUser = document.toObject(UserPOJO.class);
-                                Double deadliftMax = newUser.getDeadliftMax();
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS"));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS"));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS"));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_65), "lbs", 65, "% x 5 REPS"));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_75), "lbs", 75, "% x 5 REPS"));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((deadliftMax * MainLiftPOJO.PERCENT_85), "lbs", 85, "% x 5 REPS"));
-                                mainLiftAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                e.printStackTrace();
             }
         });
     }
