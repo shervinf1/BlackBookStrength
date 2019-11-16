@@ -33,6 +33,7 @@ import java.util.Objects;
 
 
 public class CalorieFragment extends Fragment {
+
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private CollectionReference calorieLogCollectionReference = db.collection("users").document(userID).collection("calorieLog");
@@ -120,7 +121,7 @@ public class CalorieFragment extends Fragment {
 
 
     private void recyclerViewSetup(View v){
-        Query query = calorieLogCollectionReference.orderBy("date", Query.Direction.DESCENDING);
+        Query query = calorieLogCollectionReference.orderBy("date", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<CaloriePOJO> options = new FirestoreRecyclerOptions.Builder<CaloriePOJO>()
                 .setQuery(query, CaloriePOJO.class)
                 .build();
@@ -146,7 +147,6 @@ public class CalorieFragment extends Fragment {
             }
         }).attachToRecyclerView(mRecyclerView);
     }
-
 
 
 

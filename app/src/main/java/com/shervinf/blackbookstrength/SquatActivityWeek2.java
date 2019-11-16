@@ -12,19 +12,24 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
 public class SquatActivityWeek2 extends AppCompatActivity {
 
-    private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
-    private MainLiftAdapter mAdapter;
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("squatWeek2");
+    private MainLiftAdapter mainLiftAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,20 +73,13 @@ public class SquatActivityWeek2 extends AppCompatActivity {
                 if (snapshot != null && snapshot.exists()) {
                     UserPOJO newUser = snapshot.toObject(UserPOJO.class);
                     Double squatMax = newUser.getSquatMax();
-                    MainLiftPOJO Lift;
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_40,"lbs", 40, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_50,"lbs",50, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_60,"lbs",60, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_70,"lbs",70, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_80,"lbs",80, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_90,"lbs",90, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    mAdapter.notifyDataSetChanged();
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_40,"lbs", 40, "% x 3 REPS"));
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_50,"lbs",50, "% x 3 REPS"));
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_60,"lbs",60, "% x 3 REPS"));
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_70,"lbs",70, "% x 3 REPS"));
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_80,"lbs",80, "% x 3 REPS"));
+                    mainLiftCollectionReference.add(new MainLiftPOJO(squatMax * MainLiftPOJO.PERCENT_90,"lbs",90, "% x 3 REPS"));
+                    mainLiftAdapter.notifyDataSetChanged();
                 } else {
                     Log.d("BlackBookStrength", "Current data: null");
                 }
@@ -92,19 +90,37 @@ public class SquatActivityWeek2 extends AppCompatActivity {
 
 
 
-    //Method that find recycler view by the id and displays it.
-    public void recyclerViewSetup(){
-        RecyclerView mRecyclerView1;
-        mRecyclerView1 = (RecyclerView) findViewById(R.id.squatRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
-            @Override
-            public void onMainLiftViewItemClicked(int position, int id) {
-            }
-        });
-        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView1.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        mRecyclerView1.setAdapter(mAdapter);
-        Log.d("debugMode", "The application stopped after SquatActivityWeek1.java");
+
+    private void recyclerViewSetup(){
+        Query query = mainLiftCollectionReference.orderBy("percentage",Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<MainLiftPOJO> options = new FirestoreRecyclerOptions.Builder<MainLiftPOJO>()
+                .setQuery(query, MainLiftPOJO.class)
+                .build();
+        mainLiftAdapter = new MainLiftAdapter(options);
+        RecyclerView mRecyclerView = findViewById(R.id.squatRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setItemAnimator( new DefaultItemAnimator());
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mainLiftAdapter);
+        Log.d("BlackBookStrength", "The application stopped after DeadLiftActivity.java");
+    }
+
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainLiftAdapter.startListening();
+    }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mainLiftAdapter.stopListening();
     }
 }

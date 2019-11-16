@@ -9,6 +9,7 @@ public class MainLiftPOJO {
     private String weightUnit;
     private Integer percentage;
     private String reps;
+    private boolean checked;
     public static final double PERCENT_40 = .40;
     public static final double PERCENT_50 = .50;
     public static final double PERCENT_60 = .60;
@@ -33,8 +34,16 @@ public class MainLiftPOJO {
         this.weightUnit = weightUnit;
         this.percentage = percentage;
         this.reps = reps;
+        checked = false;
     }
 
+    public boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public Double getWeight() {
         return weight;

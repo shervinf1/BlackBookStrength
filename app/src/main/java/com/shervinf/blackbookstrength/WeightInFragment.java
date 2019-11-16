@@ -111,7 +111,7 @@ public class WeightInFragment extends Fragment {
 
 
     private void recyclerViewSetup(View v){
-        Query query = weightInLogReference.orderBy("date", Query.Direction.DESCENDING);
+        Query query = weightInLogReference.orderBy("date", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<WeightInPOJO> options = new FirestoreRecyclerOptions.Builder<WeightInPOJO>()
                 .setQuery(query, WeightInPOJO.class)
                 .build();
