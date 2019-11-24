@@ -53,13 +53,8 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
 
         toolbarSetup();
         recyclerViewSetup();
-        MainLiftAdapter.prepareData(mainLiftCollectionReference,mainLiftAdapter,
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS"),
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS"),
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS"),
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_65), "lbs", 65, "% x 5 REPS"),
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax()* MainLiftPOJO.PERCENT_75), "lbs", 75, "% x 5 REPS"),
-                new MainLiftPOJO((MainLiftAdapter.retrieveDeadliftMax() * MainLiftPOJO.PERCENT_85), "lbs", 85, "% x 5 REPS"));
+        prepareData();
+
     }
 
 
@@ -83,11 +78,48 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
 
 
 
+    public void prepareData(){
+        mainLiftCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                DocumentReference docRef = db.collection("users").document(userID);
+                if (queryDocumentSnapshots.isEmpty()) {
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                UserPOJO newUser = document.toObject(UserPOJO.class);
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS",1));
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS",2));
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS",3));
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_65), "lbs", 65, "% x 5 REPS",4));
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_75), "lbs", 75, "% x 5 REPS",5));
+                                mainLiftCollectionReference.add(new MainLiftPOJO((newUser.getDeadliftMax() * MainLiftPOJO.PERCENT_85), "lbs", 85, "% x 5 REPS",6));
+                                mainLiftAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+
+
+
+
+
 
 
     //Method that find recycler view by the id and displays it.
     public void recyclerViewSetup(){
-        Query query = mainLiftCollectionReference.orderBy("percentage",Query.Direction.ASCENDING).limit(6);
+        Query query = mainLiftCollectionReference.orderBy("priority",Query.Direction.ASCENDING).limit(6);
         FirestoreRecyclerOptions<MainLiftPOJO> options = new FirestoreRecyclerOptions.Builder<MainLiftPOJO>()
                 .setQuery(query, MainLiftPOJO.class)
                 .build();

@@ -26,10 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, MainLiftAdapter.MainLiftHolder> {
 
     private OnItemClickListener mListener;
-    private static String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private static FirebaseFirestore db =FirebaseFirestore.getInstance();
-    private static DocumentReference docRef = db.collection("users").document(userID);
-    private static double Max;
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
 
@@ -71,6 +69,7 @@ public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, Main
 
 
 
+
     class MainLiftHolder extends RecyclerView.ViewHolder{
         TextView weight, weightUnit, percentage, rep;
         CheckBox checkBoxView;
@@ -94,129 +93,23 @@ public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, Main
             });
         }
     }
+
+
+
+
     public interface OnItemClickListener{
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
 
-
-
-
-
-
-    public static void prepareData(final CollectionReference collectionReference, final MainLiftAdapter mlAdapter, final MainLiftPOJO mp1,final MainLiftPOJO mp2,final  MainLiftPOJO mp3,final  MainLiftPOJO mp4,final  MainLiftPOJO mp5,final  MainLiftPOJO mp6){
-        collectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()) {
-                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                collectionReference.add(mp1);
-                                collectionReference.add(mp2);
-                                collectionReference.add(mp3);
-                                collectionReference.add(mp4);
-                                collectionReference.add(mp5);
-                                collectionReference.add(mp6);
-                                mlAdapter.notifyDataSetChanged();
-                            }
-                        }
-                    });
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public static double getMax() {
-        return Max;
-    }
-
-    public static void setMax(double max) {
-        Max = max;
-    }
-
-    public static double retrieveDeadliftMax(){
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    UserPOJO newUser = document.toObject(UserPOJO.class);
-                    setMax(newUser.getDeadliftMax());
-                }
-            }
-        });
-        return getMax();
-    }
-
-
-
-
-
-    public static Double retrieveSquatMax(){
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    UserPOJO newUser = document.toObject(UserPOJO.class);
-                    setMax(newUser.getSquatMax());
-                }
-            }
-        });
-        return getMax();
-    }
-
-
-
-
-    public static Double retrieveBenchMax(){
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    UserPOJO newUser = document.toObject(UserPOJO.class);
-                    setMax(newUser.getBenchMax());
-                }
-            }
-        });
-        return getMax();
-    }
-
-
-
-
-
-
-    public static Double retrieveOHPMax(){
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    UserPOJO newUser = document.toObject(UserPOJO.class);
-                    setMax(newUser.getOhpMax());
-                }
-            }
-        });
-        return getMax();
-    }
-
-
-
-
-
     public void setOnItemClickListener(OnItemClickListener mListener){
         this.mListener = mListener;
     }
-//    @Override
-//    public long getItemId(int position) {
-//        return super.getItemId(position);
-//    }
+
+
+
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
 }
