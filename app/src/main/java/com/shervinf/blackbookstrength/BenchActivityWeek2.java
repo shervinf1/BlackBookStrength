@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BenchActivityWeek2 extends AppCompatActivity {
@@ -35,6 +36,8 @@ public class BenchActivityWeek2 extends AppCompatActivity {
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("benchWeek2");
     private MainLiftAdapter mainLiftAdapter;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +81,12 @@ public class BenchActivityWeek2 extends AppCompatActivity {
                                 assert newUser != null;
                                 double max = newUser.getBenchMax();
                                 Log.d("BlackBookStrength", "Deadlift max variable" + max);
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40), "lbs", 40, "% x 5 REPS",1));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50), "lbs", 50, "% x 5 REPS",2));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60), "lbs", 60, "% x 5 REPS",3));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_70), "lbs", 70, "% x 3 REPS",4));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_80), "lbs", 80, "% x 3 REPS",5));
-                                mainLiftCollectionReference.add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_90), "lbs", 90, "% x 3 REPS",6));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS",1));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS",2));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS",3));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS",4));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS",5));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS",6));
                                 mainLiftAdapter.notifyDataSetChanged();
                             }
                         }

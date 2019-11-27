@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +14,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -28,14 +33,15 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.Objects;
 
 
 public class WeightInFragment extends Fragment {
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private CollectionReference weightInLogReference = db.collection("users").document(userID).collection("weightInLog");
-    private WeightInAdapter weightInAdapter;
+    private WeightInAdapter mWeightInAdapter;
+//    private ProgressBar mProgressBar;
+//    private int weightInGoal;
 
 
 
@@ -49,6 +55,7 @@ public class WeightInFragment extends Fragment {
         fabSetup(view);
         //This method shows the recycler view list
         recyclerViewSetup(view);
+//        progressBarSetup(view);
         return view;
     }
 
@@ -69,6 +76,32 @@ public class WeightInFragment extends Fragment {
                 }
             });
     }
+
+
+//
+//
+//    private void progressBarSetup(View v){
+//        final ProgressBar mProgressBar = v.findViewById(R.id.progressBar);
+//        DocumentReference docRef = db.collection("users").document(userID);
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    UserPOJO newUser = document.toObject(UserPOJO.class);
+//                    Double dMax = newUser.getWeightGoal();
+//                    weightInGoal = dMax.intValue();
+//                    mProgressBar.setMax(weightInGoal);
+//                }
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//
+//            }
+//        });
+//    }
+
 
 
 
@@ -115,7 +148,7 @@ public class WeightInFragment extends Fragment {
         FirestoreRecyclerOptions<WeightInPOJO> options = new FirestoreRecyclerOptions.Builder<WeightInPOJO>()
                 .setQuery(query, WeightInPOJO.class)
                 .build();
-        weightInAdapter = new WeightInAdapter(options);
+        mWeightInAdapter = new WeightInAdapter(options);
         RecyclerView mRecyclerView = v.findViewById(R.id.weightInRecyclerView);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
@@ -123,7 +156,7 @@ public class WeightInFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
-        mRecyclerView.setAdapter(weightInAdapter);
+        mRecyclerView.setAdapter(mWeightInAdapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.RIGHT) {
             @Override
@@ -133,7 +166,7 @@ public class WeightInFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                weightInAdapter.deleteItem(viewHolder.getAdapterPosition());
+                mWeightInAdapter.deleteItem(viewHolder.getAdapterPosition());
             }
         }).attachToRecyclerView(mRecyclerView);
     }
@@ -158,13 +191,13 @@ public class WeightInFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        weightInAdapter.startListening();
+        mWeightInAdapter.startListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        weightInAdapter.stopListening();
+        mWeightInAdapter.stopListening();
     }
 
 

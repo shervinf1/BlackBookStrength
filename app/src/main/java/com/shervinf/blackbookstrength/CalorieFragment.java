@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -38,6 +39,7 @@ public class CalorieFragment extends Fragment {
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private CollectionReference calorieLogCollectionReference = db.collection("users").document(userID).collection("calorieLog");
     private CalorieAdapter calorieAdapter;
+    private ProgressBar mProgressBar;
 
 
 
@@ -132,8 +134,7 @@ public class CalorieFragment extends Fragment {
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
-//        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
-        mRecyclerView.setAdapter(calorieAdapter);
+         mRecyclerView.setAdapter(calorieAdapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
             @Override

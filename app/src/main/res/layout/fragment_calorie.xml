@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CalorieFragment">
-
-
-    <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calorieRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
