@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditGoalsActivity"></activity>
+        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".EditGoalsActivity" />
         <activity android:name=".Edit1rmActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity
@@ -42,7 +43,6 @@
         <activity android:name=".DeadliftActivityWeek2" />
         <activity android:name=".DeadliftActivityWeek3" />
         <activity android:name=".DeadliftActivityWeek4" />
-
         <activity android:name=".MainActivity" />
 
         <meta-data

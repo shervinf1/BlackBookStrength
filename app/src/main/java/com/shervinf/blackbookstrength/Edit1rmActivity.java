@@ -208,7 +208,6 @@ public class Edit1rmActivity extends AppCompatActivity {
                         dialogBuilder.dismiss();
                     break;
                 }
-
             }
         });
         dialogBuilder.setView(dialogView);
@@ -307,6 +306,14 @@ public class Edit1rmActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
+
 
     private void deleteCollectionDocuments(ArrayList<String> list,  String colName){
         for (int i = 0; i < list.size();i++) {

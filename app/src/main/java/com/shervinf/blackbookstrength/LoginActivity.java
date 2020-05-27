@@ -130,4 +130,17 @@ public class LoginActivity extends AppCompatActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
+
+    public void resetPasswordLogin(View view) {
+        goToForgotPasswordActivity();
+    }
+
+    private void goToForgotPasswordActivity() {
+        Intent forgotPasswordIntent = new Intent(LoginActivity.this, ForgotPassword.class);
+        finish();
+        startActivity(forgotPasswordIntent);
+    }
+
+
 }

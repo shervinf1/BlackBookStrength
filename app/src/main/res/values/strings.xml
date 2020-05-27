@@ -62,5 +62,8 @@
     <string name="lift">Lift</string>
     <string name="logs">Logs</string>
     <string name="profile">Profile</string>
+    <string name="forgotPassword">Forgot Password?</string>
+    <string name="resetBtn">Reset</string>
+    <string name="resetPwdBtn">Reset Password</string>
 
 </resources>
