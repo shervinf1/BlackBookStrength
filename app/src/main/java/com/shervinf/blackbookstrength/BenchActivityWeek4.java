@@ -31,30 +31,30 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class OHPActivityWeekDeload extends AppCompatActivity {
+public class BenchActivityWeek4 extends AppCompatActivity {
+
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("ohpWeekDeload");
+    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("benchWeek4");
     private MainLiftAdapter mainLiftAdapter;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ohp);
+        setContentView(R.layout.activity_bench);
 
-        //Calling methods
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
+
     }
-
-
 
 
     //Method that creates back navigation button and finishes this activity when pressed.
     public void toolbarSetup() {
-        Toolbar mToolbar = findViewById(R.id.ohpToolbar);
+        Toolbar mToolbar = findViewById(R.id.benchToolbar);
         mToolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
@@ -65,7 +65,6 @@ public class OHPActivityWeekDeload extends AppCompatActivity {
             }
         });
     }
-
 
 
 
@@ -82,7 +81,7 @@ public class OHPActivityWeekDeload extends AppCompatActivity {
                                 DocumentSnapshot document = task.getResult();
                                 UserPOJO newUser = document.toObject(UserPOJO.class);
                                 assert newUser != null;
-                                double max = newUser.getOhpMax();
+                                double max = newUser.getBenchMax();
                                 mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)),"lbs",40, "% x 5 REPS",1));
                                 mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)),"lbs",50, "% x 5 REPS",2));
                                 mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)),"lbs",60, "% x 5 REPS",3));
@@ -113,7 +112,7 @@ public class OHPActivityWeekDeload extends AppCompatActivity {
                 .setQuery(query, MainLiftPOJO.class)
                 .build();
         mainLiftAdapter = new MainLiftAdapter(options);
-        RecyclerView mRecyclerView = findViewById(R.id.ohpRecyclerView);
+        RecyclerView mRecyclerView = findViewById(R.id.benchRecyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
 //        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));

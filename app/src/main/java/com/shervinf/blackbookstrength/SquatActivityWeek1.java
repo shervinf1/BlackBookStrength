@@ -48,7 +48,6 @@ public class SquatActivityWeek1 extends AppCompatActivity {
         //Calling methods
         toolbarSetup();
         recyclerViewSetup();
-        prepareData();
     }
 
     //Method that creates back navigation button and finishes this activity when pressed.
@@ -65,7 +64,11 @@ public class SquatActivityWeek1 extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+    }
 
     //Method that adds data into object array list type SettingsPOJO and display it in recycler view.
     public void prepareData(){
@@ -139,6 +142,7 @@ public class SquatActivityWeek1 extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mainLiftAdapter.startListening();
+        prepareData();
     }
 
 

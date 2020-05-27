@@ -31,11 +31,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class SquatActivityWeekDeload extends AppCompatActivity {
+public class SquatActivityWeek4 extends AppCompatActivity {
 
     private FirebaseFirestore db =FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("squatWeekDeload");
+    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("squatWeek4");
     private MainLiftAdapter mainLiftAdapter;
     private static DecimalFormat df2 = new DecimalFormat("#.##");
 

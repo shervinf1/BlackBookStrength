@@ -3,7 +3,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -68,19 +67,19 @@ public class Week4Fragment extends Fragment {
             public void onExerciseViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivityWeekDeload.class);
+                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivityWeek4.class);
                         startActivity(deadliftIntent);
                         break;
                     case 1:
-                        Intent BenchIntent = new Intent(getActivity(), BenchActivityWeekDeload.class);
+                        Intent BenchIntent = new Intent(getActivity(), BenchActivityWeek4.class);
                         startActivity(BenchIntent);
                         break;
                     case 2:
-                        Intent SquatIntent = new Intent(getActivity(), SquatActivityWeekDeload.class);
+                        Intent SquatIntent = new Intent(getActivity(), SquatActivityWeek4.class);
                         startActivity(SquatIntent);
                         break;
                     case 3:
-                        Intent OHPIntent = new Intent(getActivity(), OHPActivityWeekDeload.class);
+                        Intent OHPIntent = new Intent(getActivity(), OHPActivityWeek4.class);
                         startActivity(OHPIntent);
                         break;
                 }

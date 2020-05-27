@@ -66,7 +66,6 @@ public class BenchActivityWeek1 extends AppCompatActivity {
     }
 
 
-
     public void prepareData(){
         mainLiftCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -99,6 +98,8 @@ public class BenchActivityWeek1 extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 

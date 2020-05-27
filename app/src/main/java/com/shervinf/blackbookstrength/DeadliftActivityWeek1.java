@@ -56,7 +56,6 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
-
     }
 
 
@@ -156,7 +155,7 @@ public class DeadliftActivityWeek1 extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        mainLiftAdapter.startListening();;
+        mainLiftAdapter.startListening();
     }
 
 
