@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAd
 
         public MyViewHolder(final View itemView) {
             super(itemView);
-            Log.v("BlackBook Strength", "in View Holder");
             settingsLabel = itemView.findViewById(R.id.settingsLabel);
             settingsSubLabel = itemView.findViewById(R.id.settingsSubLabel);
 
@@ -40,9 +40,9 @@ public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAd
         }
     }
 
+    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.v("Blackbook Strength", "in onCreateViewHolder");
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.settings_list_layout, parent, false);
 
         return new MyViewHolder(itemView);
@@ -50,8 +50,7 @@ public class CustomSettingsAdapter extends RecyclerView.Adapter<CustomSettingsAd
 
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
-        Log.v("BindViewHolder", "in onBindViewHolder");
+    public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
         SettingsPOJO settings = settingsList.get(position);
         holder.settingsLabel.setText(settings.getSettingsLabel());
         holder.settingsSubLabel.setText(settings.getSettingsSubLabel());

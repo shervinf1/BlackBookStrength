@@ -40,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         setTheme(android.R.style.ThemeOverlay_Material_Dark);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+
         actvEmail = findViewById(R.id.actvEmail);
         etPassword =findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);

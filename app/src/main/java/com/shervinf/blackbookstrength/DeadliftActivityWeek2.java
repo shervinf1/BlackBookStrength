@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,19 +13,31 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class DeadliftActivityWeek2 extends AppCompatActivity {
 
-    private ArrayList<MainLiftPOJO> mArrayList = new ArrayList<>();
-    private MainLiftAdapter mAdapter;
+    private FirebaseFirestore db =FirebaseFirestore.getInstance();
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private CollectionReference mainLiftCollectionReference = db.collection("users").document(userID).collection("deadliftWeek2");
+    private MainLiftAdapter mainLiftAdapter;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,10 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
+
     }
+
+
 
 
 
@@ -52,39 +68,37 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
     }
 
 
-
-
-    private void prepareData(){
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final DocumentReference docRef = db.collection("users").document(userID);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+    public void prepareData(){
+        mainLiftCollectionReference.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("BlackBookStrength", "Listen failed.", e);
-                    return;
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                DocumentReference docRef = db.collection("users").document(userID);
+                if (queryDocumentSnapshots.isEmpty()) {
+                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                UserPOJO newUser = document.toObject(UserPOJO.class);
+                                assert newUser != null;
+                                double max = newUser.getDeadliftMax();
+                                Log.d("BlackBookStrength", "Deadlift max variable" + max);
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS",1));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS",2));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS",3));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS",4));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS",5));
+                                mainLiftCollectionReference.add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS",6));
+                                mainLiftAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    });
                 }
-                if (snapshot != null && snapshot.exists()) {
-                    UserPOJO newUser = snapshot.toObject(UserPOJO.class);
-                    Double deadliftMax = newUser.getDeadliftMax();
-                    MainLiftPOJO Lift;
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_40,"lbs", 40, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_50,"lbs",50, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_60,"lbs",60, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_70,"lbs",70, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_80,"lbs",80, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    Lift = new MainLiftPOJO(deadliftMax * MainLiftPOJO.PERCENT_90,"lbs",90, "% x 3 REPS");
-                    mArrayList.add(Lift);
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    Log.d("BlackBookStrength", "Current data: null");
-                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                e.printStackTrace();
             }
         });
     }
@@ -92,21 +106,50 @@ public class DeadliftActivityWeek2 extends AppCompatActivity {
 
 
 
-    //Method that find recycler view by the id and displays it.
-    private void recyclerViewSetup(){
-        RecyclerView mRecyclerView1;
-        mRecyclerView1 = findViewById(R.id.deadliftRecyclerView);
-        mAdapter = new MainLiftAdapter(mArrayList, new OnMainLiftClickListener() {
+
+//    Method that find recycler view by the id and displays it.
+    public void recyclerViewSetup(){
+        Query query = mainLiftCollectionReference.orderBy("priority",Query.Direction.ASCENDING).limit(6);
+        FirestoreRecyclerOptions<MainLiftPOJO> options = new FirestoreRecyclerOptions.Builder<MainLiftPOJO>()
+                .setQuery(query, MainLiftPOJO.class)
+                .build();
+        mainLiftAdapter = new MainLiftAdapter(options);
+        RecyclerView mRecyclerView = findViewById(R.id.deadliftRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setItemAnimator( new DefaultItemAnimator());
+//        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mainLiftAdapter);
+        mainLiftAdapter.setOnItemClickListener(new MainLiftAdapter.OnItemClickListener() {
             @Override
-            public void onMainLiftViewItemClicked(int position, int id) {
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                MainLiftPOJO mainLift = documentSnapshot.toObject(MainLiftPOJO.class);
+                boolean isChecked = mainLift.getChecked();
+                if (!isChecked){
+                    documentSnapshot.getReference().update("checked",true);
+                }
+                else{
+                    documentSnapshot.getReference().update("checked",false);
+                }
             }
         });
-        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-        mRecyclerView1.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        mRecyclerView1.setAdapter(mAdapter);
         Log.d("BlackBookStrength", "The application stopped after DeadLiftActivity.java");
     }
 
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainLiftAdapter.startListening();;
+    }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mainLiftAdapter.stopListening();
+    }
 
 }

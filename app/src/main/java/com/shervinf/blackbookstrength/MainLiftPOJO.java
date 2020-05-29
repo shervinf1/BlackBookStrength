@@ -9,6 +9,8 @@ public class MainLiftPOJO {
     private String weightUnit;
     private Integer percentage;
     private String reps;
+    private boolean checked;
+    private Integer priority;
     public static final double PERCENT_40 = .40;
     public static final double PERCENT_50 = .50;
     public static final double PERCENT_60 = .60;
@@ -21,20 +23,34 @@ public class MainLiftPOJO {
     public static final double PERCENT_95 = .95;
 
 
+    public Integer getPriority() {
+        return priority;
+    }
 
-
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 
     //Default constructor
     public MainLiftPOJO() { }
 
     //Argument Constructor
-    public MainLiftPOJO(Double weight, String weightUnit, Integer percentage, String reps) {
+    public MainLiftPOJO(Double weight, String weightUnit, Integer percentage, String reps,Integer priority) {
         this.weight = weight;
         this.weightUnit = weightUnit;
         this.percentage = percentage;
         this.reps = reps;
+        this.priority = priority;
+        checked = false;
     }
 
+    public boolean getChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 
     public Double getWeight() {
         return weight;

@@ -16,11 +16,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -28,7 +32,11 @@ public class Edit1rmActivity extends AppCompatActivity {
 
     private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
     private CustomSettingsAdapter mAdapter;
-    private FirebaseFirestore db;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private DocumentReference squatDocuementReference = db.collection("users").document(userID).collection("squatCollection").document("squatDocument");
+    private DocumentReference newUserDocumentRef = db.collection("users").document(userID);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,6 @@ public class Edit1rmActivity extends AppCompatActivity {
         toolbarSetup();
         recyclerViewSetup();
         prepareData();
-        db = FirebaseFirestore.getInstance();
     }
 
     //Method that displays back button in toolbar and ends this activity when button is clicked.
@@ -124,29 +131,83 @@ public class Edit1rmActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String attrbuteUpdate =null;
                 switch (position){
-                    case 0: attrbuteUpdate = "deadliftMax";break;
-                    case 1: attrbuteUpdate = "squatMax";break;
-                    case 2: attrbuteUpdate = "benchMax";break;
-                    case 3: attrbuteUpdate = "ohpMax";break;
+                    case 0:
+                        newUserDocumentRef
+                            .update("deadliftMax",Double.parseDouble(editText.getText().toString()))
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Log.d("BlackBookStrength","successfully updated maximum attribute");
+                                    getCollectionDocuments(0);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("BlackBookStrength","Failed to update maximum attribute");
+                                    e.printStackTrace();
+                                }
+                            });
+                        dialogBuilder.dismiss();
+                    break;
+                    case 1:
+                        newUserDocumentRef
+                                .update("squatMax",Double.parseDouble(editText.getText().toString()))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("BlackBookStrength","successfully updated maximum attribute");
+                                        getCollectionDocuments(1);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("BlackBookStrength","Failed to update maximum attribute");
+                                        e.printStackTrace();
+                                    }
+                                });
+                        dialogBuilder.dismiss();
+                    break;
+                    case 2:
+                        newUserDocumentRef
+                                .update("benchMax",Double.parseDouble(editText.getText().toString()))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("BlackBookStrength","successfully updated maximum attribute");
+                                        getCollectionDocuments(2);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("BlackBookStrength","Failed to update maximum attribute");
+                                        e.printStackTrace();
+                                    }
+                                });
+                        dialogBuilder.dismiss();
+                    break;
+                    case 3:
+                        newUserDocumentRef
+                                .update("ohpMax",Double.parseDouble(editText.getText().toString()))
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("BlackBookStrength","successfully updated maximum attribute");
+                                        getCollectionDocuments(3);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("BlackBookStrength","Failed to update maximum attribute");
+                                        e.printStackTrace();
+                                    }
+                                });
+                        dialogBuilder.dismiss();
+                    break;
                 }
-                String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                DocumentReference newUserDocumentRef = db.collection("users").document(userID);
-                newUserDocumentRef
-                        .update(attrbuteUpdate,Double.parseDouble(editText.getText().toString()))
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("BlackBookStrength","successfully updated maximum attribute");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.d("BlackBookStrength","Failed to update maximum attribute");
-                                e.printStackTrace();
-                            }
-                        });
-                dialogBuilder.dismiss();
             }
         });
         dialogBuilder.setView(dialogView);
@@ -154,6 +215,111 @@ public class Edit1rmActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+    private void getCollectionDocuments(final int pos) {
+        switch (pos){
+            case 0:
+                for (int i = 1;i < 5;i++) {
+                    final int finalI = i;
+                    db.collection("users").document(userID).collection("deadliftWeek"+i)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<String> documentID = new ArrayList<>();
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        documentID.add(documentSnapshot.getId());
+                                    }
+
+                                    deleteCollectionDocuments(documentID,"deadliftWeek" + finalI);
+
+                                    Log.d("getCollectionDocuments", "deleted document" + pos);
+                                }
+                            });
+                }
+                break;
+            case 1:
+                for (int i = 1;i < 5;i++) {
+                    final int finalI = i;
+                    db.collection("users").document(userID).collection("squatWeek"+i)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<String> documentID = new ArrayList<>();
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        documentID.add(documentSnapshot.getId());
+                                    }
+
+                                    deleteCollectionDocuments(documentID,"squatWeek" + finalI);
+
+                                    Log.d("getCollectionDocuments", "deleted document" + pos);
+                                }
+                            });
+                }
+                break;
+            case 2:
+                for (int i = 1;i < 5;i++) {
+                    final int finalI = i;
+                    db.collection("users").document(userID).collection("benchWeek"+i)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<String> documentID = new ArrayList<>();
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        documentID.add(documentSnapshot.getId());
+                                    }
+
+                                    deleteCollectionDocuments(documentID,"benchWeek" + finalI);
+
+                                    Log.d("getCollectionDocuments", "deleted document" + pos);
+                                }
+                            });
+                }
+                break;
+            case 3:
+                for (int i = 1;i < 5;i++) {
+                    final int finalI = i;
+                    db.collection("users").document(userID).collection("ohpWeek"+i)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<String> documentID = new ArrayList<>();
+                                    for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
+                                        documentID.add(documentSnapshot.getId());
+                                    }
+
+                                    deleteCollectionDocuments(documentID,"ohpWeek" + finalI);
+
+                                    Log.d("getCollectionDocuments", "deleted document" + pos);
+                                }
+                            });
+                }
+                break;
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+    private void deleteCollectionDocuments(ArrayList<String> list,  String colName){
+        for (int i = 0; i < list.size();i++) {
+            db.collection("users").document(userID).collection(colName).document(list.get(i)).delete();
+        }
+    }
 
 }
 

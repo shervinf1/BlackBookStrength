@@ -2,28 +2,29 @@ package com.shervinf.blackbookstrength;
 
 import com.google.firebase.firestore.ServerTimestamp;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class WeightInPOJO {
-    private String date;
+    private java.util.Date timeStamp;
     private String weight;
     private String weightUnit;
 
     public WeightInPOJO() {
     }
 
-    public WeightInPOJO(String weight, String weightUnit,String date) {
-        this.date = date;
+    public WeightInPOJO(String weight, String weightUnit,java.util.Date timeStamp) {
+        this.timeStamp = timeStamp;
         this.weight = weight;
         this.weightUnit = weightUnit;
     }
 
-    public String getDate() {
-        return date;
+    public java.util.Date getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTimeStamp(java.util.Date timeStamp) {
+        this.timeStamp = timeStamp;
     }
 
     public String getWeight() {
