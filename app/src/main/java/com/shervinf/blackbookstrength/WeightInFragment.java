@@ -9,28 +9,38 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -40,8 +50,9 @@ public class WeightInFragment extends Fragment {
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     private CollectionReference weightInLogReference = db.collection("users").document(userID).collection("weightInLog");
     private WeightInAdapter mWeightInAdapter;
-//    private ProgressBar mProgressBar;
-//    private int weightInGoal;
+    private TextView progressBarTextView;
+    private int weightInGoal;
+    private static final SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
 
 
@@ -51,11 +62,12 @@ public class WeightInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         //Inflating weight in fragment
         View view = inflater.inflate(R.layout.fragment_weight_in, container, false);
+
         //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
         fabSetup(view);
         //This method shows the recycler view list
         recyclerViewSetup(view);
-//        progressBarSetup(view);
+        progressBarSetup(view);
         return view;
     }
 
@@ -71,46 +83,84 @@ public class WeightInFragment extends Fragment {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
-                    customWeightinDialogBuilder();
+                //Call method below when floating action button is clicked and that method will show the alert dialog box and let you input your weight for that day
+                customCalenderWeightinDialogBuilder();
                 }
             });
     }
 
 
-//
-//
-//    private void progressBarSetup(View v){
-//        final ProgressBar mProgressBar = v.findViewById(R.id.progressBar);
-//        DocumentReference docRef = db.collection("users").document(userID);
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    UserPOJO newUser = document.toObject(UserPOJO.class);
-//                    Double dMax = newUser.getWeightGoal();
-//                    weightInGoal = dMax.intValue();
-//                    mProgressBar.setMax(weightInGoal);
-//                }
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        });
-//    }
+
+
+    private void progressBarSetup(final View v){
+        final ProgressBar mProgressBar = v.findViewById(R.id.weightInProgressBar);
+        DocumentReference docRef = db.collection("users").document(userID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    UserPOJO newUser = document.toObject(UserPOJO.class);
+                    Double dMax = newUser.getWeightGoal();
+                    weightInGoal = dMax.intValue();
+                    mProgressBar.setMax(weightInGoal);
+                    setCurrentProgress(weightInGoal, v);
+                    Log.d("ProgressBarWeightin","" + weightInGoal);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+    }
 
 
 
 
 
-    public void customWeightinDialogBuilder(){
+
+
+
+    private void setCurrentProgress(final int weightInGoal, View v) {
+        final ProgressBar mProgressBar = v.findViewById(R.id.weightInProgressBar);
+        final TextView progressBarTextView = v.findViewById(R.id.progressBarTextView);
+        weightInLogReference
+            .orderBy("timeStamp", Query.Direction.DESCENDING)
+            .limit(1)
+            .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (queryDocumentSnapshots.isEmpty()) {
+                    progressBarTextView.setText("");
+                    mProgressBar.setProgress(0);
+                }
+                else {
+                    WeightInPOJO weightInPOJO = queryDocumentSnapshots.getDocuments().get(0).toObject(WeightInPOJO.class);
+                    String weight = weightInPOJO.getWeight();
+                    Integer weightValue = Integer.parseInt(weight);
+                    progressBarTextView.setText("Current: " + weightValue + "\nGoal: " + weightInGoal);
+                    mProgressBar.setProgress(weightValue);
+                }
+
+
+            }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                }
+            });
+    }
+
+
+
+    public void customCalenderWeightinDialogBuilder(){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_weightin_dialog, null);
-        final EditText taskEditText = dialogView.findViewById(R.id.edit_weightin_comment);
+        View dialogView = inflater.inflate(R.layout.custom_calender_weightin_dialog, null);
+        final DatePicker datePicker = dialogView.findViewById(R.id.weightinDatePicker);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -122,12 +172,54 @@ public class WeightInFragment extends Fragment {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String task = String.valueOf(taskEditText.getText());
-                if (task.trim().isEmpty()){
+                String date = (datePicker.getDayOfMonth() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getYear() + " 00:00:00");
+                Log.d("datePicker", date);
+                if (date.trim().isEmpty()){
                     Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    weightInLogReference.add(new WeightInPOJO(task,"lbs",currentDate()));
+                    dialogBuilder.dismiss();
+                    customWeightinDialogBuilder(date);
+//                    customWeightinDialogBuilder(parseDate((datePicker.getMonth() + 1),datePicker.getDayOfMonth(), datePicker.getYear()));
+                }
+            }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
+    }
+
+
+
+
+
+
+
+
+    public void customWeightinDialogBuilder(final String selectedDate){
+        final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_weightin_dialog, null);
+        final EditText weightinEditText = dialogView.findViewById(R.id.edit_weightin_comment);
+        Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
+        Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+
+
+
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String weightinValue = String.valueOf(weightinEditText.getText());
+                if (weightinValue.trim().isEmpty()){
+                    Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    weightInLogReference.add(new WeightInPOJO(weightinValue,"lbs",getTimeStampFromString(selectedDate)));
                     Toast.makeText(getContext(), "WeightIn added", Toast.LENGTH_SHORT).show();
                     dialogBuilder.dismiss();
                 }
@@ -143,8 +235,40 @@ public class WeightInFragment extends Fragment {
 
 
 
+
+
+    private static Date getTimeStampFromString(String dateToSave) {
+        try {
+            Date date = format.parse(dateToSave);
+            return date ;
+        } catch (ParseException e){
+            return null ;
+        }
+    }
+
+
+//    private static String parseDate(int month, int day, int year) {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
+//        Calendar calendar = null;
+//        calendar.set(year,month,day);
+//        return simpleDateFormat.format(calendar.getTime());
+//    }
+
+//    DateFormat dateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
+//    // get current date time with Date()
+//    Date date = new Date();
+//    // System.out.println(dateFormat.format(date));
+//    // don't print it, but save it!
+//        return dateFormat.format(date);
+
+
+
+
+
+
+
     private void recyclerViewSetup(View v){
-        Query query = weightInLogReference.orderBy("date", Query.Direction.ASCENDING);
+        Query query = weightInLogReference.orderBy("timeStamp", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<WeightInPOJO> options = new FirestoreRecyclerOptions.Builder<WeightInPOJO>()
                 .setQuery(query, WeightInPOJO.class)
                 .build();
@@ -169,19 +293,6 @@ public class WeightInFragment extends Fragment {
                 mWeightInAdapter.deleteItem(viewHolder.getAdapterPosition());
             }
         }).attachToRecyclerView(mRecyclerView);
-    }
-
-
-
-
-
-    private static String currentDate() {
-        DateFormat dateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
-        // get current date time with Date()
-        Date date = new Date();
-        // System.out.println(dateFormat.format(date));
-        // don't print it, but save it!
-        return dateFormat.format(date);
     }
 
 

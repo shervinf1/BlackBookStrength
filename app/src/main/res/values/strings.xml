@@ -65,5 +65,6 @@
     <string name="forgotPassword">Forgot Password?</string>
     <string name="resetBtn">Reset</string>
     <string name="resetPwdBtn">Reset Password</string>
+    <string name="loading">Loading</string>
 
 </resources>

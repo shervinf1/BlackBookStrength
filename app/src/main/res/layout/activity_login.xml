@@ -34,7 +34,6 @@
         android:text="@string/loginBtn"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password" />
@@ -57,57 +56,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_logo2" />
+        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
     <EditText
-        android:padding="14dp"
         android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:alpha="0.75"
         android:background="@drawable/login_input_field"
         android:ems="10"
-        android:alpha="0.75"
         android:hint="@string/passwordHint"
         android:inputType="textPassword"
+        android:padding="14dp"
         android:textColor="@color/colorPrimaryDark"
         android:textColorHint="@color/colorPrimaryMiddle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_email" />
 
-    <TextView
+
+    <ImageView
         android:id="@+id/app_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/fredericka_the_great"
-        android:padding="16dp"
-        android:text="@string/blackbook"
-        android:textColor="@color/colorWhite"
-        android:textSize="80sp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        android:src="@drawable/bb_strength_logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/app_logo2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/fredericka_the_great"
-        android:padding="16dp"
-        android:text="@string/strength"
-        android:textColor="@color/colorWhite"
-        android:textSize="80sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/app_logo" />
 
     <TextView
         android:id="@+id/login_register_button1"
