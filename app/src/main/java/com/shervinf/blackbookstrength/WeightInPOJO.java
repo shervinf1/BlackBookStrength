@@ -6,8 +6,6 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class WeightInPOJO {
-//    private String date;
-//    private @ServerTimestamp Date timeStamp;
     private java.util.Date timeStamp;
     private String weight;
     private String weightUnit;
@@ -22,7 +20,6 @@ public class WeightInPOJO {
     }
 
     public java.util.Date getTimeStamp() {
-
         return timeStamp;
     }
 

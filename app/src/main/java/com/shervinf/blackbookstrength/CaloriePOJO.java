@@ -7,15 +7,15 @@ import java.util.Date;
 public class CaloriePOJO {
     private String calorie;
     private String calorieUnit;
-    private String date;
+    private java.util.Date timeStamp;
 
     public CaloriePOJO() {
     }
 
-    public CaloriePOJO(String calorie, String calorieUnit, String date) {
+    public CaloriePOJO(String calorie, String calorieUnit, java.util.Date timeStamp) {
         this.calorie = calorie;
         this.calorieUnit = calorieUnit;
-        this.date = date;
+        this.timeStamp = timeStamp;
     }
 
 
@@ -35,11 +35,13 @@ public class CaloriePOJO {
         this.calorieUnit = calorieUnit;
     }
 
-    public String getDate() {
-        return date;
+
+    public java.util.Date getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTimeStamp(java.util.Date timeStamp) {
+        this.timeStamp = timeStamp;
     }
+
 }

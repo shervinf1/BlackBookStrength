@@ -26,7 +26,6 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,14 +34,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 
 public class WeightInFragment extends Fragment {
@@ -62,12 +56,10 @@ public class WeightInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         //Inflating weight in fragment
         View view = inflater.inflate(R.layout.fragment_weight_in, container, false);
-
         //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
         fabSetup(view);
         //This method shows the recycler view list
         recyclerViewSetup(view);
-        progressBarSetup(view);
         return view;
     }
 
@@ -93,7 +85,7 @@ public class WeightInFragment extends Fragment {
 
 
     private void progressBarSetup(final View v){
-        final ProgressBar mProgressBar = v.findViewById(R.id.weightInProgressBar);
+        final ProgressBar mProgressBar = v.findViewById(R.id.calorieProgressBar);
         DocumentReference docRef = db.collection("users").document(userID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -124,7 +116,7 @@ public class WeightInFragment extends Fragment {
 
 
     private void setCurrentProgress(final int weightInGoal, View v) {
-        final ProgressBar mProgressBar = v.findViewById(R.id.weightInProgressBar);
+        final ProgressBar mProgressBar = v.findViewById(R.id.calorieProgressBar);
         final TextView progressBarTextView = v.findViewById(R.id.progressBarTextView);
         weightInLogReference
             .orderBy("timeStamp", Query.Direction.DESCENDING)
@@ -159,10 +151,11 @@ public class WeightInFragment extends Fragment {
     public void customCalenderWeightinDialogBuilder(){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_calender_weightin_dialog, null);
-        final DatePicker datePicker = dialogView.findViewById(R.id.weightinDatePicker);
+        View dialogView = inflater.inflate(R.layout.custom_calender_dialog, null);
+        final DatePicker datePicker = dialogView.findViewById(R.id.DatePicker);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,14 +166,12 @@ public class WeightInFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String date = (datePicker.getDayOfMonth() + "-" + (datePicker.getMonth() + 1) + "-" + datePicker.getYear() + " 00:00:00");
-                Log.d("datePicker", date);
                 if (date.trim().isEmpty()){
                     Toast.makeText(getContext(), "Please insert acceptable value", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     dialogBuilder.dismiss();
                     customWeightinDialogBuilder(date);
-//                    customWeightinDialogBuilder(parseDate((datePicker.getMonth() + 1),datePicker.getDayOfMonth(), datePicker.getYear()));
                 }
             }
         });
@@ -195,15 +186,13 @@ public class WeightInFragment extends Fragment {
 
 
 
-    public void customWeightinDialogBuilder(final String selectedDate){
+    private void customWeightinDialogBuilder(final String selectedDate){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_weightin_dialog, null);
         final EditText weightinEditText = dialogView.findViewById(R.id.edit_weightin_comment);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
-
-
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -220,7 +209,8 @@ public class WeightInFragment extends Fragment {
                 }
                 else {
                     weightInLogReference.add(new WeightInPOJO(weightinValue,"lbs",getTimeStampFromString(selectedDate)));
-                    Toast.makeText(getContext(), "WeightIn added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Weightin added", Toast.LENGTH_SHORT).show();
+                    progressBarSetup(getView());
                     dialogBuilder.dismiss();
                 }
             }
@@ -247,23 +237,6 @@ public class WeightInFragment extends Fragment {
     }
 
 
-//    private static String parseDate(int month, int day, int year) {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
-//        Calendar calendar = null;
-//        calendar.set(year,month,day);
-//        return simpleDateFormat.format(calendar.getTime());
-//    }
-
-//    DateFormat dateFormat = new SimpleDateFormat("LLL-dd-yyyy", Locale.US);
-//    // get current date time with Date()
-//    Date date = new Date();
-//    // System.out.println(dateFormat.format(date));
-//    // don't print it, but save it!
-//        return dateFormat.format(date);
-
-
-
-
 
 
 
@@ -279,7 +252,6 @@ public class WeightInFragment extends Fragment {
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
-//        mRecyclerView.addItemDecoration(new DividerItemDecoration(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mWeightInAdapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.RIGHT) {
@@ -291,13 +263,17 @@ public class WeightInFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 mWeightInAdapter.deleteItem(viewHolder.getAdapterPosition());
+                progressBarSetup(getView());
             }
         }).attachToRecyclerView(mRecyclerView);
     }
 
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        progressBarSetup(getView());
+    }
 
     @Override
     public void onStart() {

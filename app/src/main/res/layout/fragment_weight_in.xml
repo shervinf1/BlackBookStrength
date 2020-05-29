@@ -12,7 +12,7 @@
             android:layout_height="match_parent">
 
                 <ProgressBar
-                    android:id="@+id/weightInProgressBar"
+                    android:id="@+id/calorieProgressBar"
                     style="?android:progressBarStyleHorizontal"
                     android:layout_width="250dp"
                     android:layout_height="250dp"
@@ -34,10 +34,10 @@
                     android:textSize="16sp"
                     android:gravity="center"
                     android:textColor="@color/colorWhite"
-                    app:layout_constraintBottom_toBottomOf="@+id/weightInProgressBar"
-                    app:layout_constraintEnd_toEndOf="@+id/weightInProgressBar"
-                    app:layout_constraintStart_toStartOf="@+id/weightInProgressBar"
-                    app:layout_constraintTop_toTopOf="@+id/weightInProgressBar" />
+                    app:layout_constraintBottom_toBottomOf="@+id/calorieProgressBar"
+                    app:layout_constraintEnd_toEndOf="@+id/calorieProgressBar"
+                    app:layout_constraintStart_toStartOf="@+id/calorieProgressBar"
+                    app:layout_constraintTop_toTopOf="@+id/calorieProgressBar" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -48,7 +48,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/weightInProgressBar">
+                    app:layout_constraintTop_toBottomOf="@+id/calorieProgressBar">
 
                 </androidx.recyclerview.widget.RecyclerView>
 

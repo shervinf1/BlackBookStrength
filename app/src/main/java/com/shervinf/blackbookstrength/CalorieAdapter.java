@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
+import java.text.SimpleDateFormat;
+
 public class CalorieAdapter extends FirestoreRecyclerAdapter<CaloriePOJO, CalorieAdapter.CalorieHolder> {
 
     public CalorieAdapter(@NonNull FirestoreRecyclerOptions<CaloriePOJO> options) {
@@ -21,7 +23,9 @@ public class CalorieAdapter extends FirestoreRecyclerAdapter<CaloriePOJO, Calori
     protected void onBindViewHolder(@NonNull CalorieHolder calorieHolder, int i, @NonNull CaloriePOJO caloriePOJO) {
         calorieHolder.calorieTextView.setText(caloriePOJO.getCalorie());
         calorieHolder.calorieUnitTextView.setText(caloriePOJO.getCalorieUnit());
-        calorieHolder.dateTextView.setText(caloriePOJO.getDate());
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd yyyy");
+        String dateString = formatter.format(caloriePOJO.getTimeStamp());
+        calorieHolder.dateTextView.setText(dateString);
     }
 
     @NonNull
