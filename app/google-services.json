@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "891530783642",
+    "firebase_url": "https://blackbookstrength-cb90f.firebaseio.com",
+    "project_id": "blackbookstrength-cb90f",
+    "storage_bucket": "blackbookstrength-cb90f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891530783642:android:712e5aaad358ebea",
+        "android_client_info": {
+          "package_name": "com.shervinf.blackbookstrength"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891530783642-qs0k80gtik9b26n6pel41gbrbhbacrp7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shervinf.blackbookstrength",
+            "certificate_hash": "3fd27f49920f296908655e4d94bef26cea44d996"
+          }
+        },
+        {
+          "client_id": "891530783642-nrbhk2fi45cmnfoo3jm3gb6pd9savmje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAez2OXV_IMBVCjzjukjlTN_AOJRZdNEJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891530783642-nrbhk2fi45cmnfoo3jm3gb6pd9savmje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
