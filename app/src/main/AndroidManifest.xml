@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".MainLiftActivity"></activity>
+        <activity android:name=".ForgotPassword" />
         <activity android:name=".EditGoalsActivity" />
         <activity android:name=".Edit1rmActivity" />
         <activity android:name=".EditProfileActivity" />
@@ -27,22 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".OHPActivityWeek1" />
-        <activity android:name=".OHPActivityWeek2" />
-        <activity android:name=".OHPActivityWeek3" />
-        <activity android:name=".OHPActivityWeek4" />
-        <activity android:name=".BenchActivityWeek1" />
-        <activity android:name=".BenchActivityWeek2" />
-        <activity android:name=".BenchActivityWeek3" />
-        <activity android:name=".BenchActivityWeek4" />
-        <activity android:name=".SquatActivityWeek1" />
-        <activity android:name=".SquatActivityWeek2" />
-        <activity android:name=".SquatActivityWeek3" />
-        <activity android:name=".SquatActivityWeek4" />
-        <activity android:name=".DeadliftActivityWeek1" />
-        <activity android:name=".DeadliftActivityWeek2" />
-        <activity android:name=".DeadliftActivityWeek3" />
-        <activity android:name=".DeadliftActivityWeek4" />
         <activity android:name=".MainActivity" />
 
         <meta-data

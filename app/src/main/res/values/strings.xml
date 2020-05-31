@@ -66,5 +66,6 @@
     <string name="resetBtn">Reset</string>
     <string name="resetPwdBtn">Reset Password</string>
     <string name="loading">Loading</string>
+    <string name="MainLift">Main Lift</string>
 
 </resources>

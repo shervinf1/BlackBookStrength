@@ -35,10 +35,8 @@ public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, Main
     protected void onBindViewHolder(@NonNull MainLiftHolder mainLiftHolder, int position, @NonNull MainLiftPOJO mainLiftPOJO) {
         Log.v("BindViewHolder", "in onBindViewHolder");
 //        MainLiftPOJO mainLiftPOJO = arrayList.get(position);
-        mainLiftHolder.weight.setText(mainLiftPOJO.getWeight().toString());
-        mainLiftHolder.weightUnit.setText(mainLiftPOJO.getWeightUnit());
-        mainLiftHolder.percentage.setText(mainLiftPOJO.getPercentage().toString());
-        mainLiftHolder.rep.setText(mainLiftPOJO.getReps());
+        mainLiftHolder.weight.setText(mainLiftPOJO.getWeight().toString() + " " + mainLiftPOJO.getWeightUnit());
+        mainLiftHolder.rep.setText(mainLiftPOJO.getPercentage().toString() + mainLiftPOJO.getReps());
         if(!mainLiftPOJO.getChecked()) {
             mainLiftHolder.checkBoxView.setChecked(false);
         }
@@ -64,15 +62,13 @@ public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, Main
 
 
     class MainLiftHolder extends RecyclerView.ViewHolder{
-        TextView weight, weightUnit, percentage, rep;
+        TextView weight, rep;
         CheckBox checkBoxView;
 
         public MainLiftHolder(@NonNull View itemView) {
             super(itemView);
             Log.v("ViewHolder", "in View Holder");
             weight = itemView.findViewById(R.id.weightTextView);
-            weightUnit = itemView.findViewById(R.id.weightUnitTextView);
-            percentage = itemView.findViewById(R.id.percentageTextView);
             rep = itemView.findViewById(R.id.repTextView);
             checkBoxView = itemView.findViewById(R.id.mainLiftCheckBox);
             itemView.setOnClickListener(new View.OnClickListener() {

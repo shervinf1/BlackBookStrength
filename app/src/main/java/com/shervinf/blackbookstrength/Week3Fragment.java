@@ -66,19 +66,47 @@ public class Week3Fragment extends Fragment {
             public void onExerciseViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        Intent deadliftIntent = new Intent(getActivity(), DeadliftActivityWeek3.class);
+                        Intent deadliftIntent = new Intent(getActivity(), MainLiftActivity.class);
+                        deadliftIntent.putExtra("collectionName", "deadliftWeek3");
+                        deadliftIntent.putExtra("mainLiftName","Deadlift");
+                        deadliftIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_75);
+                        deadliftIntent.putExtra("percentageInteger", 75);
+                        deadliftIntent.putExtra("set1","% x 5 REPS");
+                        deadliftIntent.putExtra("set2","% x 3 REPS");
+                        deadliftIntent.putExtra("set3","% x 1 REPS");
                         startActivity(deadliftIntent);
                         break;
                     case 1:
-                        Intent BenchIntent = new Intent(getActivity(), BenchActivityWeek3.class);
+                        Intent BenchIntent = new Intent(getActivity(), MainLiftActivity.class);
+                        BenchIntent.putExtra("collectionName", "benchWeek3");
+                        BenchIntent.putExtra("mainLiftName","Bench");
+                        BenchIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_75);
+                        BenchIntent.putExtra("percentageInteger", 75);
+                        BenchIntent.putExtra("set1","% x 5 REPS");
+                        BenchIntent.putExtra("set2","% x 3 REPS");
+                        BenchIntent.putExtra("set3","% x 1 REPS");
                         startActivity(BenchIntent);
                         break;
                     case 2:
-                        Intent SquatIntent = new Intent(getActivity(), SquatActivityWeek3.class);
+                        Intent SquatIntent = new Intent(getActivity(), MainLiftActivity.class);
+                        SquatIntent.putExtra("collectionName", "squatWeek3");
+                        SquatIntent.putExtra("mainLiftName","Squat");
+                        SquatIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_75);
+                        SquatIntent.putExtra("percentageInteger", 75);
+                        SquatIntent.putExtra("set1","% x 5 REPS");
+                        SquatIntent.putExtra("set2","% x 3 REPS");
+                        SquatIntent.putExtra("set3","% x 1 REPS");
                         startActivity(SquatIntent);
                         break;
                     case 3:
-                        Intent OHPIntent = new Intent(getActivity(), OHPActivityWeek3.class);
+                        Intent OHPIntent = new Intent(getActivity(), MainLiftActivity.class);
+                        OHPIntent.putExtra("collectionName", "ohpWeek3");
+                        OHPIntent.putExtra("mainLiftName","OHP");
+                        OHPIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_75);
+                        OHPIntent.putExtra("percentageInteger", 75);
+                        OHPIntent.putExtra("set1","% x 5 REPS");
+                        OHPIntent.putExtra("set2","% x 3 REPS");
+                        OHPIntent.putExtra("set3","% x 1 REPS");
                         startActivity(OHPIntent);
                         break;
                 }

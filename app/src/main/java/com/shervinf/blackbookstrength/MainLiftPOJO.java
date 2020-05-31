@@ -23,13 +23,7 @@ public class MainLiftPOJO {
     public static final double PERCENT_95 = .95;
 
 
-    public Integer getPriority() {
-        return priority;
-    }
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
 
     //Default constructor
     public MainLiftPOJO() { }
@@ -42,6 +36,14 @@ public class MainLiftPOJO {
         this.reps = reps;
         this.priority = priority;
         checked = false;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
     public boolean getChecked() {

@@ -311,10 +311,6 @@ public class Edit1rmActivity extends AppCompatActivity {
 
 
 
-
-
-
-
     private void deleteCollectionDocuments(ArrayList<String> list,  String colName){
         for (int i = 0; i < list.size();i++) {
             db.collection("users").document(userID).collection(colName).document(list.get(i)).delete();
