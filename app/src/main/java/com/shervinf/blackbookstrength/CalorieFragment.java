@@ -254,7 +254,7 @@ public class CalorieFragment extends Fragment {
         mLayoutManager.setStackFromEnd(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator( new DefaultItemAnimator());
-         mRecyclerView.setAdapter(calorieAdapter);
+        mRecyclerView.setAdapter(calorieAdapter);
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
             @Override

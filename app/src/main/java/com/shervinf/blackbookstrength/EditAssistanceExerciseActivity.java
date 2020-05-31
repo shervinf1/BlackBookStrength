@@ -2,21 +2,34 @@ package com.shervinf.blackbookstrength;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class EditAssistanceExerciseActivity extends AppCompatActivity {
+    private ArrayList<SettingsPOJO> mArrayList = new ArrayList<>();
+    private CustomSettingsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_assistance_exercise);
 
-        fabSetup();
         toolbarSetup();
+        recyclerViewSetup();
+        prepareData();
+
     }
 
 
@@ -44,17 +57,58 @@ public class EditAssistanceExerciseActivity extends AppCompatActivity {
 
 
 
-    private void fabSetup(){
-        FloatingActionButton fab;
-        //Casting floating action button to respective ID
-        fab = findViewById(R.id.edit_assistance_exercise_action_button);
-        //Determines whether the floating action button is null or not and then proceed to set the OnClickListener
-        if (fab != null)
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+    private void prepareData() {
+        SettingsPOJO settings = null;
+        settings = new SettingsPOJO("Deadlift","Add assistance exercise to Deadlifts");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Bench","Add assistance exercise to Bench");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Squats","Add assistance exercise to Squats");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("OHP","Add assistance exercise to OHP");
+        mArrayList.add(settings);
+        mAdapter.notifyDataSetChanged();
+    }
 
+
+
+
+    private void recyclerViewSetup() {
+        RecyclerView mRecyclerView1;
+        mRecyclerView1 = findViewById(R.id.editAssistanceExerciseRecyclerView);
+        mAdapter = new CustomSettingsAdapter(mArrayList, new OnSettingsClickListener() {
+            @Override
+            public void onSettingsViewItemClicked(int position, int id) {
+                switch(position) {
+                    case 0:
+                        Intent addAssistantExerciseDeadliftIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
+                        addAssistantExerciseDeadliftIntent.putExtra("mainLiftType", "Deadlift");
+                        finish();
+                        startActivity(addAssistantExerciseDeadliftIntent);
+                        break;
+                    case 1:
+                        Intent addAssistantExerciseBenchIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
+                        addAssistantExerciseBenchIntent.putExtra("mainLiftType", "Bench");
+                        finish();
+                        startActivity(addAssistantExerciseBenchIntent);
+                        break;
+                    case 2:
+                        Intent addAssistantExerciseSquatIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
+                        addAssistantExerciseSquatIntent.putExtra("mainLiftType", "Squat");
+                        finish();
+                        startActivity(addAssistantExerciseSquatIntent);
+                        break;
+                    case 3:
+                        Intent addAssistantExerciseOHPIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
+                        addAssistantExerciseOHPIntent.putExtra("mainLiftType", "OHP");
+                        finish();
+                        startActivity(addAssistantExerciseOHPIntent);
+                        break;
                 }
-            });
+            }
+        });
+        mRecyclerView1.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView1.setAdapter(mAdapter);
     }
 }
