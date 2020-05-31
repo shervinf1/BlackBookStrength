@@ -15,17 +15,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Edit1rmActivity extends AppCompatActivity {
@@ -34,8 +38,9 @@ public class Edit1rmActivity extends AppCompatActivity {
     private CustomSettingsAdapter mAdapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    private DocumentReference squatDocuementReference = db.collection("users").document(userID).collection("squatCollection").document("squatDocument");
     private DocumentReference newUserDocumentRef = db.collection("users").document(userID);
+    private CollectionReference mainLiftCollectionReference;
+    private static DecimalFormat df2 = new DecimalFormat("#.##");
 
 
     @Override
@@ -236,6 +241,7 @@ public class Edit1rmActivity extends AppCompatActivity {
                                     }
 
                                     deleteCollectionDocuments(documentID,"deadliftWeek" + finalI);
+                                    prepareMainLiftData("deadliftWeek" + finalI);
 
                                     Log.d("getCollectionDocuments", "deleted document" + pos);
                                 }
@@ -256,6 +262,7 @@ public class Edit1rmActivity extends AppCompatActivity {
                                     }
 
                                     deleteCollectionDocuments(documentID,"squatWeek" + finalI);
+                                    prepareMainLiftData("squatWeek" + finalI);
 
                                     Log.d("getCollectionDocuments", "deleted document" + pos);
                                 }
@@ -276,6 +283,7 @@ public class Edit1rmActivity extends AppCompatActivity {
                                     }
 
                                     deleteCollectionDocuments(documentID,"benchWeek" + finalI);
+                                    prepareMainLiftData("benchWeek" + finalI);
 
                                     Log.d("getCollectionDocuments", "deleted document" + pos);
                                 }
@@ -294,9 +302,8 @@ public class Edit1rmActivity extends AppCompatActivity {
                                     for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
                                         documentID.add(documentSnapshot.getId());
                                     }
-
                                     deleteCollectionDocuments(documentID,"ohpWeek" + finalI);
-
+                                    prepareMainLiftData("ohpWeek" + finalI);
                                     Log.d("getCollectionDocuments", "deleted document" + pos);
                                 }
                             });
@@ -305,9 +312,515 @@ public class Edit1rmActivity extends AppCompatActivity {
         }
 
 
+
+
+
+
+
+
+
     }
-
-
+    public void prepareMainLiftData(final String colName){
+        switch (colName) {
+            case "deadliftWeek1":
+                db.collection("users").document(userID).collection("deadliftWeek1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    DocumentReference docRef = db.collection("users").document(userID);
+                    if (queryDocumentSnapshots.isEmpty()) {
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    UserPOJO newUser = document.toObject(UserPOJO.class);
+                                    double max = newUser.getDeadliftMax();
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                }
+                            }
+                        });
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                }
+            });
+            break;
+            case "deadliftWeek2":
+                db.collection("users").document(userID).collection("deadliftWeek2").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getDeadliftMax();
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "deadliftWeek3":
+                db.collection("users").document(userID).collection("deadliftWeek3").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getDeadliftMax();
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "deadliftWeek4":
+                db.collection("users").document(userID).collection("deadliftWeek4").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getDeadliftMax();
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "ohpWeek1":
+                db.collection("users").document(userID).collection("ohpWeek1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getOhpMax();
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "ohpWeek2":
+                db.collection("users").document(userID).collection("ohpWeek2").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getOhpMax();
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "ohpWeek3":
+                db.collection("users").document(userID).collection("ohpWeek3").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getOhpMax();
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "ohpWeek4":
+                db.collection("users").document(userID).collection("ohpWeek4").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getOhpMax();
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "benchWeek1":
+                db.collection("users").document(userID).collection("benchWeek1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getBenchMax();
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "benchWeek2":
+                db.collection("users").document(userID).collection("benchWeek2").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getBenchMax();
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "benchWeek3":
+                mainLiftCollectionReference = db.collection("users").document(userID).collection("benchWeek3");
+                db.collection("users").document(userID).collection("benchWeek3").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getBenchMax();
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "benchWeek4":
+                db.collection("users").document(userID).collection("benchWeek4").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getBenchMax();
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "squatWeek1":
+                db.collection("users").document(userID).collection("squatWeek1").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getSquatMax();
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "squatWeek2":
+                db.collection("users").document(userID).collection("squatWeek2").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getSquatMax();
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "squatWeek3":
+                db.collection("users").document(userID).collection("squatWeek3").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getSquatMax();
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+            case "squatWeek4":
+                db.collection("users").document(userID).collection("squatWeek4").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        DocumentReference docRef = db.collection("users").document(userID);
+                        if (queryDocumentSnapshots.isEmpty()) {
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        UserPOJO newUser = document.toObject(UserPOJO.class);
+                                        double max = newUser.getSquatMax();
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                break;
+        }
+    }
 
 
 
@@ -315,7 +828,13 @@ public class Edit1rmActivity extends AppCompatActivity {
         for (int i = 0; i < list.size();i++) {
             db.collection("users").document(userID).collection(colName).document(list.get(i)).delete();
         }
+
     }
+
+
+
+
+
 
 }
 

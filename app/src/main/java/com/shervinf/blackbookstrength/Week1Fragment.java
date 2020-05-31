@@ -71,44 +71,24 @@ public class Week1Fragment extends Fragment {
                         Intent deadliftIntent = new Intent(getActivity(), MainLiftActivity.class);
                         deadliftIntent.putExtra("collectionName", "deadliftWeek1");
                         deadliftIntent.putExtra("mainLiftName","Deadlift");
-                        deadliftIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_65);
-                        deadliftIntent.putExtra("percentageInteger", 65);
-                        deadliftIntent.putExtra("set1","% x 5 REPS");
-                        deadliftIntent.putExtra("set2","% x 5 REPS");
-                        deadliftIntent.putExtra("set3","% x 5 REPS");
                         startActivity(deadliftIntent);
                         break;
                     case 1:
                         Intent BenchIntent = new Intent(getActivity(), MainLiftActivity.class);
                         BenchIntent.putExtra("collectionName", "benchWeek1");
                         BenchIntent.putExtra("mainLiftName","Bench");
-                        BenchIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_65);
-                        BenchIntent.putExtra("percentageInteger", 65);
-                        BenchIntent.putExtra("set1","% x 5 REPS");
-                        BenchIntent.putExtra("set2","% x 5 REPS");
-                        BenchIntent.putExtra("set3","% x 5 REPS");
                         startActivity(BenchIntent);
                         break;
                     case 2:
                         Intent SquatIntent = new Intent(getActivity(), MainLiftActivity.class);
                         SquatIntent.putExtra("collectionName", "squatWeek1");
                         SquatIntent.putExtra("mainLiftName","Squat");
-                        SquatIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_65);
-                        SquatIntent.putExtra("percentageInteger", 65);
-                        SquatIntent.putExtra("set1","% x 5 REPS");
-                        SquatIntent.putExtra("set2","% x 5 REPS");
-                        SquatIntent.putExtra("set3","% x 5 REPS");
                         startActivity(SquatIntent);
                         break;
                     case 3:
                         Intent OHPIntent = new Intent(getActivity(), MainLiftActivity.class);
                         OHPIntent.putExtra("collectionName", "ohpWeek1");
                         OHPIntent.putExtra("mainLiftName","OHP");
-                        OHPIntent.putExtra("percentageDecimal",MainLiftPOJO.PERCENT_65);
-                        OHPIntent.putExtra("percentageInteger", 65);
-                        OHPIntent.putExtra("set1","% x 5 REPS");
-                        OHPIntent.putExtra("set2","% x 5 REPS");
-                        OHPIntent.putExtra("set3","% x 5 REPS");
                         startActivity(OHPIntent);
                         break;
                 }
