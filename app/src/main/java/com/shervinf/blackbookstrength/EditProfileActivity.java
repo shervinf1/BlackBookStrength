@@ -58,6 +58,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
 
 
+
     //Method that find recycler view by the id and displays it.
     private void recyclerViewSetup() {
         RecyclerView mRecyclerView1;
@@ -67,9 +68,6 @@ public class EditProfileActivity extends AppCompatActivity {
             public void onSettingsViewItemClicked(int position, int id) {
                 switch(position) {
                     case 0:
-                        customUsernameDialogBuilder();
-                        break;
-                    case 1:
                         customPasswordDialogBuilder();
                         break;
                 }
@@ -79,40 +77,6 @@ public class EditProfileActivity extends AppCompatActivity {
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView1.addItemDecoration(new DividerItemDecoration(EditProfileActivity.this, LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
-    }
-
-
-
-
-
-
-    //Method to create Alert Dialog for changing username attribute
-    //In Firebase cloud firestore database
-    public void customUsernameDialogBuilder(){
-        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
-        LayoutInflater inflater = this.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_username_dialog, null);
-
-        final EditText editText = (EditText) dialogView.findViewById(R.id.edit_username_comment);
-        Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-        Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
-
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialogBuilder.dismiss();
-            }
-        });
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // DO SOMETHINGS
-                dialogBuilder.dismiss();
-            }
-        });
-
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.show();
     }
 
 

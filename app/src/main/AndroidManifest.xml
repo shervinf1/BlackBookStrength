@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainLiftActivity"></activity>
+        <activity android:name=".EditAssistanceExerciseActivity"></activity>
+        <activity android:name=".MainLiftActivity" />
         <activity android:name=".ForgotPassword" />
         <activity android:name=".EditGoalsActivity" />
         <activity android:name=".Edit1rmActivity" />

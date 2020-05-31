@@ -44,9 +44,10 @@
     <string name="profile_tab">Profile</string>
     <string name="settings_label">Setting Label</string>
     <string name="settings_sublabel">Settings Sublabel</string>
-    <string name="edit_1rm">Edit 1RM</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="edit_goals">Edit Goals</string>
+    <string name="edit_1rm">1RM</string>
+    <string name="edit_profile">Profile</string>
+    <string name="edit_goals">Goals</string>
+    <string name="edit_assistance_exercise">Assistance Exercise</string>
     <string name="blackbook">BlackBook</string>
     <string name="strength">Strength</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

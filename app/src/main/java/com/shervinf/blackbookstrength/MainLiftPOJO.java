@@ -38,6 +38,10 @@ public class MainLiftPOJO {
         checked = false;
     }
 
+    public MainLiftPOJO(String weight, String rep){
+
+    }
+
     public Integer getPriority() {
         return priority;
     }

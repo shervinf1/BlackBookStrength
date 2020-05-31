@@ -63,7 +63,7 @@ public class EditGoalsActivity extends AppCompatActivity {
         SettingsPOJO settings = null;
         settings = new SettingsPOJO("Edit Weight Goal", "Change your weight goal");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Calorie Goal", "Change your caloric intake goal       ");
+        settings = new SettingsPOJO("Edit Calorie Goal", "Change your caloric intake goal");
         mArrayList.add(settings);
         mAdapter.notifyDataSetChanged();
     }

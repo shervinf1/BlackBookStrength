@@ -10,19 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -71,11 +67,13 @@ public class ProfileFragment extends Fragment {
 
     private void prepareData() {
         SettingsPOJO settings = null;
-        settings = new SettingsPOJO("Edit Profile","Settings Sub Label");
+        settings = new SettingsPOJO("Edit Profile","Edit your profile");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit 1RM's","Settings Sub Label");
+        settings = new SettingsPOJO("Edit 1RM's","Edit your One Reps Max's");
         mArrayList.add(settings);
-        settings = new SettingsPOJO("Edit Goals","Settings Sub Label");
+        settings = new SettingsPOJO("Edit Goals","Edit your goals");
+        mArrayList.add(settings);
+        settings = new SettingsPOJO("Edit Assistance Exercises","Edit your assistance exercise's");
         mArrayList.add(settings);
         settings = new SettingsPOJO("Sign Out","Log out of this account");
         mArrayList.add(settings);
@@ -105,13 +103,17 @@ public class ProfileFragment extends Fragment {
                         startActivity(editGoalsIntent);
                         break;
                     case 3:
+                        Intent editAssistanceExerciseIntent = new Intent(getActivity(), EditAssistanceExerciseActivity.class);
+                        startActivity(editAssistanceExerciseIntent);
+                        break;
+                    case 4:
                         alertSignout();
+                        break;
                 }
             }
         });
         mRecyclerView1.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView1.setItemAnimator( new DefaultItemAnimator());
-//        mRecyclerView1.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView1.setAdapter(mAdapter);
     }
 

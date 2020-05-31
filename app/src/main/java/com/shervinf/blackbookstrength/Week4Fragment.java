@@ -96,7 +96,6 @@ public class Week4Fragment extends Fragment {
         mRecyclerView4.setLayoutManager(new LinearLayoutManager(getContext()));
         Log.d("debugMode", "The application stopped after this");
         mRecyclerView4.setItemAnimator( new DefaultItemAnimator());
-//        mRecyclerView4.addItemDecoration(new DividerItemDecoration(this.getActivity(), LinearLayoutManager.VERTICAL));
         mRecyclerView4.setAdapter(mAdapter);
     }
 }

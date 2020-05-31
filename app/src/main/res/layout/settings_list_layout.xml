@@ -23,7 +23,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginBottom="16dp"
             android:text="@string/settings_sublabel"
-            android:textColor="@color/colorLightWhite"
+            android:textColor="@color/colorWhite"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
