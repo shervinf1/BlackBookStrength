@@ -3,6 +3,9 @@ package com.shervinf.blackbookstrength;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,12 +13,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +29,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.auth.User;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +38,7 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
     private String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
     String mainLiftType, collectionName;
     private DocumentReference userDocumentRef = db.collection("users").document(userID);
+    private MainLiftAdapter mainLiftAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,7 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         collectionName = intent.getStringExtra("collectionName");
         toolbarSetup(mainLiftType);
         fabSetup();
+        recyclerViewSetup();
     }
 
 
@@ -111,6 +119,40 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
                     }
                 });
             }
+    }
+
+
+
+    //Method that find recycler view by the id and displays it.
+    public void recyclerViewSetup(){
+        Query query = userDocumentRef.collection(collectionName+1).whereGreaterThan("priority",6).orderBy("priority",Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<MainLiftPOJO> options = new FirestoreRecyclerOptions.Builder<MainLiftPOJO>()
+                .setQuery(query, MainLiftPOJO.class)
+                .build();
+        mainLiftAdapter = new MainLiftAdapter(options);
+        RecyclerView mRecyclerView = findViewById(R.id.addAssistanceExerciseRecyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        mRecyclerView.setItemAnimator( new DefaultItemAnimator());
+        mRecyclerView.setAdapter(mainLiftAdapter);
+    }
+
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mainLiftAdapter.startListening();
+    }
+
+
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mainLiftAdapter.stopListening();
     }
 
 }
