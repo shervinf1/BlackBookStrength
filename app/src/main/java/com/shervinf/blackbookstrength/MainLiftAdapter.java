@@ -35,8 +35,8 @@ public class MainLiftAdapter extends FirestoreRecyclerAdapter<MainLiftPOJO, Main
     protected void onBindViewHolder(@NonNull MainLiftHolder mainLiftHolder, int position, @NonNull MainLiftPOJO mainLiftPOJO) {
         Log.v("BindViewHolder", "in onBindViewHolder");
 //        MainLiftPOJO mainLiftPOJO = arrayList.get(position);
-        mainLiftHolder.weight.setText(mainLiftPOJO.getWeight().toString() + " " + mainLiftPOJO.getWeightUnit());
-        mainLiftHolder.rep.setText(mainLiftPOJO.getPercentage().toString() + mainLiftPOJO.getReps());
+        mainLiftHolder.weight.setText(mainLiftPOJO.getWeight() + " " + mainLiftPOJO.getWeightUnit());
+        mainLiftHolder.rep.setText(mainLiftPOJO.getPercentage() + mainLiftPOJO.getReps());
         if(!mainLiftPOJO.getChecked()) {
             mainLiftHolder.checkBoxView.setChecked(false);
         }

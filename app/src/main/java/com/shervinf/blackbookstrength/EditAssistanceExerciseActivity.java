@@ -83,24 +83,28 @@ public class EditAssistanceExerciseActivity extends AppCompatActivity {
                     case 0:
                         Intent addAssistantExerciseDeadliftIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
                         addAssistantExerciseDeadliftIntent.putExtra("mainLiftType", "Deadlift");
+                        addAssistantExerciseDeadliftIntent.putExtra("collectionName", "deadliftWeek");
                         finish();
                         startActivity(addAssistantExerciseDeadliftIntent);
                         break;
                     case 1:
                         Intent addAssistantExerciseBenchIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
                         addAssistantExerciseBenchIntent.putExtra("mainLiftType", "Bench");
+                        addAssistantExerciseBenchIntent.putExtra("collectionName", "benchWeek");
                         finish();
                         startActivity(addAssistantExerciseBenchIntent);
                         break;
                     case 2:
                         Intent addAssistantExerciseSquatIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
                         addAssistantExerciseSquatIntent.putExtra("mainLiftType", "Squat");
+                        addAssistantExerciseSquatIntent.putExtra("collectionName", "squatWeek");
                         finish();
                         startActivity(addAssistantExerciseSquatIntent);
                         break;
                     case 3:
                         Intent addAssistantExerciseOHPIntent = new Intent(getApplicationContext(), AddAssistanceExerciseActivity.class);
                         addAssistantExerciseOHPIntent.putExtra("mainLiftType", "OHP");
+                        addAssistantExerciseOHPIntent.putExtra("collectionName", "ohpWeek");
                         finish();
                         startActivity(addAssistantExerciseOHPIntent);
                         break;

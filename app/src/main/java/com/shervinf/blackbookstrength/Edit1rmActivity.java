@@ -335,12 +335,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     UserPOJO newUser = document.toObject(UserPOJO.class);
                                     double max = newUser.getDeadliftMax();
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
-                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_65) + " ", "lbs", "65", "% x 5 REPS", 4));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 5));
+                                    db.collection("users").document(userID).collection("deadliftWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 5 REPS", 6));
                                 }
                             }
                         });
@@ -366,12 +366,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getDeadliftMax();
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40)  + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50)  + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60)  + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_70)  + " ", "lbs", "70", "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_80)  + " ", "lbs", "80", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_90)  + " ", "lbs", "90", "% x 3 REPS", 6));
                                     }
                                 }
                             });
@@ -397,12 +397,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getDeadliftMax();
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_95) + " ", "lbs", "95", "% x 1 REPS", 6));
                                     }
                                 }
                             });
@@ -428,12 +428,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getDeadliftMax();
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40)  + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50)  + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60)  + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40)  + " ", "lbs", "40", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50)  + " ", "lbs", "50", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("deadliftWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60)  + " ", "lbs", "60", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -459,12 +459,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getOhpMax();
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40)  + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50)  + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60)  + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_65)  + " ", "lbs", "65", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75)  + " ", "lbs", "75", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85)  + " ", "lbs", "85", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -490,12 +490,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getOhpMax();
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_70) + " ", "lbs", "70", "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_80) + " ", "lbs", "80", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_90) + " ", "lbs", "90", "% x 3 REPS", 6));
                                     }
                                 }
                             });
@@ -521,12 +521,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getOhpMax();
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_95) + " ", "lbs", "95", "% x 1 REPS", 6));
                                     }
                                 }
                             });
@@ -552,12 +552,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getOhpMax();
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("ohpWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -583,12 +583,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getBenchMax();
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_65) + " ", "lbs", "65", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -614,12 +614,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getBenchMax();
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_70) + " ", "lbs", "70", "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_80) + " ", "lbs", "80", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_90) + " ", "lbs", "90", "% x 3 REPS", 6));
                                     }
                                 }
                             });
@@ -646,12 +646,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getBenchMax();
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_95) + " ", "lbs", "95", "% x 1 REPS", 6));
                                     }
                                 }
                             });
@@ -677,12 +677,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getBenchMax();
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("benchWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -708,12 +708,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getSquatMax();
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_65)), "lbs", 65, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_65) + " ", "lbs", "65", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek1").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 5 REPS", 6));
                                     }
                                 }
                             });
@@ -739,12 +739,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getSquatMax();
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_70)), "lbs", 70, "% x 3 REPS", 4));
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_80)), "lbs", 80, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_90)), "lbs", 90, "% x 3 REPS", 6));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_70) + " ", "lbs", "70", "% x 3 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_80) + " ", "lbs", "80", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek2").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_90) + " ", "lbs", "90", "% x 3 REPS", 6));
                                     }
                                 }
                             });
@@ -770,12 +770,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getSquatMax();
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_75)), "lbs", 75, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_85)), "lbs", 85, "% x 3 REPS", 5));
-                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_95)), "lbs", 95, "% x 1 REPS", 6));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_75) + " ", "lbs", "75", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_85) + " ", "lbs", "85", "% x 3 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek3").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_95) + " ", "lbs", "95", "% x 1 REPS", 6));
                                     }
                                 }
                             });
@@ -801,12 +801,12 @@ public class Edit1rmActivity extends AppCompatActivity {
                                         DocumentSnapshot document = task.getResult();
                                         UserPOJO newUser = document.toObject(UserPOJO.class);
                                         double max = newUser.getSquatMax();
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 1));
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 2));
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 3));
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_40)), "lbs", 40, "% x 5 REPS", 4));
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_50)), "lbs", 50, "% x 5 REPS", 5));
-                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO(Double.parseDouble(df2.format(max * MainLiftPOJO.PERCENT_60)), "lbs", 60, "% x 5 REPS", 6));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 1));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 2));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 3));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_40) + " ", "lbs", "40", "% x 5 REPS", 4));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_50) + " ", "lbs", "50", "% x 5 REPS", 5));
+                                        db.collection("users").document(userID).collection("squatWeek4").add(new MainLiftPOJO((max * MainLiftPOJO.PERCENT_60) + " ", "lbs", "60", "% x 5 REPS", 6));
                                     }
                                 }
                             });

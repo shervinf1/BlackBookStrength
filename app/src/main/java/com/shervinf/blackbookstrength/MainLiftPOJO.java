@@ -5,9 +5,9 @@ import android.content.Intent;
 import javax.sql.StatementEvent;
 
 public class MainLiftPOJO {
-    private Double weight;
+    private String weight;
     private String weightUnit;
-    private Integer percentage;
+    private String percentage;
     private String reps;
     private boolean checked;
     private Integer priority;
@@ -29,7 +29,7 @@ public class MainLiftPOJO {
     public MainLiftPOJO() { }
 
     //Argument Constructor
-    public MainLiftPOJO(Double weight, String weightUnit, Integer percentage, String reps,Integer priority) {
+    public MainLiftPOJO(String weight, String weightUnit, String percentage, String reps, Integer priority) {
         this.weight = weight;
         this.weightUnit = weightUnit;
         this.percentage = percentage;
@@ -38,7 +38,7 @@ public class MainLiftPOJO {
         checked = false;
     }
 
-    public MainLiftPOJO(String weight, String rep){
+    public MainLiftPOJO(String weight, String rep, Integer priority){
 
     }
 
@@ -58,11 +58,11 @@ public class MainLiftPOJO {
         this.checked = checked;
     }
 
-    public Double getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -74,11 +74,11 @@ public class MainLiftPOJO {
         this.weightUnit = weightUnit;
     }
 
-    public Integer getPercentage() {
+    public String getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Integer percentage) {
+    public void setPercentage(String percentage) {
         this.percentage = percentage;
     }
 
