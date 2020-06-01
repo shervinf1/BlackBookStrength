@@ -21,7 +21,7 @@
     <string name="logs_tab">Logs</string>
     <string name="date">Mth-00-0000</string>
     <string name="title_calorie">2000</string>
-    <string name="calorie_unit_placeholder">CAL</string>
+    <string name="calorie_unit_placeholder">Cal</string>
     <string name="loginBtn">Login</string>
     <string name="registerBtn">Don\'t have an account?</string>
     <string name="userName">Username</string>
@@ -51,7 +51,7 @@
     <string name="blackbook">BlackBook</string>
     <string name="strength">Strength</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="ok">OK</string>
+    <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="edit_weight_goals">Edit Weight Goals</string>
     <string name="edit_caloric_goals">Edit Caloric Goals</string>

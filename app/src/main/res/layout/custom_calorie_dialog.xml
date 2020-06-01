@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryLight"
     android:padding="16dp">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
-        android:padding="8dp"
+        android:padding="10dp"
         android:text="@string/calories"
         android:textColor="@color/colorWhite"
         android:textSize="24sp"
@@ -30,8 +30,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:hint="@string/calorie_unit_placeholder"
+        android:backgroundTint="@color/colorSecondaryDark"
         android:textColor="@color/colorWhite"
-        android:textColorHint="@color/colorPrimaryLight"
+        android:textColorHint="@color/colorWhiteHint"
         android:inputType="number"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,22 +43,31 @@
         android:id="@+id/buttonSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="?android:textAppearanceMedium"
+        android:padding="12dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/login_button_input_field"
         android:text="@string/ok"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_calorie_comment" />
 
     <Button
         android:id="@+id/buttonCancel"
         android:layout_width="wrap_content"
+        style="?android:textAppearanceMedium"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/colorAccent"
+        android:padding="12dp"
+        android:textAllCaps="false"
+        android:layout_marginEnd="16dp"
         android:text="@string/cancel"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/login_button_input_field"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toStartOf="@+id/buttonSubmit"
         app:layout_constraintTop_toBottomOf="@+id/edit_calorie_comment" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
