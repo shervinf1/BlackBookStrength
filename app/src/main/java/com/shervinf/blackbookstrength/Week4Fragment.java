@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -45,13 +46,13 @@ public class Week4Fragment extends Fragment {
 
     private void prepareData() {
         ExercisePOJO exercisePOJOList = null;
-        exercisePOJOList = new ExercisePOJO("DEADLIFT");
+        exercisePOJOList = new ExercisePOJO(R.drawable.deadlift);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("BENCH");
+        exercisePOJOList = new ExercisePOJO(R.drawable.bench_press);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("SQUAT");
+        exercisePOJOList = new ExercisePOJO(R.drawable.squat);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO("OHP");
+        exercisePOJOList = new ExercisePOJO(R.drawable.ohp);
         mArrayList.add(exercisePOJOList);
         mAdapter.notifyDataSetChanged();
     }
@@ -93,8 +94,7 @@ public class Week4Fragment extends Fragment {
                 }
             }
         });
-        mRecyclerView4.setLayoutManager(new LinearLayoutManager(getContext()));
-        Log.d("debugMode", "The application stopped after this");
+        mRecyclerView4.setLayoutManager(new GridLayoutManager(getContext(),2));
         mRecyclerView4.setItemAnimator( new DefaultItemAnimator());
         mRecyclerView4.setAdapter(mAdapter);
     }

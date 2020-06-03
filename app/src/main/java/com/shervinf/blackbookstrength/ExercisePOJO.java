@@ -1,40 +1,25 @@
 package com.shervinf.blackbookstrength;
 
+import android.media.Image;
+import android.widget.ImageView;
+
 public class ExercisePOJO {
-    private String mName; //Name of the exercise
-//    private String mSets; //How many sets of such exercise will be performed
-//    private String mReps; //How many reps of such exercise will be performed
+
+    private int mIcon;
+
 
     public ExercisePOJO() {
     }
 
-    public ExercisePOJO(String mName) { //public ExercisePOJO(String mName, String mSets, String mReps)
-        this.mName = mName;
-//        this.mSets = mSets;
-//        this.mReps = mReps;
+    public ExercisePOJO(int mIcon) {
+        this.mIcon = mIcon;
     }
 
-    public String getmName() {
-        return mName;
+    public int getmIcon() {
+        return mIcon;
     }
 
-    public void setmName(String mName) {
-        this.mName = mName;
+    public void setmIcon(int mIcon) {
+        this.mIcon = mIcon;
     }
-
-//    public String getmSets() {
-//        return mSets;
-//    }
-//
-//    public void setmSets(String mSets) {
-//        this.mSets = mSets;
-//    }
-//
-//    public String getmReps() {
-//        return mReps;
-//    }
-//
-//    public void setmReps(String mReps) {
-//        this.mReps = mReps;
-//    }
 }
