@@ -122,10 +122,9 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_assistance_exercise_input_dialog, null);
-
         searchBar = new CustomSearchBar(AddAssistanceExerciseActivity.this, dialogView.findViewById(R.id.homeSearchBar));
         searchBar.hideDivider();
-        searchBar.setList(arrayList);
+        searchBar.setList(AssistanceExerciseData.AssistanceExerciseNames);
         final EditText reps = dialogView.findViewById(R.id.reps);
         final EditText sets = dialogView.findViewById(R.id.sets);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
@@ -152,7 +151,6 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
                                     for (QueryDocumentSnapshot doc : task.getResult()) {
                                         mainLiftPOJOS.add(doc.toObject(MainLiftPOJO.class));
                                     }
-
                                     if (mainLiftPOJOS.get(0).getPriority().equals(6) || mainLiftPOJOS.isEmpty() ){
                                         userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",sets.getText().toString()," x " + reps.getText().toString() +" Reps",7));
                                     }
