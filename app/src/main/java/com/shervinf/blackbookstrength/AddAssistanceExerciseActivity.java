@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -125,8 +127,9 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         searchBar = new CustomSearchBar(AddAssistanceExerciseActivity.this, dialogView.findViewById(R.id.homeSearchBar));
         searchBar.hideDivider();
         searchBar.setList(AssistanceExerciseData.AssistanceExerciseNames);
-        final EditText reps = dialogView.findViewById(R.id.reps);
-        final EditText sets = dialogView.findViewById(R.id.sets);
+        final EditText repsEditText = dialogView.findViewById(R.id.reps);
+        final EditText setsEditText = dialogView.findViewById(R.id.sets);
+        final EditText searchText = dialogView.findViewById(R.id.search_text);
         Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
         Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
         buttonCancel.setOnClickListener(new View.OnClickListener() {
@@ -138,34 +141,68 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i = 1; i < 5;i++){
-                    final int finalI = i;
-                    userDocumentRef.collection(collectionName + i)
-                            .orderBy("priority",Query.Direction.DESCENDING)
-                            .limit(1)
-                            .get()
-                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    List<MainLiftPOJO> mainLiftPOJOS = new ArrayList<>();
-                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                        mainLiftPOJOS.add(doc.toObject(MainLiftPOJO.class));
-                                    }
-                                    if (mainLiftPOJOS.get(0).getPriority().equals(6) || mainLiftPOJOS.isEmpty() ){
-                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",sets.getText().toString()," x " + reps.getText().toString() +" Reps",7));
-                                    }
-                                    else if (mainLiftPOJOS.get(0).getPriority() > 6){
-                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",sets.getText().toString()," x " + reps.getText().toString() +" Reps",mainLiftPOJOS.get(0).getPriority() + 1));
-                                    }
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
+
+                searchText.setError(null);
+                repsEditText.setError(null);
+                setsEditText.setError(null);
+
+                String rep = repsEditText.getText().toString();
+                String set = setsEditText.getText().toString();
+                boolean cancel = false;
+                View focusView = null;
+
+                if (TextUtils.isEmpty(rep)) {
+                    repsEditText.setError(getString(R.string.error_field_required));
+                    focusView = repsEditText;
+                    cancel = true;
                 }
-                dialogBuilder.dismiss();
+                else if(TextUtils.isEmpty(set)) {
+                    setsEditText.setError(getString(R.string.error_field_required));
+                    focusView = setsEditText;
+                    cancel = true;
+                }
+                else if (TextUtils.isEmpty(searchBar.getText())){
+                    Toast.makeText(AddAssistanceExerciseActivity.this, "Exercise Name is Empty", Toast.LENGTH_SHORT).show();
+                    focusView = searchText;
+                    cancel = true;
+                }
+
+                if(cancel) {
+                    //There was ana error do not attempt login and focus the first form field with an error
+                    focusView.requestFocus();
+                }
+                else {
+                    //Call the method that creates the firebase user
+                    for (int i = 1; i < 5;i++){
+                        final int finalI = i;
+                        userDocumentRef.collection(collectionName + i)
+                                .orderBy("priority",Query.Direction.DESCENDING)
+                                .limit(1)
+                                .get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        List<MainLiftPOJO> mainLiftPOJOS = new ArrayList<>();
+                                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                                            mainLiftPOJOS.add(doc.toObject(MainLiftPOJO.class));
+                                        }
+                                        if (mainLiftPOJOS.get(0).getPriority().equals(6) || mainLiftPOJOS.isEmpty() ){
+                                            userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",setsEditText.getText().toString()," x " + repsEditText.getText().toString() +" Reps",7));
+                                        }
+                                        else if (mainLiftPOJOS.get(0).getPriority() > 6){
+                                            userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",setsEditText.getText().toString()," x " + repsEditText.getText().toString() +" Reps",mainLiftPOJOS.get(0).getPriority() + 1));
+                                        }
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+                    dialogBuilder.dismiss();
+                }
+
             }
         });
         dialogBuilder.setView(dialogView);
