@@ -68,5 +68,8 @@
     <string name="resetPwdBtn">Reset Password</string>
     <string name="loading">Loading</string>
     <string name="MainLift">Main Lift</string>
+    <string name="addAssistanceExercise">Search exercise</string>
+    <string name="reps">Reps</string>
+    <string name="sets">Sets</string>
 
 </resources>

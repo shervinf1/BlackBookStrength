@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -39,6 +43,8 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
     String mainLiftType, collectionName;
     private DocumentReference userDocumentRef = db.collection("users").document(userID);
     private MainLiftAdapter mainLiftAdapter;
+    private CustomSearchBar searchBar;
+    private ArrayList<String> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,10 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         mainLiftType = intent.getStringExtra("mainLiftType");
         collectionName = intent.getStringExtra("collectionName");
         toolbarSetup(mainLiftType);
+        initList();
+
+
+
         fabSetup();
         recyclerViewSetup();
     }
@@ -79,6 +89,16 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
 
 
 
+    private void initList() {
+        arrayList = new ArrayList<>();
+        arrayList.add("Abs1");
+        arrayList.add("Abs2");
+        arrayList.add("Abs3");
+        arrayList.add("Abs4");
+        arrayList.add("Abs5");
+        arrayList.add("Abs6");
+    }
+
 
 
     private void fabSetup(){
@@ -88,9 +108,40 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
                 floatingActionButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        for (int i = 1; i < 5;i++){
-                            final int finalI = i;
-                            userDocumentRef.collection(collectionName + i)
+                        customAssistanceDialogBuilder();
+                    }
+                });
+            }
+    }
+
+
+
+
+
+    public void customAssistanceDialogBuilder(){
+        final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.custom_assistance_exercise_input_dialog, null);
+
+        searchBar = new CustomSearchBar(AddAssistanceExerciseActivity.this, dialogView.findViewById(R.id.homeSearchBar));
+        searchBar.hideDivider();
+        searchBar.setList(arrayList);
+        final EditText reps = dialogView.findViewById(R.id.reps);
+        final EditText sets = dialogView.findViewById(R.id.sets);
+        Button buttonSubmit = dialogView.findViewById(R.id.buttonSubmit);
+        Button buttonCancel = dialogView.findViewById(R.id.buttonCancel);
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogBuilder.dismiss();
+            }
+        });
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 1; i < 5;i++){
+                    final int finalI = i;
+                    userDocumentRef.collection(collectionName + i)
                             .orderBy("priority",Query.Direction.DESCENDING)
                             .limit(1)
                             .get()
@@ -103,23 +154,30 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
                                     }
 
                                     if (mainLiftPOJOS.get(0).getPriority().equals(6) || mainLiftPOJOS.isEmpty() ){
-                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO("Abs","","5"," x 15 REPS",7));
+                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",sets.getText().toString()," x " + reps.getText().toString() +" Reps",7));
                                     }
                                     else if (mainLiftPOJOS.get(0).getPriority() > 6){
-                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO("Abs","","3"," x 15 REPS",mainLiftPOJOS.get(0).getPriority() + 1));
+                                        userDocumentRef.collection(collectionName + finalI).add(new MainLiftPOJO(searchBar.getText(),"",sets.getText().toString()," x " + reps.getText().toString() +" Reps",mainLiftPOJOS.get(0).getPriority() + 1));
                                     }
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            e.printStackTrace();
                         }
-                    }
-                });
+                    });
+                }
+                dialogBuilder.dismiss();
             }
+        });
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.show();
     }
+
+
+
+
+
 
 
 
