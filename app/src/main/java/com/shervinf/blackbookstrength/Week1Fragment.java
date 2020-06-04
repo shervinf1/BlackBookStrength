@@ -46,13 +46,13 @@ public class Week1Fragment extends Fragment {
 
     private void prepareData() {
         ExercisePOJO exercisePOJOList = null;
-        exercisePOJOList = new ExercisePOJO(R.drawable.deadlift);
+        exercisePOJOList = new ExercisePOJO(R.drawable.deadlift_photo);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO(R.drawable.bench_press);
+        exercisePOJOList = new ExercisePOJO(R.drawable.bench_press_photo);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO(R.drawable.squat);
+        exercisePOJOList = new ExercisePOJO(R.drawable.squat_photo);
         mArrayList.add(exercisePOJOList);
-        exercisePOJOList = new ExercisePOJO(R.drawable.ohp);
+        exercisePOJOList = new ExercisePOJO(R.drawable.ohp_photo);
         mArrayList.add(exercisePOJOList);
         mAdapter.notifyDataSetChanged();
     }
