@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -56,7 +58,6 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
         mainLiftType = intent.getStringExtra("mainLiftType");
         collectionName = intent.getStringExtra("collectionName");
         toolbarSetup(mainLiftType);
-        initList();
 
 
 
@@ -91,17 +92,6 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
 
 
 
-    private void initList() {
-        arrayList = new ArrayList<>();
-        arrayList.add("Abs1");
-        arrayList.add("Abs2");
-        arrayList.add("Abs3");
-        arrayList.add("Abs4");
-        arrayList.add("Abs5");
-        arrayList.add("Abs6");
-    }
-
-
 
     private void fabSetup(){
         FloatingActionButton floatingActionButton;
@@ -122,6 +112,7 @@ public class AddAssistanceExerciseActivity extends AppCompatActivity {
 
     public void customAssistanceDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_assistance_exercise_input_dialog, null);
         searchBar = new CustomSearchBar(AddAssistanceExerciseActivity.this, dialogView.findViewById(R.id.homeSearchBar));

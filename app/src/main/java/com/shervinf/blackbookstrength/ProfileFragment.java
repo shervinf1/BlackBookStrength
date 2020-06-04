@@ -35,7 +35,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-        sp = Objects.requireNonNull(this.getActivity()).getSharedPreferences("logged", Context.MODE_PRIVATE);
+        sp = this.requireActivity().getSharedPreferences("logged", Context.MODE_PRIVATE);
     }
 
 
@@ -57,7 +57,9 @@ public class ProfileFragment extends Fragment {
     private void getUserEmail(View view){
         TextViewEmail = view.findViewById(R.id.usernameTextView);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
         String email = user.getEmail();
+        assert email != null;
         int index = email.indexOf('@');
         email = email.substring(0,index);
         email = "Welcome " + email+"!";
@@ -121,9 +123,7 @@ public class ProfileFragment extends Fragment {
 
 
     private void alertSignout() {
-        AlertDialog.Builder alertDialog2 = new
-                AlertDialog.Builder(
-                getActivity());
+        AlertDialog.Builder alertDialog2 = new AlertDialog.Builder(getActivity());
         // Setting Dialog Title
         alertDialog2.setTitle("Confirm Sign Out");
         // Setting Dialog Message
@@ -132,7 +132,7 @@ public class ProfileFragment extends Fragment {
         alertDialog2.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        mAuth.getInstance().signOut();
+                        FirebaseAuth.getInstance().signOut();
                         sp.edit().putBoolean("logged",false).apply();
                         Intent i = new Intent(getActivity(), LoginActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

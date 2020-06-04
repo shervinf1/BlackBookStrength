@@ -1,5 +1,7 @@
 package com.shervinf.blackbookstrength;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -158,6 +160,7 @@ public class CalorieFragment extends Fragment {
 
     private void customCalenderCalorieDialogBuilder(){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_calender_dialog, null);
         final DatePicker datePicker = dialogView.findViewById(R.id.DatePicker);

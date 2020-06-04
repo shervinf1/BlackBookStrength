@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,6 +103,7 @@ public class EditGoalsActivity extends AppCompatActivity {
     //In Firebase cloud firestore database
     public void customWeightDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_goals_decimal_input_dialog, null);
         final EditText editText = dialogView.findViewById(R.id.edit_goals_comment);
@@ -145,6 +148,7 @@ public class EditGoalsActivity extends AppCompatActivity {
     //In Firebase cloud firestore database
     public void customCalorieDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_integer_input_dialog, null);
         final EditText editText = dialogView.findViewById(R.id.edir_calorie_comment);

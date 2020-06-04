@@ -18,7 +18,6 @@ public class Week1Fragment extends Fragment {
 
 
     private ArrayList<ExercisePOJO> mArrayList = new ArrayList<>();
-    private RecyclerView mRecyclerView1;
     private ExerciseAdapter mAdapter;
 
 
@@ -63,7 +62,7 @@ public class Week1Fragment extends Fragment {
 
 
     private void recyclerViewSetup(View v){
-        mRecyclerView1 = v.findViewById(R.id.recyclerViewWeek);
+        RecyclerView mRecyclerView1 = v.findViewById(R.id.recyclerViewWeek);
         mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {

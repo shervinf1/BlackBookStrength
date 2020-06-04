@@ -3,11 +3,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import java.util.ArrayList;
 
 public class Week2Fragment extends Fragment {
     private ArrayList<ExercisePOJO> mArrayList = new ArrayList<>();
-    private RecyclerView mRecyclerView2;
     private ExerciseAdapter mAdapter;
 
 
@@ -35,7 +32,7 @@ public class Week2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_week, container, false);
-        reyclerViewSetup(view);
+        recyclerViewSetup(view);
         prepareData();
         return view;
     }
@@ -59,8 +56,8 @@ public class Week2Fragment extends Fragment {
 
 
 
-    private void reyclerViewSetup(View v){
-        mRecyclerView2 = v.findViewById(R.id.recyclerViewWeek);
+    private void recyclerViewSetup(View v){
+        RecyclerView mRecyclerView2 = v.findViewById(R.id.recyclerViewWeek);
         mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {

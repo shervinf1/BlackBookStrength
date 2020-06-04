@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
     //In Firebase cloud firestore database
     public void customPasswordDialogBuilder(){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_password_input_dialog, null);
 

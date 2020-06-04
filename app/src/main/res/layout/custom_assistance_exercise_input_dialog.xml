@@ -4,84 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryLight"
+    android:background="@drawable/custom_dialog_searchbox"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:padding="8dp"
-        android:text="@string/addAssistanceExercise"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/repsAndSets"
-                android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:text="@string/edit_assistance_exercise"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/repsAndSets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:weightSum="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.843"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/homeSearchBar">
+
+            <EditText
+                android:id="@+id/reps"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:weightSum="3"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.843"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/homeSearchBar" >
+                android:layout_weight=".50"
+                android:backgroundTint="@color/colorSecondaryDark"
+                android:hint="@string/reps"
+                android:inputType="number"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhiteHint" />
 
-                <EditText
-                    android:id="@+id/reps"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/colorSecondaryDark"
-                    android:hint="@string/reps"
-                    android:textAlignment="center"
-                    android:inputType="number"
-                    android:padding="8dp"
-                    android:textColor="@color/colorWhite"
-                    android:textColorHint="@color/colorWhiteHint" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/x"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" X "
-                        android:layout_weight="1"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorWhite"/>
+            <EditText
+                android:id="@+id/sets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".50"
+                android:backgroundTint="@color/colorSecondaryDark"
+                android:hint="@string/sets"
+                android:inputType="number"
+                android:padding="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorWhiteHint" />
+        </LinearLayout>
 
-                    <EditText
-                        android:id="@+id/sets"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textAlignment="center"
-                        android:backgroundTint="@color/colorSecondaryDark"
-                        android:hint="@string/sets"
-                        android:inputType="number"
-                        android:padding="8dp"
-                        android:textColor="@color/colorWhite"
-                        android:textColorHint="@color/colorWhiteHint" />
-            </LinearLayout>
-
-    <include
-        android:id="@+id/homeSearchBar"
-        layout="@layout/custom_search_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/colorSecondaryDark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <include
+            android:id="@+id/homeSearchBar"
+            layout="@layout/custom_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/colorSecondaryDark"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/buttonSubmit"
@@ -99,19 +100,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/repsAndSets" />
 
-    <Button
-        android:id="@+id/buttonCancel"
-        style="?android:textAppearanceMedium"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/login_button_input_field"
-        android:padding="12dp"
-        android:text="@string/cancel"
-        android:textAllCaps="false"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintEnd_toStartOf="@+id/buttonSubmit"
-        app:layout_constraintTop_toBottomOf="@+id/repsAndSets" />
+        <Button
+            android:id="@+id/buttonCancel"
+            style="?android:textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/login_button_input_field"
+            android:padding="12dp"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSubmit"
+            app:layout_constraintTop_toBottomOf="@+id/repsAndSets" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

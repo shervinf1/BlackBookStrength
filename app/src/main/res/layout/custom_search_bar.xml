@@ -15,8 +15,8 @@
         android:id="@+id/search_bar_parent"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/colorPrimaryLight"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp">
 
         <RelativeLayout
@@ -30,11 +30,11 @@
                 android:layout_height="match_parent"
                 android:layout_toStartOf="@+id/search_text_clear_parent"
                 android:background="@null"
-                android:hint="@string/addAssistanceExercise"
+                android:hint="@string/searchExercise"
                 android:imeOptions="actionDone"
                 android:inputType="text"
+                android:paddingLeft="16dp"
                 android:maxLines="1"
-                android:paddingLeft="15dp"
                 android:textColor="@color/colorWhite"
                 android:textColorHint="@color/colorWhiteHint"
                 android:textSize="15dp" />
@@ -70,7 +70,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/search_bar_divider"
         android:visibility="gone"
-        app:cardBackgroundColor="@color/colorPrimaryDark"
+        app:cardBackgroundColor="@color/colorTransparent"
+        app:cardCornerRadius="20dp"
         app:cardElevation="0dp">
 
         <RelativeLayout

@@ -68,8 +68,10 @@
     <string name="resetPwdBtn">Reset Password</string>
     <string name="loading">Loading</string>
     <string name="MainLift">Main Lift</string>
-    <string name="addAssistanceExercise">Search exercise</string>
+    <string name="searchExercise">Search exercise</string>
     <string name="reps">Reps</string>
     <string name="sets">Sets</string>
+    <string name="x">X</string>
+    <string name="exercise_name">Exercise Name</string>
 
 </resources>
