@@ -37,12 +37,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyView
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ImageView image, sets, reps;
+        ImageView image;
+        TextView name;
         public MyViewHolder(View itemView) {
             super(itemView);
             Log.v("ViewHolder", "in View Holder");
 
             image = itemView.findViewById(R.id.exerciseImage);
+            name = itemView.findViewById(R.id.exerciseImageTextView);
 
             //Calling custom onclick listener
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyView
         Log.v("BindViewHolder", "in onBindViewHolder");
         ExercisePOJO exercisePOJO = arrayList.get(position);
         holder.image.setImageResource(exercisePOJO.getmIcon());
+        holder.name.setText(exercisePOJO.getmName());
         holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

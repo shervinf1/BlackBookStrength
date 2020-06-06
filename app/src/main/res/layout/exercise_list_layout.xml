@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,18 +14,39 @@
     android:clickable="true"
     app:cardCornerRadius="20dp">
 
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/exerciseImage"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/check_mark_placeholder"
             android:elevation="2dp"
             android:scaleType="fitXY"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/deadlift_photo" />
+
+        <TextView
+            android:id="@+id/exerciseImageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:text="@string/deadlift"
+            android:textSize="32sp"
+            android:textColor="@color/colorSecondaryLight"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/deadlift_photo" />
+            app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
