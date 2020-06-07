@@ -33,8 +33,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:alpha="0.75"
             app:layout_constraintVertical_bias="1.0"
-            app:srcCompat="@drawable/deadlift_photo" />
+            app:srcCompat="@drawable/deadlift_photo_no_color" />
 
         <TextView
             android:id="@+id/exerciseImageTextView"
@@ -43,7 +44,7 @@
             android:elevation="6dp"
             android:text="@string/deadlift"
             android:textSize="32sp"
-            android:textColor="@color/colorSecondaryLight"
+            android:textColor="@color/colorSecondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
