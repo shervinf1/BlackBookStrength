@@ -1,5 +1,6 @@
 package com.shervinf.blackbookstrength;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -50,7 +51,6 @@ public class LiftPagerAdapter extends FragmentStatePagerAdapter {
                 return null;
         }
     }
-
 
 
 

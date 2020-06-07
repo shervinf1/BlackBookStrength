@@ -78,6 +78,8 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyView
 
 
 
+
+
     @Override
     public int getItemCount() {
         return arrayList.size();

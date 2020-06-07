@@ -56,26 +56,24 @@ public class Week1Fragment extends Fragment {
         mArrayList.add(1,new ExercisePOJO());
         mArrayList.add(2,new ExercisePOJO());
         mArrayList.add(3,new ExercisePOJO());
+        return view;
+    }
 
-        getCheckedFromFirestore(view, new MyCallback() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCheckedFromFirestore(getView(), new MyCallback() {
             @Override
             public void onCallback(int i, Boolean exercisePOJOArrayListBoolean) {
                 prepareData(i,exercisePOJOArrayListBoolean);
-                recyclerViewSetup(view);
+                recyclerViewSetup();
 
             }
         });
 
-        return view;
     }
 
-
-
-
-
-
-
-    private void getCheckedFromFirestore(View view,final MyCallback myCallback) {
+    private void getCheckedFromFirestore(View view, final MyCallback myCallback) {
         final ArrayList<String> collectionNameList = new ArrayList<>();
         collectionNameList.add("deadliftWeek1");
         collectionNameList.add("benchWeek1");
@@ -166,8 +164,8 @@ public class Week1Fragment extends Fragment {
 
 
 
-    private void recyclerViewSetup(View v){
-        RecyclerView mRecyclerView1 = v.findViewById(R.id.recyclerViewWeek);
+    private void recyclerViewSetup(){
+        RecyclerView mRecyclerView1 = getView().findViewById(R.id.recyclerViewWeek);
         mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {

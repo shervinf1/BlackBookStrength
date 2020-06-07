@@ -47,17 +47,21 @@ public class Week4Fragment extends Fragment {
         mArrayList.add(1,new ExercisePOJO());
         mArrayList.add(2,new ExercisePOJO());
         mArrayList.add(3,new ExercisePOJO());
+        return view;
+    }
 
-        getCheckedFromFirestore(view, new Week1Fragment.MyCallback() {
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCheckedFromFirestore(getView(), new Week1Fragment.MyCallback() {
             @Override
             public void onCallback(int i, Boolean exercisePOJOArrayListBoolean) {
                 prepareData(i,exercisePOJOArrayListBoolean);
-                recyclerViewSetup(view);
+                recyclerViewSetup();
 
             }
         });
 
-        return view;
     }
 
 
@@ -154,8 +158,8 @@ public class Week4Fragment extends Fragment {
 
 
 
-    private void recyclerViewSetup(View v){
-        RecyclerView mRecyclerView4 = v.findViewById(R.id.recyclerViewWeek);
+    private void recyclerViewSetup(){
+        RecyclerView mRecyclerView4 = getView().findViewById(R.id.recyclerViewWeek);
         mAdapter = new ExerciseAdapter(mArrayList, new OnExerciseClickListener() {
             @Override
             public void onExerciseViewItemClicked(int position, int id) {
