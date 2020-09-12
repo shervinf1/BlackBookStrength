@@ -271,6 +271,7 @@ public class CalorieFragment extends Fragment {
                 progressBarSetup(getView());
 
             }
+
         }).attachToRecyclerView(mRecyclerView);
     }
 
