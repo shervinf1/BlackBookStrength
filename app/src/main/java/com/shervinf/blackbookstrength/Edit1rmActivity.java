@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -120,6 +122,7 @@ public class Edit1rmActivity extends AppCompatActivity {
     //In Firebase cloud firestore database
     public void customDialogBuilder(final int position){
         final AlertDialog dialogBuilder = new AlertDialog.Builder(this).create();
+        dialogBuilder.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_1rm_decimal_input_dialog, null);
         final EditText editText = dialogView.findViewById(R.id.edit_1rm_comment);

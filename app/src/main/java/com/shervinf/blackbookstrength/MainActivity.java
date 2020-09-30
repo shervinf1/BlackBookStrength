@@ -14,6 +14,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.Window;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +22,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTheme(android.R.style.ThemeOverlay_Material_Dark);
+//        setTheme(android.R.style.ThemeOverlay_Material_Dark);
         //Forcing screen orientation to always be in portrait
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

@@ -5,9 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyViewHolder> {
     private ArrayList<ExercisePOJO> arrayList;
@@ -36,12 +38,14 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyView
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, sets, reps;
+        ImageView image;
+        TextView name;
         public MyViewHolder(View itemView) {
             super(itemView);
             Log.v("ViewHolder", "in View Holder");
 
-            name = itemView.findViewById(R.id.exerciseTextView);
+            image = itemView.findViewById(R.id.exerciseImage);
+            name = itemView.findViewById(R.id.exerciseImageTextView);
 
             //Calling custom onclick listener
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,18 +60,22 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.MyView
 
 
 
+
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int  position) {
         Log.v("BindViewHolder", "in onBindViewHolder");
         ExercisePOJO exercisePOJO = arrayList.get(position);
+        holder.image.setImageResource(exercisePOJO.getmIcon());
         holder.name.setText(exercisePOJO.getmName());
-        holder.name.setOnClickListener(new View.OnClickListener() {
+        holder.image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onExerciseViewItemClicked(position,view.getId());
             }
         });
     }
+
+
 
 
 

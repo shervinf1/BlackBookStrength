@@ -1,5 +1,7 @@
 package com.shervinf.blackbookstrength;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -37,6 +39,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 
 public class WeightInFragment extends Fragment {
@@ -92,7 +95,9 @@ public class WeightInFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
+                    assert document != null;
                     UserPOJO newUser = document.toObject(UserPOJO.class);
+                    assert newUser != null;
                     Double dMax = newUser.getWeightGoal();
                     weightInGoal = dMax.intValue();
                     mProgressBar.setMax(weightInGoal);
@@ -150,6 +155,7 @@ public class WeightInFragment extends Fragment {
 
     public void customCalenderWeightinDialogBuilder(){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        Objects.requireNonNull(dialogBuilder.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_calender_dialog, null);
         final DatePicker datePicker = dialogView.findViewById(R.id.DatePicker);
@@ -188,6 +194,7 @@ public class WeightInFragment extends Fragment {
 
     private void customWeightinDialogBuilder(final String selectedDate){
         final android.app.AlertDialog dialogBuilder = new android.app.AlertDialog.Builder(getContext()).create();
+        Objects.requireNonNull(dialogBuilder.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         LayoutInflater inflater = this.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_weightin_dialog, null);
         final EditText weightinEditText = dialogView.findViewById(R.id.edit_weightin_comment);
